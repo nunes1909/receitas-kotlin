@@ -14,4 +14,5 @@ interface ReceitaDao {
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun buscaTodasReceitas(): Flow<List<Receita>>
+
 }

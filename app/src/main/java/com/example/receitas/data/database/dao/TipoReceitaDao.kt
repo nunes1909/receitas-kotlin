@@ -12,6 +12,6 @@ interface TipoReceitaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun salvaTipo(vararg tipoReceita: TipoReceita)
 
-    @Query("SELECT * FROM TipoReceita WHERE id = :id")
-    suspend fun buscaTipo(id: Int): TipoReceita
+    @Query("SELECT * FROM TipoReceita")
+    suspend fun buscaTipo(): List<TipoReceita>
 }

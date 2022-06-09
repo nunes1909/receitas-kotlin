@@ -12,6 +12,6 @@ interface NivelReceitaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun salvaNivel(vararg nivel: NivelReceita)
 
-    @Query("SELECT * FROM NivelReceita WHERE id = :id")
-    suspend fun buscaNivel(id: Int): NivelReceita
+    @Query("SELECT * FROM NivelReceita")
+    suspend fun buscaNivel(): List<NivelReceita>
 }
