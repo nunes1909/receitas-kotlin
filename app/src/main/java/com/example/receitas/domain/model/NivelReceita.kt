@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class NivelReceita(
     @PrimaryKey(autoGenerate = false)
-    val id: Long,
+    val id: Int,
     val descricao: String
 )
