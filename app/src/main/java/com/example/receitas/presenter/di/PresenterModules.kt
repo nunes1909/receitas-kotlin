@@ -1,9 +1,24 @@
 package com.example.receitas.presenter.di
 
-/**
- * AQUI DEVEM SER FEITAS AS INJEÇÕES DE DEPENDÊNCIA DO MODULO PRESENTER
- */
+import com.example.receitas.presenter.viewmodel.FormularioReceitaViewModel
+import com.example.receitas.presenter.viewmodel.ListaReceitasViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
-object PresenterModules {
+val presenterModule = arrayListOf(
+    listaReceitasViewModel(),
+    formularioReceitaViewModel()
+)
 
+private fun listaReceitasViewModel(): Module {
+    return module {
+        viewModel { ListaReceitasViewModel(get()) }
+    }
+}
+
+private fun formularioReceitaViewModel(): Module {
+    return module {
+        viewModel { FormularioReceitaViewModel(get()) }
+    }
 }

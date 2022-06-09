@@ -4,13 +4,23 @@ import android.app.Application
 import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.TipoReceita
+import com.example.receitas.presenter.di.presenterModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class ReceitaApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidContext(this@ReceitaApplication)
+            modules(
+                presenterModule
+            )
+        }
+
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             salvaTipo()
