@@ -1,9 +1,18 @@
 package com.example.receitas.data.di
 
-/**
- * AQUI DEVEM SER FEITAS AS INJEÇÕES DE DEPENDÊNCIA DO MODULO DATA
- */
+import com.example.receitas.data.database.ReceitaDatabase
+import com.example.receitas.data.repository.RepositoryDataSource
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
-object DataModules {
+val dataModule = dataModule()
 
+private fun dataModule(): Module{
+    return module {
+        factory { get<ReceitaDatabase>().receitaDao() }
+        factory { get<ReceitaDatabase>().tipoReceitaDao() }
+        factory { get<ReceitaDatabase>().nivelReceitaDao() }
+        factory { ReceitaDatabase.getInstance(get()) }
+        factory { RepositoryDataSource(get()) }
+    }
 }

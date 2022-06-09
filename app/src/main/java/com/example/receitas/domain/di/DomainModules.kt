@@ -8,9 +8,9 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 
-val domainModule = modules()
+val domainModule = domainModule()
 
-private fun modules(): Module{
+private fun domainModule(): Module{
     return module {
         factory<CriaReceitaUseCase> { CriaReceita(get()) }
         factory<BuscaTodasReceitasUseCase> { BuscaTodasReceitas(get()) }
