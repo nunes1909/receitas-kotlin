@@ -1,9 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presenter.view.FormularioReceita">
+    android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".presenter.view.FormularioReceita">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/formulario_receita_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Cadastrando uma receita"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="5dp"
+                android:textSize="26sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formulario_receita_layout_titulo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusTopEnd="8dp"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="false"
+                app:helperText="Obrigatório*"
+                app:layout_constraintEnd_toEndOf="@+id/formulario_receita_info"
+                app:layout_constraintStart_toStartOf="@+id/formulario_receita_info"
+                app:layout_constraintTop_toBottomOf="@+id/formulario_receita_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/formulario_receita_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Título da receita"
+                    android:inputType="textCapWords"
+                    android:padding="16dp"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formulario_receita_layout_tipo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Tipo"
+                android:paddingBottom="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:helperText="Opicional"
+                app:layout_constraintEnd_toStartOf="@id/formulario_receita_layout_nivel"
+                app:layout_constraintStart_toStartOf="@id/formulario_receita_layout_titulo"
+                app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_titulo">
+
+                <AutoCompleteTextView
+                    android:id="@+id/formulario_receita_tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formulario_receita_layout_nivel"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Nível"
+                android:paddingBottom="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:helperText="Opicional"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/formulario_receita_layout_tipo"
+                app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_titulo">
+
+                <AutoCompleteTextView
+                    android:id="@+id/formulario_receita_nivel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formulario_receita_layout_ingrediente"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="150dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="false"
+                app:helperText="Obrigatório*"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_tipo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/formulario_receita_ingrediente"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Ingredientes"
+                    android:inputType="textMultiLine"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formulario_receita_layout_preparo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="150dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="false"
+                app:helperText="Opicional"
+                app:layout_constraintEnd_toEndOf="@id/formulario_receita_layout_ingrediente"
+                app:layout_constraintStart_toStartOf="@id/formulario_receita_layout_ingrediente"
+                app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_ingrediente">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/formulario_receita_preparo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Modo de Preparo"
+                    android:inputType="textMultiLine"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

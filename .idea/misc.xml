@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/formulario_receita.xml" value="0.5" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/item_rv_receita.xml" value="0.5" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/lista_receitas.xml" value="0.5" />
       </map>

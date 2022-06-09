@@ -14,10 +14,11 @@
         android:theme="@style/Theme.Receitas"
         tools:targetApi="31">
         <activity
-            android:name=".FormularioReceita"
+            android:name=".presenter.view.FormularioReceita"
+
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presenter.view.ListaReceitas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
