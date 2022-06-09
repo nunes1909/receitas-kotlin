@@ -11,8 +11,9 @@ data class Receita(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     val titulo: String,
-    val descricao: String,
-    val tipo: Int? = null,
-    val dificuldade: String? = null
+    val ingredientes: String,
+    val preparo: String? = null,
+    var tipoId: Int? = null,
+    var nivelId: Int? = null
 //    val uuid: String? = null,
 ) : Parcelable
