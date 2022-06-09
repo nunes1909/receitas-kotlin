@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
 
 class ListaReceitasViewModel(
-    buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase
+    private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase
 ): ViewModel() {
 
 }

@@ -7,5 +7,5 @@ interface ReceitasRepository {
 
     suspend fun salvaReceita(receita: Receita)
 
-    fun buscaTodasReceitas(): Flow<List<Receita>>
+    fun buscaTodasReceitas(): Flow<List<Receita>?>
 }

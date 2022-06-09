@@ -13,6 +13,6 @@ interface ReceitaDao {
     suspend fun salva(receita: Receita)
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
-    fun buscaTodasReceitas(): Flow<List<Receita>>
+    fun buscaTodasReceitas(): Flow<List<Receita>?>
 
 }

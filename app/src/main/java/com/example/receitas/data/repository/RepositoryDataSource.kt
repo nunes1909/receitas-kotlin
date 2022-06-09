@@ -12,7 +12,7 @@ class RepositoryDataSource(
         receitaDao.salva(receita)
     }
 
-    override fun buscaTodasReceitas(): Flow<List<Receita>> {
+    override fun buscaTodasReceitas(): Flow<List<Receita>?> {
         return receitaDao.buscaTodasReceitas()
     }
 

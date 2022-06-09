@@ -7,4 +7,5 @@ class FormularioReceitaViewModel(
     private val criaReceitaUseCase: CriaReceitaUseCase
 ): ViewModel() {
 
+
 }
