@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.receitas.domain.model.NivelReceita
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NivelReceitaDao {
@@ -13,5 +14,5 @@ interface NivelReceitaDao {
     suspend fun salvaNivel(vararg nivel: NivelReceita)
 
     @Query("SELECT * FROM NivelReceita")
-    suspend fun buscaNivel(): List<NivelReceita>
+    fun buscaNivel(): Flow<List<NivelReceita>>
 }

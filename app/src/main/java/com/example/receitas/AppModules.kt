@@ -4,6 +4,10 @@ import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.data.repository.RepositoryDataSource
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaNivel
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaNivelUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTipo
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTipoUseCase
 import com.example.receitas.domain.useCase.criaReceita.CriaReceita
 import com.example.receitas.domain.useCase.criaReceita.CriaReceitaUseCase
 import com.example.receitas.presenter.viewmodel.FormularioReceitaViewModel
@@ -27,7 +31,7 @@ object AppModules {
             factory { get<ReceitaDatabase>().tipoReceitaDao() }
             factory { get<ReceitaDatabase>().nivelReceitaDao() }
             factory { ReceitaDatabase.getInstance(get()) }
-            factory { RepositoryDataSource(get()) }
+            factory { RepositoryDataSource(get(), get(), get()) }
         }
     }
 
@@ -35,6 +39,8 @@ object AppModules {
         return module {
             factory<CriaReceitaUseCase> { CriaReceita(get()) }
             factory<BuscaTodasReceitasUseCase> { BuscaTodasReceitas(get()) }
+            factory<BuscaTipoUseCase> { BuscaTipo(get()) }
+            factory<BuscaNivelUseCase> { BuscaNivel(get()) }
         }
     }
 
@@ -46,7 +52,7 @@ object AppModules {
 
     private fun formularioReceitaViewModel(): Module {
         return module {
-            viewModel { FormularioReceitaViewModel(get()) }
+            viewModel { FormularioReceitaViewModel(get(), get(), get()) }
         }
     }
 }

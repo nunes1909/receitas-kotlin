@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.receitas.domain.model.TipoReceita
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TipoReceitaDao {
@@ -13,5 +14,5 @@ interface TipoReceitaDao {
     suspend fun salvaTipo(vararg tipoReceita: TipoReceita)
 
     @Query("SELECT * FROM TipoReceita")
-    suspend fun buscaTipo(): List<TipoReceita>
+    fun buscaTipo(): Flow<List<TipoReceita>>
 }
