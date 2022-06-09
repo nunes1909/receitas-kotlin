@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.databinding.ListaReceitasBinding
+import com.example.receitas.domain.model.Receita
 import com.example.receitas.presenter.adapter.ReceitasAdapter
 import com.example.receitas.presenter.viewmodel.ListaReceitasViewModel
 import kotlinx.coroutines.launch
@@ -26,36 +28,21 @@ class ListaReceitas : AppCompatActivity() {
         setContentView(binding.root)
         configuraFab()
         configuraRV()
-        criaReceiaTeste()
         buscaTodas()
         observers()
+
     }
 
     private fun buscaTodas() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModel.buscaReceitas()
         }
     }
 
     private fun observers() {
-        viewModel.busca.observe(this@ListaReceitas){ listaDeReceitas ->
+        viewModel.busca.observe(this@ListaReceitas) { listaDeReceitas ->
             adapter.atualiza(listaDeReceitas)
         }
-    }
-
-    private fun criaReceiaTeste() {
-        //        lifecycleScope.launch {
-        //            ReceitaDatabase.getInstance(this@ListaReceitas).receitaDao().apply {
-        //                val receita = Receita(
-        //                    titulo = "Teste 1",
-        //                    ingredientes = "Teste 2",
-        //                    preparo = "Teste 3",
-        //                    tipoId = 1,
-        //                    nivelId = 3
-        //                )
-        //                this.salva(receita)
-        //            }
-        //        }
     }
 
     private fun configuraFab() {

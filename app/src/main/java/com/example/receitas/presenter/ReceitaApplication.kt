@@ -1,7 +1,7 @@
 package com.example.receitas.presenter
 
 import android.app.Application
-import com.example.receitas.ApplicationModules.applicationModules
+import com.example.receitas.AppModules
 import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.TipoReceita
@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 
 class ReceitaApplication : Application() {
 
@@ -18,7 +17,7 @@ class ReceitaApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@ReceitaApplication)
-            module { applicationModules }
+            modules(AppModules.modules)
         }
 
         val scope = CoroutineScope(Dispatchers.IO)
@@ -28,14 +27,15 @@ class ReceitaApplication : Application() {
         }
     }
 
+
     private suspend fun salvaNivel() {
         try {
             val nivelReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).nivelReceitaDao()
 
             val nivel1 = NivelReceita(1, "Fácil")
-            val nivel2 = NivelReceita(1, "Médio")
-            val nivel3 = NivelReceita(1, "Difícil")
+            val nivel2 = NivelReceita(2, "Médio")
+            val nivel3 = NivelReceita(3, "Difícil")
             nivelReceitaDao.salvaNivel(nivel1, nivel2, nivel3)
         } catch (e: Exception) {
             throw e
