@@ -1,13 +1,13 @@
-package com.example.receitas
+package com.example.receitas.presenter.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.receitas.databinding.ListaReceitasBinding
+import com.example.receitas.databinding.FormularioReceitaBinding
 
-class ListaReceitas : AppCompatActivity() {
+class FormularioReceita : AppCompatActivity() {
 
     private val binding by lazy {
-        ListaReceitasBinding.inflate(layoutInflater)
+        FormularioReceitaBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
