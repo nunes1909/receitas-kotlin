@@ -1,9 +1,18 @@
 package com.example.receitas.domain.di
 
-/**
- * AQUI DEVEM SER FEITAS AS INJEÇÕES DE DEPENDÊNCIA DO MODULO DOMAIN
- */
+import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
+import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
+import com.example.receitas.domain.useCase.criaReceita.CriaReceita
+import com.example.receitas.domain.useCase.criaReceita.CriaReceitaUseCase
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
-object DomainModules {
 
+val domainModule = modules()
+
+private fun modules(): Module{
+    return module {
+        factory<CriaReceitaUseCase> { CriaReceita(get()) }
+        factory<BuscaTodasReceitasUseCase> { BuscaTodasReceitas(get()) }
+    }
 }
