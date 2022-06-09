@@ -1,4 +1,4 @@
-package com.example.receitas.domain.usecase.criaReceita
+package com.example.receitas.domain.useCase.criaReceita
 
 import com.example.receitas.domain.model.Receita
 

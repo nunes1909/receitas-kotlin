@@ -1,6 +1,4 @@
-package com.example.receitas.domain.usecase.buscaReceita
-
-import com.example.receitas.domain.model.Receita
+package com.example.receitas.domain.useCase.buscaReceita
 
 /**
  * AQUI DEVE SER FEITO O DELEGATE DE BUSCAR UMA RECEITA ESPECIFICA PARA O REPOSITORY

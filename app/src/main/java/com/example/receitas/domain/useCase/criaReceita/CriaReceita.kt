@@ -1,6 +1,4 @@
-package com.example.receitas.domain.usecase.criaReceita
-
-import com.example.receitas.domain.model.Receita
+package com.example.receitas.domain.useCase.criaReceita
 
 /**
  * AQUI DEVE SER FEITO O DELEGATE DE CRIA RECEITA PARA O REPOSITORY

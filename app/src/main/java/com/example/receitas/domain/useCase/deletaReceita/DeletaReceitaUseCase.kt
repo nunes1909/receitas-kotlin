@@ -1,4 +1,4 @@
-package com.example.receitas.domain.usecase.deletaReceita
+package com.example.receitas.domain.useCase.deletaReceita
 
 interface DeletaReceitaUseCase {
     suspend operator fun invoke(id: Long)

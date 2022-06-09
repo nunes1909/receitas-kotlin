@@ -1,4 +1,4 @@
-package com.example.receitas.domain.usecase.buscaReceita
+package com.example.receitas.domain.useCase.buscaReceita
 
 import com.example.receitas.domain.model.Receita
 
