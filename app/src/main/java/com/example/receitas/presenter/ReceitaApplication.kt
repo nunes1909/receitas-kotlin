@@ -13,6 +13,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 class ReceitaApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -47,8 +48,8 @@ class ReceitaApplication : Application() {
                 .getInstance(this@ReceitaApplication).tipoReceitaDao()
 
             val tipo1 = TipoReceita(id = 1, "Refeição")
-            val tipo2 = TipoReceita(id = 2, "Refeição")
-            val tipo3 = TipoReceita(id = 3, "Refeição")
+            val tipo2 = TipoReceita(id = 2, "Lanche")
+            val tipo3 = TipoReceita(id = 3, "Drink")
             tipoReceitaDao.salvaTipo(tipo1, tipo2, tipo3)
         } catch (e: Exception) {
             throw e

@@ -11,7 +11,7 @@ import com.example.receitas.domain.model.Receita
 
 class ReceitasAdapter : RecyclerView.Adapter<ReceitasAdapter.ReceitaViewHolder>() {
 
-    private val receitas: List<Receita> = mutableListOf()
+    private var receitas: List<Receita> = mutableListOf()
 
     inner class ReceitaViewHolder(binding: ItemRvReceitaBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -75,5 +75,9 @@ class ReceitasAdapter : RecyclerView.Adapter<ReceitasAdapter.ReceitaViewHolder>(
     }
 
     override fun getItemCount() = receitas.size
+
+    fun atualiza(lista: List<Receita>) {
+        receitas = lista
+    }
 
 }
