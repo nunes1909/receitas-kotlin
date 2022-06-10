@@ -13,6 +13,6 @@ interface TipoReceitaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun salvaTipo(vararg tipoReceita: TipoReceita)
 
-    @Query("SELECT * FROM TipoReceita")
-    fun buscaTipo(): Flow<List<TipoReceita>>
+    @Query("SELECT descricao FROM TipoReceita")
+    fun buscaTipo(): Flow<List<String>>
 }

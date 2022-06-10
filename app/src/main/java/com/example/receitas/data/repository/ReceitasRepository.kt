@@ -1,8 +1,6 @@
 package com.example.receitas.data.repository
 
-import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.Receita
-import com.example.receitas.domain.model.TipoReceita
 import kotlinx.coroutines.flow.Flow
 
 interface ReceitasRepository {
@@ -11,7 +9,7 @@ interface ReceitasRepository {
 
     fun buscaTodasReceitas(): Flow<List<Receita>?>
 
-    fun buscaTipo(): Flow<List<TipoReceita>>
+    fun buscaTipo(): Flow<List<String>>
 
-    fun buscaNivel(): Flow<List<NivelReceita>>
+    fun buscaNivel(): Flow<List<String>>
 }

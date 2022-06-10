@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Receitas</string>
+
+    <string-array name="tipo_receita">
+        <item>Refeição</item>
+        <item>Lanche</item>
+        <item>Drink</item>
+    </string-array>
+
+    <string-array name="nivel_receita">
+        <item>Fácil</item>
+        <item>Médio</item>
+        <item>Difícil</item>
+    </string-array>
+
 </resources>

@@ -15,22 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/formulario_receita_info"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Cadastrando uma receita"
-                app:layout_constraintWidth_percent="0.5"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginStart="5dp"
-                android:textSize="26sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-            </TextView>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/formulario_receita_layout_titulo"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -41,9 +25,9 @@
                 app:boxCornerRadiusTopStart="8dp"
                 app:errorEnabled="false"
                 app:helperText="Obrigatório*"
-                app:layout_constraintEnd_toEndOf="@+id/formulario_receita_info"
-                app:layout_constraintStart_toStartOf="@+id/formulario_receita_info"
-                app:layout_constraintTop_toBottomOf="@+id/formulario_receita_info">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/formulario_receita_titulo"
@@ -76,7 +60,6 @@
                     android:id="@+id/formulario_receita_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +82,6 @@
                 <AutoCompleteTextView
                     android:id="@+id/formulario_receita_nivel"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
 

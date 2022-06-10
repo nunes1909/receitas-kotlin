@@ -13,6 +13,6 @@ interface NivelReceitaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun salvaNivel(vararg nivel: NivelReceita)
 
-    @Query("SELECT * FROM NivelReceita")
-    fun buscaNivel(): Flow<List<NivelReceita>>
+    @Query("SELECT descricao FROM NivelReceita")
+    fun buscaNivel(): Flow<List<String>>
 }

@@ -32,11 +32,11 @@ class RepositoryDataSource(
         return receitaDao.buscaTodasReceitas()
     }
 
-    override fun buscaTipo(): Flow<List<TipoReceita>> {
+    override fun buscaTipo(): Flow<List<String>> {
         return tipoDao.buscaTipo()
     }
 
-    override fun buscaNivel(): Flow<List<NivelReceita>> {
+    override fun buscaNivel(): Flow<List<String>> {
         return nivelDao.buscaNivel()
     }
 

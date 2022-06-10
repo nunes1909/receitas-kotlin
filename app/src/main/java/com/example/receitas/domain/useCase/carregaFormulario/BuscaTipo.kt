@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class BuscaTipo(
     private val repository: RepositoryDataSource
 ): BuscaTipoUseCase {
-    override fun invoke(): Flow<List<TipoReceita>> {
+    override fun invoke(): Flow<List<String>> {
         return repository.buscaTipo()
     }
 }

@@ -5,10 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.databinding.ListaReceitasBinding
-import com.example.receitas.domain.model.Receita
-import com.example.receitas.presenter.adapter.ReceitasAdapter
+import com.example.receitas.presenter.adapter.ListaReceitasAdapter
 import com.example.receitas.presenter.viewmodel.ListaReceitasViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +17,7 @@ class ListaReceitas : AppCompatActivity() {
         ListaReceitasBinding.inflate(layoutInflater)
     }
     private val adapter by lazy {
-        ReceitasAdapter()
+        ListaReceitasAdapter()
     }
     private val viewModel: ListaReceitasViewModel by viewModel()
 
@@ -30,7 +28,9 @@ class ListaReceitas : AppCompatActivity() {
         configuraRV()
         buscaTodas()
         observers()
-
+//        Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
+//            startActivity(this@apply)
+//        }
     }
 
     private fun buscaTodas() {

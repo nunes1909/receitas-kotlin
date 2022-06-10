@@ -9,7 +9,7 @@ import com.example.receitas.R
 import com.example.receitas.databinding.ItemRvReceitaBinding
 import com.example.receitas.domain.model.Receita
 
-class ReceitasAdapter : RecyclerView.Adapter<ReceitasAdapter.ReceitaViewHolder>() {
+class ListaReceitasAdapter : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
 
     private var receitas: List<Receita> = mutableListOf()
 

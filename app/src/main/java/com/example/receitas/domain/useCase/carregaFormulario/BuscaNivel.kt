@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 class BuscaNivel(
     private val repository: RepositoryDataSource
 ): BuscaNivelUseCase {
-    override fun invoke(): Flow<List<NivelReceita>> {
+    override fun invoke(): Flow<List<String>> {
         return repository.buscaNivel()
     }
 }
