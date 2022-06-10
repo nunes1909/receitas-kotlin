@@ -78,6 +78,7 @@ class ReceitasAdapter : RecyclerView.Adapter<ReceitasAdapter.ReceitaViewHolder>(
 
     fun atualiza(lista: List<Receita>) {
         receitas = lista
+        notifyDataSetChanged()
     }
 
 }
