@@ -1,16 +1,17 @@
 package com.example.receitas.domain.useCase.criaReceita
 
 import android.util.Log
-import com.example.receitas.data.repository.RepositoryDataSource
+import com.example.receitas.data.repository.DataReceitasRepository
 import com.example.receitas.domain.model.Receita
+import com.example.receitas.domain.model.TipoReceita
 
 /**
  * AQUI DEVE SER FEITO O DELEGATE DE CRIA RECEITA PARA O REPOSITORY
  */
 
-class CriaReceita(
-    private val repository: RepositoryDataSource
-): CriaReceitaUseCase {
+class SalvaReceita(
+    private val repository: DataReceitasRepository
+): SalvaReceitaUseCase {
     override suspend fun invoke(receita: Receita): Boolean {
         return try {
             repository.salvaReceita(receita = receita)

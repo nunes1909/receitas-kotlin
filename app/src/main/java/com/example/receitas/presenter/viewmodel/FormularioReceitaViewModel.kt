@@ -3,45 +3,68 @@ package com.example.receitas.presenter.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.Receita
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaNivelUseCase
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaTipoUseCase
-import com.example.receitas.domain.useCase.criaReceita.CriaReceitaUseCase
+import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
+import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FormularioReceitaViewModel(
-    private val criaReceitaUseCase: CriaReceitaUseCase,
-    private val buscaTipoUseCase: BuscaTipoUseCase,
-    private val buscaNivelUseCase: BuscaNivelUseCase
+    private val salvaReceitaUseCase: SalvaReceitaUseCase,
+    private val buscaReceitaPorIdUseCase: BuscaReceitaPorIdUseCase,
+    private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
+    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase
 ) : ViewModel() {
 
+    /**
+     * LiveDatas de Cria e Edita receita
+     */
+    private var _criaReceita = MutableLiveData<Boolean>()
+    val criaReceita = _criaReceita as LiveData<Boolean>
+
+    private var _editaReceita = MutableLiveData<Boolean>()
+    val editaReceita = _editaReceita as LiveData<Boolean>
+
+    /**
+     * LiveData de busca receitas
+     */
+    private var _buscaDataReceitaPorId = MutableLiveData<Receita>()
+    val buscaDataReceitaPorId = _buscaDataReceitaPorId as LiveData<Receita>
+
+    suspend fun buscaPorId(id: Long){
+        val receitaPorId = buscaReceitaPorIdUseCase(id = id)
+
+    }
+
+    // Inicio config Tipo e Nivel
     private var _mBuscaTipo = MutableLiveData<List<String>>()
     val buscaTipo = _mBuscaTipo as LiveData<List<String>>
 
     private var _mBuscaNivel = MutableLiveData<List<String>>()
     val buscaNivel = _mBuscaNivel as LiveData<List<String>>
 
-    private var _criaReceita = MutableLiveData<Boolean>()
-    val criaReceita = _criaReceita as LiveData<Boolean>
-
-    fun configuraFormulario() {
-        val flowTipoReceita = buscaTipoUseCase()
-        val flowNivelReceita = buscaNivelUseCase()
+    suspend fun configuraFormulario() {
+        val flowTipoReceita = buscaTodosTiposUseCase("")
+        val flowNivelReceita = buscaTodosNiveisUseCase("")
 
         CoroutineScope(Dispatchers.IO).launch {
-            flowTipoReceita.collect { listTipo ->
-                _mBuscaTipo.postValue(listTipo)
+            val flowTipoDesc = flowTipoReceita.nomes
+            flowTipoDesc.collect{ listTipoDesc ->
+                _mBuscaTipo.postValue(listTipoDesc)
             }
         }
+
         CoroutineScope(Dispatchers.IO).launch {
-            flowNivelReceita.collect { listNivel ->
-                _mBuscaNivel.postValue(listNivel)
+            val flowNivelDesc = flowNivelReceita.nomes
+            flowNivelDesc.collect{ listNivelDesc ->
+                _mBuscaNivel.postValue(listNivelDesc)
             }
         }
     }
+    // Fim config Tipo e Nivel
 
     suspend fun salvaReceita(
         id: Long?,
@@ -54,16 +77,15 @@ class FormularioReceitaViewModel(
         val tipoId: Int? = validaTipoId(tipo)
         val nivelId: Int? = validaNivel(nivel)
 
-
-        if (id == null){
-            val criandoReceita = Receita(
+        if (id == 0L){
+            val novaReceita = Receita(
                 titulo = titulo,
                 tipoId = tipoId,
                 nivelId = nivelId,
                 ingredientes = ingredientes,
                 preparo = preparo
             )
-            _criaReceita.postValue(criaReceitaUseCase(criandoReceita))
+            _criaReceita.postValue(salvaReceitaUseCase(novaReceita))
         }
     }
 
@@ -88,5 +110,4 @@ class FormularioReceitaViewModel(
         }
         return tipoId
     }
-
 }

@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 
 class ListaReceitasViewModel(
     private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase

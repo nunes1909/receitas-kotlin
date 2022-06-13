@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.receitas.R
 import com.example.receitas.databinding.FormularioReceitaBinding
+import com.example.receitas.domain.model.Receita
 import com.example.receitas.presenter.viewmodel.FormularioReceitaViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -18,44 +19,89 @@ class FormularioReceita : AppCompatActivity() {
     private val binding by lazy {
         FormularioReceitaBinding.inflate(layoutInflater)
     }
+    private var receitaId = 0L
+    private var dataReceitaEdit: Receita? = null
     private val viewModel: FormularioReceitaViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        configuraFormulario()
+        tentaCarregarId()
         observers()
+
+        lifecycleScope.launch {
+            configuraFormulario()
+        }
+
     }
 
     /**
-     * Este metodo configura os dropDowns Tipo e Nivel
-     * Deixei em uma funcao separada pois futuramente posso usar a mesma funcao
-     *  pra configurar novos comportamentos no formulario além de Tipo e Nivel
+     * Busca tipos e niveis no banco
+     * Tenta buscar uma receita pelo Id
      */
-    private fun configuraFormulario() {
+    private suspend fun configuraFormulario() {
         viewModel.configuraFormulario()
+        viewModel.buscaPorId(receitaId)
     }
 
     fun observers() {
         // Observa o dropDown Tipo
-        viewModel.buscaTipo.observe(this@FormularioReceita) {
-            val tipoAdapter = ArrayAdapter(this@FormularioReceita, R.layout.drop_values_receita, it)
+        viewModel.buscaTipo.observe(this@FormularioReceita) { listTipo ->
+            val tipoAdapter = ArrayAdapter(this@FormularioReceita, R.layout.drop_values_receita, listTipo)
             binding.formularioReceitaTipo.setAdapter(tipoAdapter)
         }
 
         // Observa o dropDown Nivel
-        viewModel.buscaNivel.observe(this@FormularioReceita) {
+        viewModel.buscaNivel.observe(this@FormularioReceita) { listNivel ->
             val nivelAdapter =
-                ArrayAdapter(this@FormularioReceita, R.layout.drop_values_receita, it)
+                ArrayAdapter(this@FormularioReceita, R.layout.drop_values_receita, listNivel)
             binding.formularioReceitaNivel.setAdapter(nivelAdapter)
         }
 
-        viewModel.criaReceita.observe(this@FormularioReceita){ ifSave ->
+        // Observa a criação da receita
+        viewModel.criaReceita.observe(this@FormularioReceita) { ifSave ->
             if (ifSave) finish()
-            else Snackbar.make(binding.root, "Erro ao cadastrar a receita",
-                Snackbar.LENGTH_LONG).show()
+            else Snackbar.make(
+                binding.root, "Erro ao cadastrar a receita",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
 
+//        viewModel.buscaReceitaPorId.observe(this@FormularioReceita){ receita ->
+//            with(binding){
+//                formularioReceitaTitulo.setText(receita.titulo)
+//                formularioReceitaTipo.setText(receita.)
+//            }
+//        }
+
+    }
+
+
+    private fun tentaCarregarId() {
+        val idRecebido = intent.getLongExtra("receita_id", 0L)
+        if (idRecebido > 0L && idRecebido != null){
+            receitaId = idRecebido
+        }
+    }
+
+    private fun finalizaFormulario() {
+        val titulo = binding.formularioReceitaTitulo.text.toString().trim()
+        val tipo = binding.formularioReceitaTipo.text.toString()
+        val nivel = binding.formularioReceitaNivel.text.toString()
+
+        val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
+        val preparo = binding.formularioReceitaPreparo.text.toString()
+
+        lifecycleScope.launch {
+            viewModel.salvaReceita(
+                id = receitaId,
+                titulo = titulo,
+                tipo = tipo,
+                nivel = nivel,
+                ingredientes = ingredientes,
+                preparo = preparo
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,25 +111,8 @@ class FormularioReceita : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.ic_action_save) {
-
-            val titulo = binding.formularioReceitaTitulo.text.toString().trim()
-            val tipo = binding.formularioReceitaTipo.text.toString()
-            val nivel = binding.formularioReceitaNivel.text.toString()
-            val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
-            val preparo = binding.formularioReceitaPreparo.text.toString()
-
-            lifecycleScope.launch {
-                viewModel.salvaReceita(
-                    id = null,
-                    titulo = titulo,
-                    tipo = tipo,
-                    nivel = nivel,
-                    ingredientes = ingredientes,
-                    preparo = preparo
-                )
-            }
+            finalizaFormulario()
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

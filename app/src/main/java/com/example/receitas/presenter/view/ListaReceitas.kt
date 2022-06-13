@@ -28,9 +28,6 @@ class ListaReceitas : AppCompatActivity() {
         configuraRV()
         buscaTodas()
         observers()
-//        Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
-//            startActivity(this@apply)
-//        }
     }
 
     private fun buscaTodas() {
@@ -56,6 +53,18 @@ class ListaReceitas : AppCompatActivity() {
     private fun configuraRV() {
         val recycler = binding.listaReceitasRv
         recycler.layoutManager = LinearLayoutManager(this)
+        recycler.setHasFixedSize(true)
         recycler.adapter = adapter
+
+        configuraCliqueRecycler()
+    }
+
+    private fun configuraCliqueRecycler() {
+        adapter.listener = { id ->
+            val intent = Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
+                putExtra("receita_id", id)
+            }
+            startActivity(intent)
+        }
     }
 }

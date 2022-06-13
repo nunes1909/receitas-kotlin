@@ -14,5 +14,8 @@ interface NivelReceitaDao {
     suspend fun salvaNivel(vararg nivel: NivelReceita)
 
     @Query("SELECT descricao FROM NivelReceita")
-    fun buscaNivel(): Flow<List<String>>
+    fun buscaNivelDesc(): Flow<List<String>>
+
+    @Query("SELECT id FROM NivelReceita WHERE descricao = :descricao")
+    fun buscaNivelId(descricao: String): Flow<List<Int>>
 }

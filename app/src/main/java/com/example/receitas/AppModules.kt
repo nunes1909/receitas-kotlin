@@ -1,15 +1,17 @@
 package com.example.receitas
 
 import com.example.receitas.data.database.ReceitaDatabase
-import com.example.receitas.data.repository.RepositoryDataSource
+import com.example.receitas.data.repository.DataReceitasRepository
+import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorId
+import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaNivel
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaNivelUseCase
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaTipo
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaTipoUseCase
-import com.example.receitas.domain.useCase.criaReceita.CriaReceita
-import com.example.receitas.domain.useCase.criaReceita.CriaReceitaUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveis
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTipos
+import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
+import com.example.receitas.domain.useCase.criaReceita.SalvaReceita
+import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import com.example.receitas.presenter.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.viewmodel.ListaReceitasViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,16 +33,17 @@ object AppModules {
             factory { get<ReceitaDatabase>().tipoReceitaDao() }
             factory { get<ReceitaDatabase>().nivelReceitaDao() }
             factory { ReceitaDatabase.getInstance(get()) }
-            factory { RepositoryDataSource(get(), get(), get()) }
+            factory { DataReceitasRepository(get(), get(), get()) }
         }
     }
 
     private fun domainModule(): Module {
         return module {
-            factory<CriaReceitaUseCase> { CriaReceita(get()) }
+            factory<SalvaReceitaUseCase> { SalvaReceita(get()) }
             factory<BuscaTodasReceitasUseCase> { BuscaTodasReceitas(get()) }
-            factory<BuscaTipoUseCase> { BuscaTipo(get()) }
-            factory<BuscaNivelUseCase> { BuscaNivel(get()) }
+            factory<BuscaReceitaPorIdUseCase> { BuscaReceitaPorId(get()) }
+            factory<BuscaTodosTiposUseCase> { BuscaTodosTipos(get()) }
+            factory<BuscaTodosNiveisUseCase> { BuscaTodosNiveis(get()) }
         }
     }
 
@@ -52,7 +55,7 @@ object AppModules {
 
     private fun formularioReceitaViewModel(): Module {
         return module {
-            viewModel { FormularioReceitaViewModel(get(), get(), get()) }
+            viewModel { FormularioReceitaViewModel(get(), get(), get(), get()) }
         }
     }
 }

@@ -9,24 +9,27 @@ import com.example.receitas.R
 import com.example.receitas.databinding.ItemRvReceitaBinding
 import com.example.receitas.domain.model.Receita
 
-class ListaReceitasAdapter : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
+class ListaReceitasAdapter(
+    var listener: (id: Long) -> Unit = {}
+) : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
 
-    private var receitas: List<Receita> = mutableListOf()
+    private var dataReceitas: List<Receita> = mutableListOf()
 
-    inner class ReceitaViewHolder(binding: ItemRvReceitaBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val binding = binding
+    inner class ReceitaViewHolder(
+        binding: ItemRvReceitaBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private val binding = binding
 
-        fun vincula(receita: Receita) {
+        fun vincula(dataReceita: Receita) {
             val titulo = binding.itemRvReceitaTitulo
-            titulo.text = receita.titulo
+            titulo.text = dataReceita.titulo
 
             val ingredientes = binding.itemRvReceitaIngredientes
-            ingredientes.text = receita.ingredientes
+            ingredientes.text = dataReceita.ingredientes
 
-            configuraImageNivel(receita.nivelId)
+            configuraImageNivel(dataReceita.nivelId)
 
-            configuraImagemTipo(receita.tipoId)
+            configuraImagemTipo(dataReceita.tipoId)
 
         }
 
@@ -54,7 +57,7 @@ class ListaReceitasAdapter : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaVi
         }
 
         private fun configuraImagemTipo(tipoId: Int?) {
-            when(tipoId){
+            when (tipoId) {
                 1 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
                 2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
                 3 -> binding.itemRvReceitaImage.load(R.drawable.drink)
@@ -70,14 +73,19 @@ class ListaReceitasAdapter : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaVi
     }
 
     override fun onBindViewHolder(holder: ReceitaViewHolder, position: Int) {
-        val receita = receitas[position]
+        val receita = dataReceitas[position]
         holder.vincula(receita)
+
+        holder.itemView.setOnClickListener {
+            listener(getItemId(position))
+        }
+
     }
 
-    override fun getItemCount() = receitas.size
+    override fun getItemCount() = dataReceitas.size
 
     fun atualiza(lista: List<Receita>) {
-        receitas = lista
+        dataReceitas = lista
         notifyDataSetChanged()
     }
 
