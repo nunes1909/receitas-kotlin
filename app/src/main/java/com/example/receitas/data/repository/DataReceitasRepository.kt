@@ -27,7 +27,7 @@ class DataReceitasRepository(
         return receitaDao.buscaTodasReceitas()
     }
 
-    override suspend fun buscaReceitaPorId(id: Long): Receita? {
+    override suspend fun buscaReceitaPorId(id: Long): Receita {
         return try {
             receitaDao.buscaReceitaPorId(id)
         } catch (e: Exception) {

@@ -77,7 +77,9 @@ class ListaReceitasAdapter(
         holder.vincula(receita)
 
         holder.itemView.setOnClickListener {
-            listener(getItemId(position))
+            receita.id?.let{
+                listener(it)
+            }
         }
 
     }

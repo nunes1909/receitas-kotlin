@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface ReceitaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun salva(dataReceita: Receita): Long
+    suspend fun salva(dataReceita: Receita)
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun buscaTodasReceitas(): Flow<List<Receita>?>

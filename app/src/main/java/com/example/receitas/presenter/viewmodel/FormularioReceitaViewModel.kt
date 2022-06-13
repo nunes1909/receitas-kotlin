@@ -8,6 +8,7 @@ import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
+import com.example.receitas.presenter.model.PresenterReceita
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,12 +32,39 @@ class FormularioReceitaViewModel(
     /**
      * LiveData de busca receitas
      */
-    private var _buscaDataReceitaPorId = MutableLiveData<Receita>()
-    val buscaDataReceitaPorId = _buscaDataReceitaPorId as LiveData<Receita>
+    private var _buscaReceitaPorId = MutableLiveData<PresenterReceita>()
+    val buscaReceitaPorId = _buscaReceitaPorId as LiveData<PresenterReceita>
 
-    suspend fun buscaPorId(id: Long){
-        val receitaPorId = buscaReceitaPorIdUseCase(id = id)
+    suspend fun buscaPorId(id: Long) {
+        if (id > 0L && id != null) {
+            val receita = buscaReceitaPorIdUseCase(id = id)
 
+            var tipo = ""
+            var nivel = ""
+            tipo = when (receita.tipoId) {
+                1 -> "Refeição"
+                2 -> "Lanche"
+                else -> "Drink"
+            }
+            nivel = when (receita.nivelId) {
+                1 -> "Fácil"
+                2 -> "Médio"
+                else -> "Difícil"
+            }
+
+            val receitaPresenter = PresenterReceita(
+                id = receita.id,
+                titulo = receita.titulo,
+                tipoId = tipo,
+                nivelId = nivel,
+                ingredientes = receita.ingredientes,
+                preparo = receita.preparo
+            )
+            val flowTipoReceita = buscaTodosTiposUseCase("")
+            val flowNivelReceita = buscaTodosNiveisUseCase("")
+
+            _buscaReceitaPorId.postValue(receitaPresenter)
+        }
     }
 
     // Inicio config Tipo e Nivel
@@ -52,14 +80,14 @@ class FormularioReceitaViewModel(
 
         CoroutineScope(Dispatchers.IO).launch {
             val flowTipoDesc = flowTipoReceita.nomes
-            flowTipoDesc.collect{ listTipoDesc ->
+            flowTipoDesc.collect { listTipoDesc ->
                 _mBuscaTipo.postValue(listTipoDesc)
             }
         }
 
         CoroutineScope(Dispatchers.IO).launch {
             val flowNivelDesc = flowNivelReceita.nomes
-            flowNivelDesc.collect{ listNivelDesc ->
+            flowNivelDesc.collect { listNivelDesc ->
                 _mBuscaNivel.postValue(listNivelDesc)
             }
         }
@@ -77,21 +105,35 @@ class FormularioReceitaViewModel(
         val tipoId: Int? = validaTipoId(tipo)
         val nivelId: Int? = validaNivel(nivel)
 
-        if (id == 0L){
-            val novaReceita = Receita(
+        if (id == 0L) {
+            val saveReceita = Receita(
                 titulo = titulo,
                 tipoId = tipoId,
                 nivelId = nivelId,
                 ingredientes = ingredientes,
                 preparo = preparo
             )
-            _criaReceita.postValue(salvaReceitaUseCase(novaReceita))
+            _criaReceita.postValue(salvaReceitaUseCase(saveReceita))
+
+        } else {
+            val editReceita = Receita(
+                id = id,
+                titulo = titulo,
+                tipoId = tipoId,
+                nivelId = nivelId,
+                ingredientes = ingredientes,
+                preparo = preparo
+            )
+            _criaReceita.postValue(salvaReceitaUseCase(editReceita))
+
         }
+
+
     }
 
     private fun validaNivel(nivel: String?): Int? {
         var nivelId: Int? = null
-        when(nivel){
+        when (nivel) {
             "Fácil" -> nivelId = 1
             "Médio" -> nivelId = 2
             "Difícil" -> nivelId = 3

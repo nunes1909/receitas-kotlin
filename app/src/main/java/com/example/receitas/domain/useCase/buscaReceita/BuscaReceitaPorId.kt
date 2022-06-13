@@ -10,7 +10,7 @@ import com.example.receitas.domain.model.Receita
 class BuscaReceitaPorId(
     private val repository: DataReceitasRepository
 ): BuscaReceitaPorIdUseCase {
-    override suspend fun invoke(id: Long): Receita? {
+    override suspend fun invoke(id: Long): Receita {
         return repository.buscaReceitaPorId(id)
     }
 }

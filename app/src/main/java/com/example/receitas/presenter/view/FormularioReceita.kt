@@ -20,7 +20,7 @@ class FormularioReceita : AppCompatActivity() {
         FormularioReceitaBinding.inflate(layoutInflater)
     }
     private var receitaId = 0L
-    private var dataReceitaEdit: Receita? = null
+    private var receita: Receita? = null
     private val viewModel: FormularioReceitaViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +35,11 @@ class FormularioReceita : AppCompatActivity() {
 
     }
 
-    /**
-     * Busca tipos e niveis no banco
-     * Tenta buscar uma receita pelo Id
-     */
+    private fun tentaCarregarId() {
+        val idRecebido = intent.getLongExtra("receita_id", 0L)
+        receitaId = idRecebido
+    }
+
     private suspend fun configuraFormulario() {
         viewModel.configuraFormulario()
         viewModel.buscaPorId(receitaId)
@@ -67,20 +68,14 @@ class FormularioReceita : AppCompatActivity() {
             ).show()
         }
 
-//        viewModel.buscaReceitaPorId.observe(this@FormularioReceita){ receita ->
-//            with(binding){
-//                formularioReceitaTitulo.setText(receita.titulo)
-//                formularioReceitaTipo.setText(receita.)
-//            }
-//        }
-
-    }
-
-
-    private fun tentaCarregarId() {
-        val idRecebido = intent.getLongExtra("receita_id", 0L)
-        if (idRecebido > 0L && idRecebido != null){
-            receitaId = idRecebido
+        viewModel.buscaReceitaPorId.observe(this@FormularioReceita){ receita ->
+            binding.run {
+                formularioReceitaTitulo.setText(receita.titulo)
+                formularioReceitaTipo.setText(receita.tipoId)
+                formularioReceitaNivel.setText(receita.nivelId)
+                formularioReceitaIngrediente.setText(receita.ingredientes)
+                formularioReceitaPreparo.setText(receita.preparo)
+            }
         }
     }
 
@@ -88,7 +83,6 @@ class FormularioReceita : AppCompatActivity() {
         val titulo = binding.formularioReceitaTitulo.text.toString().trim()
         val tipo = binding.formularioReceitaTipo.text.toString()
         val nivel = binding.formularioReceitaNivel.text.toString()
-
         val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
         val preparo = binding.formularioReceitaPreparo.text.toString()
 
