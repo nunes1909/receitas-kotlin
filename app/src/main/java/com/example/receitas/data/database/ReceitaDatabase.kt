@@ -11,6 +11,10 @@ import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.model.TipoReceita
 
+/**
+ * Implementação do Database do Room com singleton
+ */
+
 @Database(
     entities = [
         Receita::class,

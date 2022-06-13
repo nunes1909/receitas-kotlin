@@ -12,6 +12,7 @@ import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTipos
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceita
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
+import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -55,7 +56,16 @@ object AppModules {
 
     private fun formularioReceitaViewModel(): Module {
         return module {
-            viewModel { FormularioReceitaViewModel(get(), get(), get(), get()) }
+            factory { ReceitaMapper() }
+            viewModel {
+                FormularioReceitaViewModel(
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get()
+                )
+            }
         }
     }
 }

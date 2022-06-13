@@ -19,6 +19,7 @@ class ListaReceitasAdapter(
     inner class ReceitaViewHolder(
         private val binding: ItemRvReceitaBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun vincula(receita: Receita) {
             val titulo = binding.itemRvReceitaTitulo
             titulo.text = receita.titulo
@@ -83,6 +84,7 @@ class ListaReceitasAdapter(
         val receita = receitas[position]
         holder.vincula(receita)
 
+        // Busca o Id do item clicado
         holder.itemView.setOnClickListener {
             listener(receita.id)
         }
@@ -91,6 +93,7 @@ class ListaReceitasAdapter(
 
     override fun getItemCount() = receitas.size
 
+    // Atualiza a lista do Adapter
     fun atualiza(lista: List<Receita>) {
         this.receitas.clear()
         notifyItemRangeRemoved(0, this.receitas.size)

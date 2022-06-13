@@ -12,6 +12,9 @@ class ListaReceitasViewModel(
     private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase
 ) : ViewModel() {
 
+    /**
+     * LiveData que busca todas as receitas no Banco
+     */
     private var _mBusca = MutableLiveData<List<Receita>>()
     val busca = _mBusca as LiveData<List<Receita>>
 

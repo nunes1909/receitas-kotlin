@@ -17,25 +17,38 @@ class FormularioReceitaViewModel(
     private val salvaReceitaUseCase: SalvaReceitaUseCase,
     private val buscaReceitaPorIdUseCase: BuscaReceitaPorIdUseCase,
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
-    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase
+    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
+    private val receitaMapper: ReceitaMapper
 ) : ViewModel() {
 
     /**
-     * LiveDatas de Cria e Edita receita
+     * LiveData + Configs para buscar no Banco e setar os campos Tipo e Nivel
      */
-    private var _salvaReceita = MutableLiveData<Boolean>()
-    val salvaReceita = _salvaReceita as LiveData<Boolean>
+    private var _mBuscaTipo = MutableLiveData<List<String>>()
+    val buscaTipo = _mBuscaTipo as LiveData<List<String>>
 
-    suspend fun salvaReceita(receita: PresenterReceita) {
-        val receitaFormatada = ReceitaMapper().convertReceita(receita)
-        _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
+    private var _mBuscaNivel = MutableLiveData<List<String>>()
+    val buscaNivel = _mBuscaNivel as LiveData<List<String>>
+
+    suspend fun configuraFormulario() {
+        val flowTipoReceita = buscaTodosTiposUseCase()
+        val flowNivelReceita = buscaTodosNiveisUseCase()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            flowTipoReceita.collect { listTipoDesc ->
+                _mBuscaTipo.postValue(listTipoDesc)
+            }
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            flowNivelReceita.collect { listNivelDesc ->
+                _mBuscaNivel.postValue(listNivelDesc)
+            }
+        }
     }
 
-    private var _editaReceita = MutableLiveData<Boolean>()
-    val editaReceita = _editaReceita as LiveData<Boolean>
-
     /**
-     * LiveData de busca receitas
+     * LiveData + Configs para buscar os dados da receita pelo Id
      */
     private var _buscaReceitaPorId = MutableLiveData<PresenterReceita>()
     val buscaReceitaPorId = _buscaReceitaPorId as LiveData<PresenterReceita>
@@ -44,58 +57,23 @@ class FormularioReceitaViewModel(
         if (id > 0L && id != null) {
             val receita = buscaReceitaPorIdUseCase(id = id)
 
-            var tipo = when (receita.tipoId) {
-                1 -> "Refeição"
-                2 -> "Lanche"
-                3 -> "Drink"
-                else -> null
-            }
-            var nivel = when (receita.nivelId) {
-                1 -> "Fácil"
-                2 -> "Médio"
-                3 -> "Difícil"
-                else -> null
-            }
+            val receitaFormatada = receitaMapper.deDomainParaPresenter(receita)
 
-            val receitaPresenter = PresenterReceita(
-                id = receita.id,
-                titulo = receita.titulo,
-                tipoId = tipo,
-                nivelId = nivel,
-                ingredientes = receita.ingredientes,
-                preparo = receita.preparo
-            )
-
-            _buscaReceitaPorId.postValue(receitaPresenter)
+            _buscaReceitaPorId.postValue(receitaFormatada)
         }
     }
 
-    // Inicio config Tipo e Nivel
-    private var _mBuscaTipo = MutableLiveData<List<String>>()
-    val buscaTipo = _mBuscaTipo as LiveData<List<String>>
+    /**
+     * LiveData para Salvar a receita
+     */
+    private var _salvaReceita = MutableLiveData<Boolean>()
+    val salvaReceita = _salvaReceita as LiveData<Boolean>
 
-    private var _mBuscaNivel = MutableLiveData<List<String>>()
-    val buscaNivel = _mBuscaNivel as LiveData<List<String>>
+    suspend fun salvaReceita(receita: PresenterReceita) {
+        val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
 
-    suspend fun configuraFormulario() {
-        val flowTipoReceita = buscaTodosTiposUseCase("")
-        val flowNivelReceita = buscaTodosNiveisUseCase("")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val flowTipoDesc = flowTipoReceita.nomes
-            flowTipoDesc.collect { listTipoDesc ->
-                _mBuscaTipo.postValue(listTipoDesc)
-            }
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val flowNivelDesc = flowNivelReceita.nomes
-            flowNivelDesc.collect { listNivelDesc ->
-                _mBuscaNivel.postValue(listNivelDesc)
-            }
-        }
+        _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
     }
-    // Fim config Tipo e Nivel
 
 
 }

@@ -32,23 +32,6 @@ class ListaReceitas : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch {
-            buscaTodas()
-        }
-    }
-
-    private suspend fun buscaTodas() {
-        viewModel.buscaReceitas()
-    }
-
-    private fun observers() {
-        viewModel.busca.observe(this@ListaReceitas) { listaDeReceitas ->
-            adapter.atualiza(listaDeReceitas)
-        }
-    }
-
     private fun configuraFab() {
         binding.listaReceitasFab.setOnClickListener {
             Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
@@ -73,5 +56,15 @@ class ListaReceitas : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    private fun observers() {
+        viewModel.busca.observe(this@ListaReceitas) { listaDeReceitas ->
+            adapter.atualiza(listaDeReceitas)
+        }
+    }
+
+    private suspend fun buscaTodas() {
+        viewModel.buscaReceitas()
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 /**
- * AQUI DEVE SER FEITO O DELEGATE DE BUSCAR TODAS AS RECEITAS PARA O REPOSITORY
+ * Implementação do caso de uso que busca todas as receitas
  */
 
 class BuscaTodasReceitas(
@@ -15,8 +15,8 @@ class BuscaTodasReceitas(
 ) : BuscaTodasReceitasUseCase {
     override fun invoke(): Flow<List<Receita>> {
         return try {
-           repository.buscaTodasReceitas()
-        } catch (e: Exception){
+            repository.buscaTodasReceitas()
+        } catch (e: Exception) {
             Log.e("BuscaTodasReceitas", "BuscaTodasReceitas: $e")
             flowOf()
         }

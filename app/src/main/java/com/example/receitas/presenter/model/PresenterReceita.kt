@@ -7,5 +7,4 @@ data class PresenterReceita(
     val preparo: String? = null,
     var tipoId: String? = null,
     var nivelId: String? = null
-//    val uuid: String? = null,
 )

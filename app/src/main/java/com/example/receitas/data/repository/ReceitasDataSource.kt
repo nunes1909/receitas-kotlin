@@ -1,8 +1,11 @@
 package com.example.receitas.data.repository
 
-import com.example.receitas.data.resource.Resource
 import com.example.receitas.domain.model.Receita
 import kotlinx.coroutines.flow.Flow
+
+/**
+ * Interface de busca dos dados internamente
+ */
 
 interface ReceitasDataSource {
 
@@ -16,9 +19,9 @@ interface ReceitasDataSource {
     suspend fun buscaReceitaPorId(id: Long): Receita?
 
     // Busca value Tipo
-    suspend fun buscaTipoDescricao(descricao: String): Resource<Flow<List<String>>, Flow<List<Int>>>
+    fun buscaTipoValues(): Flow<List<String>>
 
     // Busca value Nivel
-    fun buscaNivel(descricao: String): Resource<Flow<List<String>>, Flow<List<Int>>>
+    fun buscaNivelValues(): Flow<List<String>>
 
 }

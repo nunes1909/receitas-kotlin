@@ -1,13 +1,16 @@
 package com.example.receitas.domain.useCase.carregaFormulario
 
 import com.example.receitas.data.repository.DataReceitasRepository
-import com.example.receitas.data.resource.Resource
 import kotlinx.coroutines.flow.Flow
+
+/**
+ * Implementação do caso de uso que busca todos os Tipos
+ */
 
 class BuscaTodosTipos(
     private val repository: DataReceitasRepository
-): BuscaTodosTiposUseCase {
-    override suspend fun invoke(descricao: String): Resource<Flow<List<String>>, Flow<List<Int>>> {
-        return repository.buscaTipoDescricao(descricao)
+) : BuscaTodosTiposUseCase {
+    override fun invoke(): Flow<List<String>> {
+        return repository.buscaTipoValues()
     }
 }

@@ -4,12 +4,12 @@ import com.example.receitas.data.repository.DataReceitasRepository
 import com.example.receitas.domain.model.Receita
 
 /**
- * AQUI DEVE SER FEITO O DELEGATE DE BUSCAR UMA RECEITA ESPECIFICA PARA O REPOSITORY
+ * Implementação do caso de uso que busca a receita pelo Id
  */
 
 class BuscaReceitaPorId(
     private val repository: DataReceitasRepository
-): BuscaReceitaPorIdUseCase {
+) : BuscaReceitaPorIdUseCase {
     override suspend fun invoke(id: Long): Receita {
         return repository.buscaReceitaPorId(id)
     }

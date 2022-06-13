@@ -15,5 +15,4 @@ data class Receita(
     val preparo: String? = null,
     var tipoId: Int? = null,
     var nivelId: Int? = null
-//    val uuid: String? = null,
 ) : Parcelable
