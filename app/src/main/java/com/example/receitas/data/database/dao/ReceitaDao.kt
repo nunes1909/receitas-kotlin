@@ -14,7 +14,8 @@ interface ReceitaDao {
     suspend fun edita(receita: Receita)
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
-    fun buscaTodasReceitas(): Flow<List<Receita>?>
+    fun buscaTodasReceitas(): Flow<List<Receita>>
+
 
     @Query("SELECT * FROM Receita WHERE id = :id")
     suspend fun buscaReceitaPorId(id: Long): Receita

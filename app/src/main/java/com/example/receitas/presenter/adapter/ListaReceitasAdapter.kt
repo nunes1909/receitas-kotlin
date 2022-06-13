@@ -10,29 +10,39 @@ import com.example.receitas.databinding.ItemRvReceitaBinding
 import com.example.receitas.domain.model.Receita
 
 class ListaReceitasAdapter(
+    receitas: List<Receita> = emptyList(),
     var listener: (id: Long) -> Unit = {}
 ) : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
 
-    private var dataReceitas: List<Receita> = mutableListOf()
+    private val receitas = receitas.toMutableList()
 
     inner class ReceitaViewHolder(
-        binding: ItemRvReceitaBinding
+        private val binding: ItemRvReceitaBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private val binding = binding
-
-        fun vincula(dataReceita: Receita) {
+        fun vincula(receita: Receita) {
             val titulo = binding.itemRvReceitaTitulo
-            titulo.text = dataReceita.titulo
+            titulo.text = receita.titulo
 
             val ingredientes = binding.itemRvReceitaIngredientes
-            ingredientes.text = dataReceita.ingredientes
+            ingredientes.text = receita.ingredientes
 
-            configuraImageNivel(dataReceita.nivelId)
+            configuraImageNivel(receita.nivelId)
+            configuraImagemTipo(receita.tipoId)
 
-            configuraImagemTipo(dataReceita.tipoId)
-
+            visibility(view = binding.itemRvReceitaImage, receita.tipoId)
+            visibility(view = binding.viewGroupNivel, receita.nivelId)
         }
 
+        // Valida a visibility das views Tipo e Nivel
+        fun visibility(view: View, param: Int?) {
+            return if (param != null) {
+                view.visibility = View.VISIBLE
+            } else {
+                view.visibility = View.GONE
+            }
+        }
+
+        // Configura image de dificuldade
         private fun configuraImageNivel(nivelId: Int?) {
             when (nivelId) {
                 1 -> {
@@ -50,18 +60,15 @@ class ListaReceitasAdapter(
                     binding.nivelMedio.load(R.drawable.ic_action_star_true)
                     binding.nivelDificil.load(R.drawable.ic_action_star_true)
                 }
-                else -> {
-                    binding.viewGroupNivel.visibility = View.GONE
-                }
             }
         }
 
+        // Configura image de Tipo
         private fun configuraImagemTipo(tipoId: Int?) {
             when (tipoId) {
                 1 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
                 2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
                 3 -> binding.itemRvReceitaImage.load(R.drawable.drink)
-                else -> binding.itemRvReceitaImage.visibility = View.GONE
             }
         }
     }
@@ -73,22 +80,21 @@ class ListaReceitasAdapter(
     }
 
     override fun onBindViewHolder(holder: ReceitaViewHolder, position: Int) {
-        val receita = dataReceitas[position]
+        val receita = receitas[position]
         holder.vincula(receita)
 
         holder.itemView.setOnClickListener {
-            receita.id?.let{
-                listener(it)
-            }
+            listener(receita.id)
         }
 
     }
 
-    override fun getItemCount() = dataReceitas.size
+    override fun getItemCount() = receitas.size
 
     fun atualiza(lista: List<Receita>) {
-        dataReceitas = lista
+        this.receitas.clear()
+        notifyItemRangeRemoved(0, this.receitas.size)
+        this.receitas.addAll(lista)
         notifyDataSetChanged()
     }
-
 }

@@ -26,14 +26,21 @@ class ListaReceitas : AppCompatActivity() {
         setContentView(binding.root)
         configuraFab()
         configuraRV()
-        buscaTodas()
         observers()
+        lifecycleScope.launch {
+            buscaTodas()
+        }
     }
 
-    private fun buscaTodas() {
+    override fun onResume() {
+        super.onResume()
         lifecycleScope.launch {
-            viewModel.buscaReceitas()
+            buscaTodas()
         }
+    }
+
+    private suspend fun buscaTodas() {
+        viewModel.buscaReceitas()
     }
 
     private fun observers() {
@@ -52,8 +59,8 @@ class ListaReceitas : AppCompatActivity() {
 
     private fun configuraRV() {
         val recycler = binding.listaReceitasRv
-        recycler.layoutManager = LinearLayoutManager(this)
         recycler.setHasFixedSize(true)
+        recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
 
         configuraCliqueRecycler()

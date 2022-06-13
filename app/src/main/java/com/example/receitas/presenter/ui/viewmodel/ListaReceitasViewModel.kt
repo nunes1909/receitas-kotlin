@@ -3,19 +3,22 @@ package com.example.receitas.presenter.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
+import kotlinx.coroutines.launch
 
 class ListaReceitasViewModel(
     private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase
 ) : ViewModel() {
 
-    private val _mBusca = MutableLiveData<List<Receita>>()
+    private var _mBusca = MutableLiveData<List<Receita>>()
     val busca = _mBusca as LiveData<List<Receita>>
 
-    val flowReceitas = buscaTodasReceitasUseCase()
     suspend fun buscaReceitas() {
-        if (flowReceitas != null) {
+        val flowReceitas = buscaTodasReceitasUseCase()
+
+        viewModelScope.launch {
             flowReceitas.collect { listReceitas ->
                 _mBusca.value = listReceitas
             }
