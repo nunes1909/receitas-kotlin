@@ -12,8 +12,8 @@ import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTipos
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceita
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
-import com.example.receitas.presenter.viewmodel.FormularioReceitaViewModel
-import com.example.receitas.presenter.viewmodel.ListaReceitasViewModel
+import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
+import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module

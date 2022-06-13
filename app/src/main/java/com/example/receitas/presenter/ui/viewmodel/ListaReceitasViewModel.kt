@@ -1,4 +1,4 @@
-package com.example.receitas.presenter.viewmodel
+package com.example.receitas.presenter.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,17 +1,17 @@
 package com.example.receitas.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.receitas.domain.model.Receita
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReceitaDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun salva(dataReceita: Receita)
+    @Insert
+    suspend fun salva(receita: Receita)
+
+    @Update
+    suspend fun edita(receita: Receita)
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun buscaTodasReceitas(): Flow<List<Receita>?>

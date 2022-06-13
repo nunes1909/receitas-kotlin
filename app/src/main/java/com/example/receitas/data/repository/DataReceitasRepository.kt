@@ -16,11 +16,16 @@ class DataReceitasRepository(
 
     override suspend fun salvaReceita(receita: Receita): Boolean {
         return try {
-            receitaDao.salva(receita)
+            if (receita.id > 0){
+                receitaDao.edita(receita)
+            } else {
+                receitaDao.salva(receita)
+            }
             true
-        } catch (e: Exception) {
+        } catch (e: Exception){
             false
         }
+
     }
 
     override fun buscaTodasReceitas(): Flow<List<Receita>?> {
@@ -35,11 +40,11 @@ class DataReceitasRepository(
         }
     }
 
-    override suspend fun buscaTipoDescricao(descricao: String): Resource<Flow<List<String>>, Flow<List<Int>>>  {
+    override suspend fun buscaTipoDescricao(descricao: String): Resource<Flow<List<String>>, Flow<List<Int>>> {
         var flowListTipoId: Flow<List<Int>> = flowOf()
 
         val flowListTipoDesc = tipoDao.buscaTipoDesc()
-        if (descricao.isNotEmpty()){
+        if (descricao.isNotEmpty()) {
             flowListTipoId = tipoDao.buscaTipoId(descricao)
         }
 
@@ -54,7 +59,7 @@ class DataReceitasRepository(
 
         val flowListNivelDesc = nivelDao.buscaNivelDesc()
 
-        if (descricao.isNotEmpty()){
+        if (descricao.isNotEmpty()) {
             flowListNivelId = nivelDao.buscaNivelId(descricao)
         }
 

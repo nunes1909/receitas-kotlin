@@ -15,11 +15,11 @@
         android:theme="@style/Theme.Receitas"
         tools:targetApi="31">
         <activity
-            android:name=".presenter.view.FormularioReceita"
+            android:name="com.example.receitas.presenter.ui.view.FormularioReceita"
 
             android:exported="false" />
         <activity
-            android:name=".presenter.view.ListaReceitas"
+            android:name="com.example.receitas.presenter.ui.view.ListaReceitas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

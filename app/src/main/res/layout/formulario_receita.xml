@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        tools:context=".presenter.view.FormularioReceita">
+        tools:context=".presenter.ui.view.FormularioReceita">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

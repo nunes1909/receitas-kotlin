@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2ce154ac9a3699830e4d842ec850ec18",
+    "identityHash": "a20332c345a6d9ca3ca223a1dcf5ad1f",
     "entities": [
       {
         "tableName": "Receita",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `titulo` TEXT NOT NULL, `ingredientes` TEXT NOT NULL, `preparo` TEXT, `tipoId` INTEGER, `nivelId` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT NOT NULL, `ingredientes` TEXT NOT NULL, `preparo` TEXT, `tipoId` INTEGER, `nivelId` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "titulo",
@@ -110,7 +110,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2ce154ac9a3699830e4d842ec850ec18')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a20332c345a6d9ca3ca223a1dcf5ad1f')"
     ]
   }
 }

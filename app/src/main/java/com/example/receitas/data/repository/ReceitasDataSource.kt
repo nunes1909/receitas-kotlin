@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface ReceitasDataSource {
 
     // Salva receita
-    suspend fun salvaReceita(dataReceita: Receita): Boolean
+    suspend fun salvaReceita(receita: Receita): Boolean
 
     // Busca todas receitas
     fun buscaTodasReceitas(): Flow<List<Receita>?>
