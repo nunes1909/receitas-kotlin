@@ -3,6 +3,7 @@ package com.example.receitas.presenter.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
@@ -66,6 +67,7 @@ class FormularioReceitaViewModel(
         }
     }
 
+
     /**
      * LiveData para Salvar a receita
      * Neste LiveData existe uma transformação de model (presenter para domain)
@@ -73,10 +75,37 @@ class FormularioReceitaViewModel(
     private var _salvaReceita = MutableLiveData<Boolean>()
     val salvaReceita = _salvaReceita as LiveData<Boolean>
 
-    suspend fun salvaReceita(receita: PresenterReceita) {
-        val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
+    private var _validaTitulo = MutableLiveData<Boolean>()
+    val validaTitulo = _validaTitulo as LiveData<Boolean>
 
-        _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
+    private var _validaTipo = MutableLiveData<Boolean>()
+    val validaTipo = _validaTipo as LiveData<Boolean>
+
+    private var _validaNivel = MutableLiveData<Boolean>()
+    val validaNivel = _validaNivel as LiveData<Boolean>
+
+    private var validacao = false
+
+    suspend fun salvaReceita(receita: PresenterReceita) {
+        validacao = true
+
+        _validaTitulo.value = validaCampos(receita.titulo)
+        _validaTipo.value = validaCampos(receita.tipoId)
+        _validaNivel.value = validaCampos(receita.nivelId)
+
+        if (validacao) {
+            val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
+            _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
+        }
+    }
+
+    private fun validaCampos(valor: String): Boolean {
+        return if (valor.isEmpty()) {
+            validacao = false
+            false
+        } else {
+            true
+        }
     }
 
     /**
@@ -86,7 +115,7 @@ class FormularioReceitaViewModel(
     private var _mRemoveReceita = MutableLiveData<Boolean>()
     val mRemoveReceita = _mRemoveReceita as LiveData<Boolean>
 
-    suspend fun removeReceita(receita: PresenterReceita){
+    suspend fun removeReceita(receita: PresenterReceita) {
         val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
         val idReceita = receitaFormatada.id
         _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))

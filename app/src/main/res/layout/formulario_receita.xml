@@ -23,7 +23,6 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 android:layout_marginTop="16dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:errorEnabled="false"
                 app:helperText="Obrigatório*"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +50,7 @@
                 android:paddingBottom="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:helperText="Opicional"
+                app:helperText="Obrigatório*"
                 app:layout_constraintEnd_toStartOf="@id/formulario_receita_layout_nivel"
                 app:layout_constraintStart_toStartOf="@id/formulario_receita_layout_titulo"
                 app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_titulo">
@@ -74,7 +73,7 @@
                 android:paddingBottom="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:helperText="Opicional"
+                app:helperText="Obrigatório*"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/formulario_receita_layout_tipo"
                 app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_titulo">
@@ -96,8 +95,7 @@
                 android:layout_marginBottom="150dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:errorEnabled="false"
-                app:helperText="Obrigatório*"
+                app:helperText="Opicional"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/formulario_receita_layout_tipo">
@@ -121,7 +119,6 @@
                 android:layout_marginBottom="150dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:errorEnabled="false"
                 app:helperText="Opicional"
                 app:layout_constraintEnd_toEndOf="@id/formulario_receita_layout_ingrediente"
                 app:layout_constraintStart_toStartOf="@id/formulario_receita_layout_ingrediente"

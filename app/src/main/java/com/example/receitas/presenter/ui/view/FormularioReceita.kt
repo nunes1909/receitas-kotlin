@@ -1,5 +1,6 @@
 package com.example.receitas.presenter.ui.view
 
+import android.graphics.Color.red
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -76,9 +77,25 @@ class FormularioReceita : AppCompatActivity() {
             }
         }
 
-        // Observa
+        // Observa a remoção da receita
         viewModel.mRemoveReceita.observe(this@FormularioReceita) { ifDelete ->
             if (ifDelete) finish()
+        }
+
+        // Observers de validação
+        viewModel.validaTitulo.observe(this@FormularioReceita) {
+            if (!it) binding.formularioReceitaLayoutTitulo.error = "Título obrigatório"
+            else binding.formularioReceitaLayoutTitulo.error = null
+        }
+
+        viewModel.validaTipo.observe(this@FormularioReceita) {
+            if (!it) binding.formularioReceitaLayoutTipo.error = "Tipo obrigatório"
+            else binding.formularioReceitaLayoutTipo.error = null
+        }
+
+        viewModel.validaNivel.observe(this@FormularioReceita) {
+            if (!it) binding.formularioReceitaLayoutNivel.error = "Nível obrigatório"
+            else binding.formularioReceitaLayoutNivel.error = null
         }
     }
 
@@ -122,19 +139,18 @@ class FormularioReceita : AppCompatActivity() {
     }
 
     private fun removeReceita() {
-        lifecycleScope.launch {
-            presenterReceita?.let { receita ->
-                AlertDialog.Builder(this@FormularioReceita)
-                    .setTitle("Excluíndo receita")
-                    .setMessage("Tem certeza que quer remover essa receita?")
-                    .setPositiveButton("Sim") { _, _ ->
-                        launch {
-                            viewModel.removeReceita(receita)
-                        }
+        presenterReceita?.let { receita ->
+            AlertDialog.Builder(this@FormularioReceita)
+                .setTitle("Excluíndo receita")
+                .setMessage("Tem certeza que quer remover essa receita?")
+                .setPositiveButton("Sim") { _, _ ->
+                    lifecycleScope.launch {
+                        viewModel.removeReceita(receita)
                     }
-                    .setNegativeButton("Não") { _, _ -> }
-                    .show()
-            }
+                }
+                .setNegativeButton("Não") { _, _ -> }
+                .show()
         }
+
     }
 }

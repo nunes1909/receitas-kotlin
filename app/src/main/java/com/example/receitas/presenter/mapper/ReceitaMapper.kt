@@ -12,17 +12,15 @@ class ReceitaMapper {
     // Transforma a Presenter em Domain
     fun dePresenterParaDomain(receita: PresenterReceita): Receita {
 
-        val tipoId: Int? = when (receita.tipoId) {
+        val tipoId: Int = when (receita.tipoId) {
             "Refeição" -> 1
             "Lanche" -> 2
-            "Drink" -> 3
-            else -> null
+            else -> 3
         }
-        val nivelId: Int? = when (receita.nivelId) {
+        val nivelId: Int = when (receita.nivelId) {
             "Fácil" -> 1
             "Médio" -> 2
-            "Difícil" -> 3
-            else -> null
+            else -> 3
         }
 
         return Receita(
@@ -38,17 +36,15 @@ class ReceitaMapper {
     // Transforma a Domain em Presenter
     fun deDomainParaPresenter(receita: Receita): PresenterReceita {
 
-        val tipo: String? = when (receita.tipoId) {
+        val tipo: String = when (receita.tipoId) {
             1 -> "Refeição"
             2 -> "Lanche"
-            3 -> "Drink"
-            else -> null
+            else -> "Drink"
         }
-        val nivel: String? = when (receita.nivelId) {
+        val nivel: String = when (receita.nivelId) {
             1 -> "Fácil"
             2 -> "Médio"
-            3 -> "Difícil"
-            else -> null
+            else -> "Difícil"
         }
 
         return PresenterReceita(

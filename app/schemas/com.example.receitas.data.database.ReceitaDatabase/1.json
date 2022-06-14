@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a20332c345a6d9ca3ca223a1dcf5ad1f",
+    "identityHash": "471f2b5d53df166d685a29a21c5a4678",
     "entities": [
       {
         "tableName": "Receita",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT NOT NULL, `ingredientes` TEXT NOT NULL, `preparo` TEXT, `tipoId` INTEGER, `nivelId` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT NOT NULL, `tipoId` INTEGER NOT NULL, `nivelId` INTEGER NOT NULL, `ingredientes` TEXT, `preparo` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,27 +21,27 @@
             "notNull": true
           },
           {
-            "fieldPath": "ingredientes",
-            "columnName": "ingredientes",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "preparo",
-            "columnName": "preparo",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
             "fieldPath": "tipoId",
             "columnName": "tipoId",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "nivelId",
             "columnName": "nivelId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingredientes",
+            "columnName": "ingredientes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preparo",
+            "columnName": "preparo",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -110,7 +110,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a20332c345a6d9ca3ca223a1dcf5ad1f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '471f2b5d53df166d685a29a21c5a4678')"
     ]
   }
 }
