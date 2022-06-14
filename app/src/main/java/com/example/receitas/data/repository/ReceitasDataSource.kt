@@ -18,6 +18,12 @@ interface ReceitasDataSource {
     // Busca receita por id
     suspend fun buscaReceitaPorId(id: Long): Receita?
 
+    // Deleta receita
+    suspend fun deletaReceita(id: Long): Boolean
+
+    // Deleta Todas Receitas
+    suspend fun removeTodasReceitas(): Boolean
+
     // Busca value Tipo
     fun buscaTipoValues(): Flow<List<String>>
 

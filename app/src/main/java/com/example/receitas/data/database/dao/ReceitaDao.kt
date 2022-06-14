@@ -16,9 +16,14 @@ interface ReceitaDao {
     @Update
     suspend fun edita(receita: Receita)
 
+    @Query("DELETE FROM Receita WHERE id = :id")
+    suspend fun deleta(id: Long)
+
+    @Query("DELETE FROM Receita")
+    suspend fun deletaTodas()
+
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun buscaTodasReceitas(): Flow<List<Receita>>
-
     @Query("SELECT * FROM Receita WHERE id = :id")
     suspend fun buscaReceitaPorId(id: Long): Receita
 }

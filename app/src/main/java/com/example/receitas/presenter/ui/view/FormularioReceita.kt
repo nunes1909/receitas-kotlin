@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.receitas.R
@@ -19,13 +21,13 @@ class FormularioReceita : AppCompatActivity() {
         FormularioReceitaBinding.inflate(layoutInflater)
     }
     private var receitaId = 0L
+    private var presenterReceita: PresenterReceita? = null
     private val viewModel: FormularioReceitaViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         tentaCarregarId()
-
         lifecycleScope.launch {
             configuraFormulario()
         }
@@ -64,12 +66,19 @@ class FormularioReceita : AppCompatActivity() {
             if (ifSave) finish()
         }
 
+        // Observa a busca da receita pelo Id e popula os campos
         viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { receita ->
             binding.run {
+                presenterReceita = receita
                 formularioReceitaTitulo.setText(receita.titulo)
                 formularioReceitaIngrediente.setText(receita.ingredientes)
                 formularioReceitaPreparo.setText(receita.preparo)
             }
+        }
+
+        // Observa
+        viewModel.mRemoveReceita.observe(this@FormularioReceita) { ifDelete ->
+            if (ifDelete) finish()
         }
     }
 
@@ -79,29 +88,53 @@ class FormularioReceita : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.ic_action_save) {
-
-            val titulo = binding.formularioReceitaTitulo.text.toString().trim()
-            val tipo = binding.formularioReceitaTipo.text.toString()
-            val nivel = binding.formularioReceitaNivel.text.toString()
-            val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
-            val preparo = binding.formularioReceitaPreparo.text.toString()
-
-            lifecycleScope.launch {
-                viewModel.salvaReceita(
-
-                    PresenterReceita(
-                        id = receitaId,
-                        titulo = titulo,
-                        tipoId = tipo,
-                        nivelId = nivel,
-                        ingredientes = ingredientes,
-                        preparo = preparo
-                    )
-                )
-
+        when (item.itemId) {
+            R.id.ic_action_save -> {
+                salvaReceita()
+            }
+            R.id.ic_action_delete -> {
+                removeReceita()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun salvaReceita() {
+        val titulo = binding.formularioReceitaTitulo.text.toString().trim()
+        val tipo = binding.formularioReceitaTipo.text.toString()
+        val nivel = binding.formularioReceitaNivel.text.toString()
+        val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
+        val preparo = binding.formularioReceitaPreparo.text.toString()
+
+        lifecycleScope.launch {
+            viewModel.salvaReceita(
+
+                PresenterReceita(
+                    id = receitaId,
+                    titulo = titulo,
+                    tipoId = tipo,
+                    nivelId = nivel,
+                    ingredientes = ingredientes,
+                    preparo = preparo
+                )
+            )
+        }
+    }
+
+    private fun removeReceita() {
+        lifecycleScope.launch {
+            presenterReceita?.let { receita ->
+                AlertDialog.Builder(this@FormularioReceita)
+                    .setTitle("Excluíndo receita")
+                    .setMessage("Tem certeza que quer remover essa receita?")
+                    .setPositiveButton("Sim") { _, _ ->
+                        launch {
+                            viewModel.removeReceita(receita)
+                        }
+                    }
+                    .setNegativeButton("Não") { _, _ -> }
+                    .show()
+            }
+        }
     }
 }

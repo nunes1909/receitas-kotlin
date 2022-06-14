@@ -1,7 +1,7 @@
 package com.example.receitas.domain.useCase.criaReceita
 
 import android.util.Log
-import com.example.receitas.data.repository.DataReceitasRepository
+import com.example.receitas.data.repository.ReceitasRepository
 import com.example.receitas.domain.model.Receita
 
 /**
@@ -9,7 +9,7 @@ import com.example.receitas.domain.model.Receita
  */
 
 class SalvaReceita(
-    private val repository: DataReceitasRepository
+    private val repository: ReceitasRepository
 ) : SalvaReceitaUseCase {
     override suspend fun invoke(receita: Receita): Boolean {
         return try {

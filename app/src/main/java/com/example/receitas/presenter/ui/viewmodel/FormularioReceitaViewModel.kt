@@ -7,6 +7,7 @@ import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
+import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.model.PresenterReceita
 import kotlinx.coroutines.CoroutineScope
@@ -14,11 +15,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FormularioReceitaViewModel(
+    private val receitaMapper: ReceitaMapper,
     private val salvaReceitaUseCase: SalvaReceitaUseCase,
     private val buscaReceitaPorIdUseCase: BuscaReceitaPorIdUseCase,
+    private val deletaReceitaUseCase: DeletaReceitaUseCase,
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
-    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
-    private val receitaMapper: ReceitaMapper
+    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase
 ) : ViewModel() {
 
     /**
@@ -49,6 +51,7 @@ class FormularioReceitaViewModel(
 
     /**
      * LiveData + Configs para buscar os dados da receita pelo Id
+     * Neste LiveData existe uma transformação de model (domain para presenter)
      */
     private var _buscaReceitaPorId = MutableLiveData<PresenterReceita>()
     val buscaReceitaPorId = _buscaReceitaPorId as LiveData<PresenterReceita>
@@ -65,6 +68,7 @@ class FormularioReceitaViewModel(
 
     /**
      * LiveData para Salvar a receita
+     * Neste LiveData existe uma transformação de model (presenter para domain)
      */
     private var _salvaReceita = MutableLiveData<Boolean>()
     val salvaReceita = _salvaReceita as LiveData<Boolean>
@@ -75,5 +79,17 @@ class FormularioReceitaViewModel(
         _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
     }
 
+    /**
+     * LiveData para remover uma receita
+     * Neste LiveData existe uma transformação de model (presenter para domain)
+     */
+    private var _mRemoveReceita = MutableLiveData<Boolean>()
+    val mRemoveReceita = _mRemoveReceita as LiveData<Boolean>
+
+    suspend fun removeReceita(receita: PresenterReceita){
+        val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
+        val idReceita = receitaFormatada.id
+        _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.receitas.data.repository
 
+import android.util.Log
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  * Repository de receitas implementando a interface de busca DataSource
  */
 
-class DataReceitasRepository(
+class ReceitasRepository(
     private val receitaDao: ReceitaDao,
     private val tipoDao: TipoReceitaDao,
     private val nivelDao: NivelReceitaDao
@@ -42,6 +43,26 @@ class DataReceitasRepository(
             receitaDao.buscaReceitaPorId(id)
         } catch (e: Exception) {
             throw e
+        }
+    }
+
+    override suspend fun deletaReceita(id: Long): Boolean {
+        return try {
+            receitaDao.deleta(id)
+            true
+        } catch (e: Exception){
+            throw e
+            false
+        }
+    }
+
+    override suspend fun removeTodasReceitas(): Boolean {
+        return try {
+            receitaDao.deletaTodas()
+            true
+        } catch (e: Exception){
+            throw e
+            false
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.receitas
 
 import com.example.receitas.data.database.ReceitaDatabase
-import com.example.receitas.data.repository.DataReceitasRepository
+import com.example.receitas.data.repository.ReceitasRepository
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorId
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
@@ -12,6 +12,10 @@ import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTipos
 import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceita
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
+import com.example.receitas.domain.useCase.deletaReceita.DeletaReceita
+import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
+import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitas
+import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
@@ -34,7 +38,7 @@ object AppModules {
             factory { get<ReceitaDatabase>().tipoReceitaDao() }
             factory { get<ReceitaDatabase>().nivelReceitaDao() }
             factory { ReceitaDatabase.getInstance(get()) }
-            factory { DataReceitasRepository(get(), get(), get()) }
+            factory { ReceitasRepository(get(), get(), get()) }
         }
     }
 
@@ -45,12 +49,19 @@ object AppModules {
             factory<BuscaReceitaPorIdUseCase> { BuscaReceitaPorId(get()) }
             factory<BuscaTodosTiposUseCase> { BuscaTodosTipos(get()) }
             factory<BuscaTodosNiveisUseCase> { BuscaTodosNiveis(get()) }
+            factory<DeletaReceitaUseCase> { DeletaReceita(get()) }
+            factory<DeletaTodasReceitasUseCase> { DeletaTodasReceitas(get()) }
         }
     }
 
     private fun listaReceitasViewModel(): Module {
         return module {
-            viewModel { ListaReceitasViewModel(get()) }
+            viewModel {
+                ListaReceitasViewModel(
+                    get(),
+                    get()
+                )
+            }
         }
     }
 
@@ -59,6 +70,7 @@ object AppModules {
             factory { ReceitaMapper() }
             viewModel {
                 FormularioReceitaViewModel(
+                    get(),
                     get(),
                     get(),
                     get(),

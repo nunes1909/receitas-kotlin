@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
+import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
 import kotlinx.coroutines.launch
 
 class ListaReceitasViewModel(
-    private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase
+    private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase,
+    private val deletaTodasReceitasUseCase: DeletaTodasReceitasUseCase
 ) : ViewModel() {
 
     /**
@@ -26,5 +28,15 @@ class ListaReceitasViewModel(
                 _mBusca.value = listReceitas
             }
         }
+    }
+
+    /**
+     * LiveData que remove todas as receitas
+     */
+    private var _mDeletaTodas = MutableLiveData<Boolean>()
+    val deleta = _mDeletaTodas as LiveData<Boolean>
+
+    suspend fun deletaTodas(){
+        _mDeletaTodas.postValue(deletaTodasReceitasUseCase())
     }
 }

@@ -2,9 +2,13 @@ package com.example.receitas.presenter.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.receitas.R
 import com.example.receitas.databinding.ListaReceitasBinding
 import com.example.receitas.presenter.adapter.ListaReceitasAdapter
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
@@ -62,9 +66,40 @@ class ListaReceitas : AppCompatActivity() {
         viewModel.busca.observe(this@ListaReceitas) { listaDeReceitas ->
             adapter.atualiza(listaDeReceitas)
         }
+
+        viewModel.deleta.observe(this@ListaReceitas) { ifDeleteAll ->
+            if (ifDeleteAll) adapter.notifyDataSetChanged()
+        }
     }
 
     private suspend fun buscaTodas() {
         viewModel.buscaReceitas()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_lista_receitas, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.ic_action_delete_all -> {
+                removeTodasReceitas()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun removeTodasReceitas() {
+        AlertDialog.Builder(this@ListaReceitas)
+            .setTitle("Excluíndo todas receitas")
+            .setMessage("Tem certeza que quer remover todas receitas?")
+            .setPositiveButton("Sim") { _, _ ->
+                lifecycleScope.launch {
+                    viewModel.deletaTodas()
+                }
+            }
+            .setNegativeButton("Não") { _, _ -> }
+            .show()
     }
 }

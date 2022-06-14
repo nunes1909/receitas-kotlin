@@ -1,6 +1,6 @@
 package com.example.receitas.domain.useCase.carregaFormulario
 
-import com.example.receitas.data.repository.DataReceitasRepository
+import com.example.receitas.data.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
  */
 
 class BuscaTodosTipos(
-    private val repository: DataReceitasRepository
+    private val repository: ReceitasRepository
 ) : BuscaTodosTiposUseCase {
     override fun invoke(): Flow<List<String>> {
         return repository.buscaTipoValues()
