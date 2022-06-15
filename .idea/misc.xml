@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_delete.xml" value="0.3775" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_save.xml" value="0.3775" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable/ic_fundo.xml" value="0.9" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable/teste.xml" value="0.3155" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/drop_nivel_receita.xml" value="0.5541666666666667" />
