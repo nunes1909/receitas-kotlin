@@ -46,11 +46,13 @@ class ReceitaApplication : Application() {
         try {
             val tipoReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).tipoReceitaDao()
-
-            val tipo1 = TipoReceita(id = 0, "Refeição")
-            val tipo2 = TipoReceita(id = 1, "Lanche")
-            val tipo3 = TipoReceita(id = 2, "Drink")
-            tipoReceitaDao.salvaTipo(tipo1, tipo2, tipo3)
+            val tipo0 = TipoReceita(id = 0, "Refeição")
+            val tipo1 = TipoReceita(id = 1, "Saudável")
+            val tipo2 = TipoReceita(id = 2, "Lanche")
+            val tipo3 = TipoReceita(id = 3, "Sobremesa")
+            val tipo4 = TipoReceita(id = 4, "Rápido")
+            val tipo5 = TipoReceita(id = 5, "Drink")
+            tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3, tipo4, tipo5)
         } catch (e: Exception) {
             throw e
         }

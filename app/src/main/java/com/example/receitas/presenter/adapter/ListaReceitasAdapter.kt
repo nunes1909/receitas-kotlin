@@ -68,8 +68,11 @@ class ListaReceitasAdapter(
         private fun configuraImagemTipo(tipoId: Int?) {
             when (tipoId) {
                 0 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
-                1 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
-                2 -> binding.itemRvReceitaImage.load(R.drawable.drink)
+                1 -> binding.itemRvReceitaImage.load(R.drawable.saudavel)
+                2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
+                3 -> binding.itemRvReceitaImage.load(R.drawable.sobremesa)
+                4 -> binding.itemRvReceitaImage.load(R.drawable.rapido)
+                5 -> binding.itemRvReceitaImage.load(R.drawable.drink)
             }
         }
     }
