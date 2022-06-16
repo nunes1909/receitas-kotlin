@@ -1,4 +1,4 @@
-package com.example.receitas.domain.useCase.carregaFormulario
+package com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario
 
 import com.example.receitas.data.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow

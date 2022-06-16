@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Título da receita"
                     android:inputType="textCapWords"
-                    android:padding="16dp"
                     android:textSize="18sp" />
 
             </com.google.android.material.textfield.TextInputLayout>

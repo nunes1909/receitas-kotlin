@@ -30,4 +30,13 @@ interface ReceitasDataSource {
     // Busca value Nivel
     fun buscaNivelValues(): Flow<List<String>>
 
+    // Busca o Id de tipo e nivel
+    suspend fun buscaTipoIdPelaDescricao(descricao: String): Int
+
+    suspend fun buscaNivelIdPelaDescricao(descricao: String): Int
+
+    suspend fun buscaTipoDescricaoPeloId(id: Int): String
+
+    suspend fun buscaNivelDescricaoPeloId(id: Int): String
+
 }

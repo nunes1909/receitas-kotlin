@@ -33,9 +33,9 @@ class ReceitaApplication : Application() {
             val nivelReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).nivelReceitaDao()
 
-            val nivel1 = NivelReceita(1, "Fácil")
-            val nivel2 = NivelReceita(2, "Médio")
-            val nivel3 = NivelReceita(3, "Difícil")
+            val nivel1 = NivelReceita(0, "Fácil")
+            val nivel2 = NivelReceita(1, "Médio")
+            val nivel3 = NivelReceita(2, "Difícil")
             nivelReceitaDao.salvaNivel(nivel1, nivel2, nivel3)
         } catch (e: Exception) {
             throw e
@@ -47,9 +47,9 @@ class ReceitaApplication : Application() {
             val tipoReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).tipoReceitaDao()
 
-            val tipo1 = TipoReceita(id = 1, "Refeição")
-            val tipo2 = TipoReceita(id = 2, "Lanche")
-            val tipo3 = TipoReceita(id = 3, "Drink")
+            val tipo1 = TipoReceita(id = 0, "Refeição")
+            val tipo2 = TipoReceita(id = 1, "Lanche")
+            val tipo3 = TipoReceita(id = 2, "Drink")
             tipoReceitaDao.salvaTipo(tipo1, tipo2, tipo3)
         } catch (e: Exception) {
             throw e

@@ -46,17 +46,17 @@ class ListaReceitasAdapter(
         // Configura image de dificuldade
         private fun configuraImageNivel(nivelId: Int?) {
             when (nivelId) {
-                1 -> {
+                0 -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_false)
                     binding.nivelDificil.load(R.drawable.ic_action_star_false)
                 }
-                2 -> {
+                1 -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_true)
                     binding.nivelDificil.load(R.drawable.ic_action_star_false)
                 }
-                3 -> {
+                2 -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_true)
                     binding.nivelDificil.load(R.drawable.ic_action_star_true)
@@ -67,9 +67,9 @@ class ListaReceitasAdapter(
         // Configura image de Tipo
         private fun configuraImagemTipo(tipoId: Int?) {
             when (tipoId) {
-                1 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
-                2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
-                3 -> binding.itemRvReceitaImage.load(R.drawable.drink)
+                0 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
+                1 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
+                2 -> binding.itemRvReceitaImage.load(R.drawable.drink)
             }
         }
     }

@@ -1,51 +1,39 @@
 package com.example.receitas.presenter.mapper
 
 import com.example.receitas.domain.model.Receita
+import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaDescricaoPeloIdUseCase
+import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaIdPelaDescricaoUseCase
 import com.example.receitas.presenter.model.PresenterReceita
 
 /**
  * Classe responsável por transformar a Model da Domain (principal)
  * na model da Presenter
  */
-class ReceitaMapper {
-
+class ReceitaMapper(
+    private val buscaIdPelaDescricaoUseCase: BuscaIdPelaDescricaoUseCase,
+    private val buscaDescricaoPeloIdUseCase: BuscaDescricaoPeloIdUseCase
+) {
     // Transforma a Presenter em Domain
-    fun dePresenterParaDomain(receita: PresenterReceita): Receita {
+    suspend fun dePresenterParaDomain(presenterReceita: PresenterReceita): Receita {
 
-        val tipoId: Int = when (receita.tipoId) {
-            "Refeição" -> 1
-            "Lanche" -> 2
-            else -> 3
-        }
-        val nivelId: Int = when (receita.nivelId) {
-            "Fácil" -> 1
-            "Médio" -> 2
-            else -> 3
-        }
+        val tipoId = buscaIdPelaDescricaoUseCase.buscaTipoId(presenterReceita.tipoId)
+        val nivelId = buscaIdPelaDescricaoUseCase.buscaNivelId(presenterReceita.nivelId)
 
         return Receita(
-            id = receita.id,
-            titulo = receita.titulo,
+            id = presenterReceita.id,
+            titulo = presenterReceita.titulo,
             tipoId = tipoId,
             nivelId = nivelId,
-            ingredientes = receita.ingredientes,
-            preparo = receita.preparo
+            ingredientes = presenterReceita.ingredientes,
+            preparo = presenterReceita.preparo
         )
     }
 
     // Transforma a Domain em Presenter
-    fun deDomainParaPresenter(receita: Receita): PresenterReceita {
+    suspend fun deDomainParaPresenter(receita: Receita): PresenterReceita {
 
-        val tipo: String = when (receita.tipoId) {
-            1 -> "Refeição"
-            2 -> "Lanche"
-            else -> "Drink"
-        }
-        val nivel: String = when (receita.nivelId) {
-            1 -> "Fácil"
-            2 -> "Médio"
-            else -> "Difícil"
-        }
+        val tipo = buscaDescricaoPeloIdUseCase.buscaTipoDescricao(receita.tipoId)
+        val nivel = buscaDescricaoPeloIdUseCase.buscaNivelDescricao(receita.nivelId)
 
         return PresenterReceita(
             id = receita.id,

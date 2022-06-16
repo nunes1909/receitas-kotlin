@@ -1,11 +1,9 @@
 package com.example.receitas.presenter.ui.view
 
-import android.graphics.Color.red
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -68,10 +66,17 @@ class FormularioReceita : AppCompatActivity() {
         }
 
         // Observa a busca da receita pelo Id e popula os campos
-        viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { receita ->
+        viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { resource ->
+            presenterReceita = resource.pushPresenterReceita()
+            val receita = resource.pushReceita()
             binding.run {
-                presenterReceita = receita
                 formularioReceitaTitulo.setText(receita.titulo)
+                formularioReceitaTipo.setText(
+                    formularioReceitaTipo.adapter.getItem(receita.tipoId).toString(), false
+                )
+                formularioReceitaNivel.setText(
+                    formularioReceitaNivel.adapter.getItem(receita.nivelId).toString(), false
+                )
                 formularioReceitaIngrediente.setText(receita.ingredientes)
                 formularioReceitaPreparo.setText(receita.preparo)
             }
@@ -151,6 +156,5 @@ class FormularioReceita : AppCompatActivity() {
                 .setNegativeButton("Não") { _, _ -> }
                 .show()
         }
-
     }
 }

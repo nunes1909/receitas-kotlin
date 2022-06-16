@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class TipoReceita(
     @PrimaryKey(autoGenerate = false)
-    val id: Long? = null,
+    val id: Int,
     val descricao: String
 )

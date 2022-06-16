@@ -15,4 +15,10 @@ interface TipoReceitaDao {
 
     @Query("SELECT descricao FROM TipoReceita")
     fun buscaTipos(): Flow<List<String>>
+
+    @Query("SELECT id FROM TipoReceita WHERE descricao = :descricao")
+    suspend fun buscaId(descricao: String): Int
+
+    @Query("SELECT descricao FROM TipoReceita WHERE id = :id")
+    suspend fun buscaDescricao(id: Int): String
 }

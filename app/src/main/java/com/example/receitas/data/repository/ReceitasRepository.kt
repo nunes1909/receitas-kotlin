@@ -1,6 +1,5 @@
 package com.example.receitas.data.repository
 
-import android.util.Log
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
@@ -76,4 +75,19 @@ class ReceitasRepository(
         return nivelDao.buscaNiveis()
     }
 
+    override suspend fun buscaTipoIdPelaDescricao(descricao: String): Int {
+        return tipoDao.buscaId(descricao)
+    }
+
+    override suspend fun buscaTipoDescricaoPeloId(id: Int): String {
+        return tipoDao.buscaDescricao(id)
+    }
+
+    override suspend fun buscaNivelIdPelaDescricao(descricao: String): Int {
+        return nivelDao.buscaId(descricao)
+    }
+
+    override suspend fun buscaNivelDescricaoPeloId(id: Int): String {
+        return nivelDao.buscaDescricao(id)
+    }
 }

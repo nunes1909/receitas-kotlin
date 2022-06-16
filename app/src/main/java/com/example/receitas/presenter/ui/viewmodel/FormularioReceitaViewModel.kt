@@ -3,13 +3,13 @@ package com.example.receitas.presenter.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosNiveisUseCase
-import com.example.receitas.domain.useCase.carregaFormulario.BuscaTodosTiposUseCase
+import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosNiveisUseCase
+import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.presenter.mapper.ReceitaMapper
+import com.example.receitas.presenter.mapper.ResourceReceita
 import com.example.receitas.presenter.model.PresenterReceita
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +21,7 @@ class FormularioReceitaViewModel(
     private val buscaReceitaPorIdUseCase: BuscaReceitaPorIdUseCase,
     private val deletaReceitaUseCase: DeletaReceitaUseCase,
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
-    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase
+    private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
 ) : ViewModel() {
 
     /**
@@ -54,16 +54,15 @@ class FormularioReceitaViewModel(
      * LiveData + Configs para buscar os dados da receita pelo Id
      * Neste LiveData existe uma transformação de model (domain para presenter)
      */
-    private var _buscaReceitaPorId = MutableLiveData<PresenterReceita>()
-    val buscaReceitaPorId = _buscaReceitaPorId as LiveData<PresenterReceita>
+    private var _buscaReceitaPorId = MutableLiveData<ResourceReceita>()
+    val buscaReceitaPorId = _buscaReceitaPorId as LiveData<ResourceReceita>
 
     suspend fun buscaPorId(id: Long) {
         if (id > 0L && id != null) {
             val receita = buscaReceitaPorIdUseCase(id = id)
-
             val receitaFormatada = receitaMapper.deDomainParaPresenter(receita)
 
-            _buscaReceitaPorId.postValue(receitaFormatada)
+            _buscaReceitaPorId.postValue(ResourceReceita(receitaFormatada, receita))
         }
     }
 
@@ -100,11 +99,11 @@ class FormularioReceitaViewModel(
     }
 
     private fun validaCampos(valor: String): Boolean {
-        return if (valor.isEmpty()) {
+        return if (valor.isNotEmpty()) {
+            true
+        } else {
             validacao = false
             false
-        } else {
-            true
         }
     }
 
