@@ -15,4 +15,6 @@
     <color name="colorSecondary">#FF9084</color>
     <color name="colorSecondaryVariant">#FFB6A8</color>
     <color name="colorOnSecondary">#FFFFFF</color>
+
+    <color name="colorImageBackg">#E0E0E0</color>
 </resources>
