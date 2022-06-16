@@ -39,15 +39,4 @@ class ListaReceitasViewModel(
     suspend fun deletaTodas(){
         _mDeletaTodas.postValue(deletaTodasReceitasUseCase())
     }
-
-
-    /**
-     * LiveData que reordena a listagem de receitas
-     */
-    private var _mReorder = MutableLiveData<List<Receita>>()
-    val reorder = _mReorder as LiveData<List<Receita>>
-
-    fun reordenaLista(item: String) {
-        buscaTodasReceitasUseCase("item")
-    }
 }
