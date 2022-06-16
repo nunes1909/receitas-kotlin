@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface BuscaTodasReceitasUseCase {
-    operator fun invoke(): Flow<List<Receita>>
+    operator fun invoke(valor: String): Flow<List<Receita>>
 }

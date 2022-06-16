@@ -13,7 +13,7 @@ interface ReceitasDataSource {
     suspend fun salvaReceita(receita: Receita): Boolean
 
     // Busca todas receitas
-    fun buscaTodasReceitas(): Flow<List<Receita>?>
+    fun buscaTodasReceitas(valor: String): Flow<List<Receita>?>
 
     // Busca receita por id
     suspend fun buscaReceitaPorId(id: Long): Receita?

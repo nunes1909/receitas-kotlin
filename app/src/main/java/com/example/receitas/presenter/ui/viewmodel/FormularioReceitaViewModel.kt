@@ -120,4 +120,11 @@ class FormularioReceitaViewModel(
         _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))
     }
 
+    private val _mLimpaForm = MutableLiveData<Boolean>()
+    val limpaForm = _mLimpaForm as LiveData<Boolean>
+
+    fun limpaFormulario(){
+        _mLimpaForm.value = true
+    }
+
 }

@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.flowOf
 class BuscaTodasReceitas(
     private val repository: ReceitasRepository
 ) : BuscaTodasReceitasUseCase {
-    override fun invoke(): Flow<List<Receita>> {
+    override fun invoke(valor: String): Flow<List<Receita>> {
         return try {
-            repository.buscaTodasReceitas()
+            repository.buscaTodasReceitas(valor)
         } catch (e: Exception) {
             Log.e("BuscaTodasReceitas", "BuscaTodasReceitas: $e")
             flowOf()

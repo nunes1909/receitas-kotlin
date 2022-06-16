@@ -22,8 +22,18 @@ interface ReceitaDao {
     @Query("DELETE FROM Receita")
     suspend fun deletaTodas()
 
+    @Query("SELECT * FROM Receita ORDER BY id ASC")
+    fun reorderIdCrescente(): Flow<List<Receita>>
+
     @Query("SELECT * FROM Receita ORDER BY id DESC")
-    fun buscaTodasReceitas(): Flow<List<Receita>>
+    fun reorderIdDecrescente(): Flow<List<Receita>>
+
     @Query("SELECT * FROM Receita WHERE id = :id")
     suspend fun buscaReceitaPorId(id: Long): Receita
+
+    @Query("SELECT * FROM Receita ORDER BY tipoId ASC")
+    fun reorderTipo(): Flow<List<Receita>>
+
+    @Query("SELECT * FROM Receita ORDER BY nivelId ASC")
+    fun reorderNivel(): Flow<List<Receita>>
 }

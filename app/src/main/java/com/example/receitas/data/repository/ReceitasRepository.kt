@@ -5,6 +5,7 @@ import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
 import com.example.receitas.domain.model.Receita
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Repository de receitas implementando a interface de busca DataSource
@@ -32,8 +33,14 @@ class ReceitasRepository(
     }
 
     // Busca todas as receitas
-    override fun buscaTodasReceitas(): Flow<List<Receita>> {
-        return receitaDao.buscaTodasReceitas()
+    override fun buscaTodasReceitas(valor: String): Flow<List<Receita>> {
+        return when (valor) {
+            "tipo" -> receitaDao.reorderTipo()
+            "nivel" -> receitaDao.reorderNivel()
+            "asc" -> receitaDao.reorderIdCrescente()
+            "desc" -> receitaDao.reorderIdDecrescente()
+            else -> flowOf()
+        }
     }
 
     // Busca receita pelo Id
@@ -49,7 +56,7 @@ class ReceitasRepository(
         return try {
             receitaDao.deleta(id)
             true
-        } catch (e: Exception){
+        } catch (e: Exception) {
             throw e
             false
         }
@@ -59,7 +66,7 @@ class ReceitasRepository(
         return try {
             receitaDao.deletaTodas()
             true
-        } catch (e: Exception){
+        } catch (e: Exception) {
             throw e
             false
         }

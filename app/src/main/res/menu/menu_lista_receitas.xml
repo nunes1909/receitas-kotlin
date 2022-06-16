@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/ic_action_delete_all"
         android:icon="@drawable/ic_action_delete"
-        android:title="Remover todas"
+        android:title="Apagar todas"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/ic_action_order"
+        android:title="Reordenar"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/ic_order_tipo"
+                android:title="Tipo"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/ic_order_nivel"
+                android:title="Nível"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/ic_order_id_desc"
+                android:title="Mais recente"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/ic_order_id_asc"
+                android:title="Mais antigo"
+                app:showAsAction="ifRoom"/>
+        </menu>
+
+    </item>
 </menu>

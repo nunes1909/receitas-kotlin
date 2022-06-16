@@ -3,6 +3,7 @@ package com.example.receitas.presenter.ui.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.example.receitas.R
 import com.example.receitas.databinding.FormularioReceitaBinding
 import com.example.receitas.presenter.model.PresenterReceita
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -102,21 +104,30 @@ class FormularioReceita : AppCompatActivity() {
             if (!it) binding.formularioReceitaLayoutNivel.error = "Nível obrigatório"
             else binding.formularioReceitaLayoutNivel.error = null
         }
+
+        viewModel.limpaForm.observe(this@FormularioReceita) { ifClear ->
+            if (ifClear) {
+                binding.run {
+                    formularioReceitaTitulo.setText("")
+                    formularioReceitaTipo.setText("")
+                    formularioReceitaNivel.setText("")
+                    formularioReceitaIngrediente.setText("")
+                    formularioReceitaPreparo.setText("")
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_receita, menu)
+        menuInflater.inflate(R.menu.menu_formulario_receita, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.ic_action_save -> {
-                salvaReceita()
-            }
-            R.id.ic_action_delete -> {
-                removeReceita()
-            }
+            R.id.ic_action_save -> salvaReceita()
+            R.id.ic_action_delete -> removeReceita()
+            R.id.ic_action_clear -> limparFormulario()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -146,8 +157,8 @@ class FormularioReceita : AppCompatActivity() {
     private fun removeReceita() {
         presenterReceita?.let { receita ->
             AlertDialog.Builder(this@FormularioReceita)
-                .setTitle("Excluíndo receita")
-                .setMessage("Tem certeza que quer remover essa receita?")
+                .setIcon(R.drawable.ic_action_warning)
+                .setTitle("Apagar essa receita?")
                 .setPositiveButton("Sim") { _, _ ->
                     lifecycleScope.launch {
                         viewModel.removeReceita(receita)
@@ -156,5 +167,10 @@ class FormularioReceita : AppCompatActivity() {
                 .setNegativeButton("Não") { _, _ -> }
                 .show()
         }
+
+    }
+
+    private fun limparFormulario() {
+        viewModel.limpaFormulario()
     }
 }

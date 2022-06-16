@@ -73,7 +73,7 @@ class ListaReceitas : AppCompatActivity() {
     }
 
     private suspend fun buscaTodas() {
-        viewModel.buscaReceitas()
+        viewModel.buscaReceitas("desc")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,17 +83,19 @@ class ListaReceitas : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.ic_action_delete_all -> {
-                removeTodasReceitas()
-            }
+            R.id.ic_action_delete_all -> removeTodasReceitas()
+            R.id.ic_order_tipo -> reorderReceitas("tipo")
+            R.id.ic_order_nivel -> reorderReceitas("nivel")
+            R.id.ic_order_id_asc -> reorderReceitas("asc")
+            R.id.ic_order_id_desc -> reorderReceitas("desc")
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun removeTodasReceitas() {
         AlertDialog.Builder(this@ListaReceitas)
-            .setTitle("Excluíndo todas receitas")
-            .setMessage("Tem certeza que quer remover todas receitas?")
+            .setIcon(R.drawable.ic_action_warning)
+            .setTitle("Apagar todas as receitas?")
             .setPositiveButton("Sim") { _, _ ->
                 lifecycleScope.launch {
                     viewModel.deletaTodas()
@@ -101,5 +103,11 @@ class ListaReceitas : AppCompatActivity() {
             }
             .setNegativeButton("Não") { _, _ -> }
             .show()
+    }
+
+    private fun reorderReceitas(item: String) {
+        lifecycleScope.launch {
+            viewModel.buscaReceitas(item)
+        }
     }
 }

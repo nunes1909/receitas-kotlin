@@ -20,8 +20,8 @@ class ListaReceitasViewModel(
     private var _mBusca = MutableLiveData<List<Receita>>()
     val busca = _mBusca as LiveData<List<Receita>>
 
-    suspend fun buscaReceitas() {
-        val flowReceitas = buscaTodasReceitasUseCase()
+    suspend fun buscaReceitas(item: String) {
+        val flowReceitas = buscaTodasReceitasUseCase(item)
 
         viewModelScope.launch {
             flowReceitas.collect { listReceitas ->
@@ -38,5 +38,16 @@ class ListaReceitasViewModel(
 
     suspend fun deletaTodas(){
         _mDeletaTodas.postValue(deletaTodasReceitasUseCase())
+    }
+
+
+    /**
+     * LiveData que reordena a listagem de receitas
+     */
+    private var _mReorder = MutableLiveData<List<Receita>>()
+    val reorder = _mReorder as LiveData<List<Receita>>
+
+    fun reordenaLista(item: String) {
+        buscaTodasReceitasUseCase("item")
     }
 }
