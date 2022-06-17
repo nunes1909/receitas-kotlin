@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ReceitaDao {
 
+    //Inicio CRUD
     @Insert
     suspend fun salva(receita: Receita)
 
@@ -22,14 +23,15 @@ interface ReceitaDao {
     @Query("DELETE FROM Receita")
     suspend fun deletaTodas()
 
+    // Reordenações
+    @Query("SELECT * FROM Receita WHERE id = :id")
+    suspend fun buscaReceitaPorId(id: Long): Receita
+
     @Query("SELECT * FROM Receita ORDER BY id ASC")
     fun reorderIdCrescente(): Flow<List<Receita>>
 
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun reorderIdDecrescente(): Flow<List<Receita>>
-
-    @Query("SELECT * FROM Receita WHERE id = :id")
-    suspend fun buscaReceitaPorId(id: Long): Receita
 
     @Query("SELECT * FROM Receita ORDER BY tipo_id ASC")
     fun reorderTipo(): Flow<List<Receita>>

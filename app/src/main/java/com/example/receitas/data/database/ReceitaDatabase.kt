@@ -5,17 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.receitas.data.database.converters.ImageConverter
+import com.example.receitas.data.database.converters.Converter
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
 import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.model.TipoReceita
-
-/**
- * Implementação do Database do Room com singleton
- */
 
 @Database(
     entities = [
@@ -26,7 +22,7 @@ import com.example.receitas.domain.model.TipoReceita
     version = 1,
     exportSchema = true
 )
-@TypeConverters(ImageConverter::class)
+@TypeConverters(Converter::class)
 abstract class ReceitaDatabase : RoomDatabase() {
 
     abstract fun receitaDao(): ReceitaDao

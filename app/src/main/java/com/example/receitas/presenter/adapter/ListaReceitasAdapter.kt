@@ -23,7 +23,7 @@ class ListaReceitasAdapter(
             val titulo = binding.itemRvReceitaTitulo
             titulo.text = receita.titulo
 
-            if (receita.imagem != null && receita.exibeImagem == 1){
+            if (receita.imagem != null && receita.exibeImagem == 1) {
                 binding.itemRvReceitaImage.load(receita.imagem)
             } else {
                 configuraImagemTipo(receita.tipoId)
@@ -83,7 +83,6 @@ class ListaReceitasAdapter(
         holder.itemView.setOnClickListener {
             listener(receita.id)
         }
-
     }
 
     override fun getItemCount() = receitas.size

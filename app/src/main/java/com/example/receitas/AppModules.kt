@@ -1,7 +1,8 @@
 package com.example.receitas
 
 import com.example.receitas.data.database.ReceitaDatabase
-import com.example.receitas.data.repository.ReceitasRepository
+import com.example.receitas.data.repository.formulario.FormularioRepository
+import com.example.receitas.data.repository.receitas.ReceitasRepository
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorId
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
@@ -20,7 +21,6 @@ import com.example.receitas.domain.useCase.deletaReceita.DeletaReceita
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitas
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
-import com.example.receitas.presenter.mapper.ImageMapper
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
@@ -43,7 +43,8 @@ object AppModules {
             factory { get<ReceitaDatabase>().tipoReceitaDao() }
             factory { get<ReceitaDatabase>().nivelReceitaDao() }
             factory { ReceitaDatabase.getInstance(get()) }
-            factory { ReceitasRepository(get(), get(), get()) }
+            factory { ReceitasRepository(get()) }
+            factory { FormularioRepository(get(), get()) }
         }
     }
 

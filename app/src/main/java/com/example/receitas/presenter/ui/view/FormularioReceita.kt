@@ -18,9 +18,7 @@ import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class FormularioReceita : AppCompatActivity() {
-
 
     private val binding by lazy {
         FormularioReceitaBinding.inflate(layoutInflater)
@@ -33,15 +31,35 @@ class FormularioReceita : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        configuraFab()
         tentaCarregarId()
+        observers()
         lifecycleScope.launch {
             configuraFormulario()
         }
-        observers()
+        configuraFabsImage()
     }
 
-    private fun configuraFab() {
+    private fun tentaCarregarId() {
+        val idRecebido = intent.getLongExtra("receita_id", 0L)
+        receitaId = idRecebido
+    }
+
+    fun observers() {
+        observerConfiguraFormulario()
+        observerCrudReceita()
+        observerValidacoesFormulario()
+        observerLimpaFormulario()
+    }
+
+    private suspend fun configuraFormulario() {
+        viewModel.configuraFormulario()
+        viewModel.buscaPorId(receitaId)
+    }
+
+    /**
+     * Inicio config image
+     */
+    private fun configuraFabsImage() {
         binding.formularioReceitaFabCam.setOnClickListener {
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                 startActivityForResult(this, 1)
@@ -75,20 +93,11 @@ class FormularioReceita : AppCompatActivity() {
             }
         }
     }
+    /**
+     * Fim config image
+     */
 
-    private fun tentaCarregarId() {
-        val idRecebido = intent.getLongExtra("receita_id", 0L)
-        receitaId = idRecebido
-//        val imagemRecebida = intent.getByteArrayExtra("receita_image")
-//        imagemReceita = imagemRecebida
-    }
-
-    private suspend fun configuraFormulario() {
-        viewModel.configuraFormulario()
-        viewModel.buscaPorId(receitaId)
-    }
-
-    fun observers() {
+    private fun observerConfiguraFormulario() {
         // Observa o dropDown Tipo
         viewModel.buscaTipo.observe(this@FormularioReceita) { listTipo ->
             val tipoAdapter =
@@ -102,17 +111,32 @@ class FormularioReceita : AppCompatActivity() {
                 ArrayAdapter(this@FormularioReceita, R.layout.drop_values_receita, listNivel)
             binding.formularioReceitaNivel.setAdapter(nivelAdapter)
         }
+    }
 
+    private fun observerCrudReceita() {
         // Observa a criação da receita
         viewModel.salvaReceita.observe(this@FormularioReceita) { ifSave ->
             if (ifSave) finish()
         }
 
+        // Observer carrega foto
+        viewModel.carregaFoto.observe(this@FormularioReceita) { imagem ->
+            binding.formularioReceitaImagem.load(imagem)
+            imagemReceita = imagem
+        }
+
+        // Observa a remoção da receita
+        viewModel.mRemoveReceita.observe(this@FormularioReceita) { ifDelete ->
+            if (ifDelete) finish()
+        }
+
         // Observa a busca da receita pelo Id e popula os campos
         viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { resource ->
+
             presenterReceita = resource.pushPresenterReceita()
             val receita = resource.pushReceita()
             imagemReceita = receita.imagem
+
             binding.run {
                 formularioReceitaTitulo.setText(receita.titulo)
                 formularioReceitaTipo.setText(
@@ -127,12 +151,9 @@ class FormularioReceita : AppCompatActivity() {
                 if (receita.exibeImagem == 1) formularioReceitaSwitch.isChecked = true
             }
         }
+    }
 
-        // Observa a remoção da receita
-        viewModel.mRemoveReceita.observe(this@FormularioReceita) { ifDelete ->
-            if (ifDelete) finish()
-        }
-
+    private fun observerValidacoesFormulario() {
         // Observers de validação
         viewModel.validaTitulo.observe(this@FormularioReceita) {
             if (!it) binding.formularioReceitaLayoutTitulo.error = "Título obrigatório"
@@ -148,7 +169,9 @@ class FormularioReceita : AppCompatActivity() {
             if (!it) binding.formularioReceitaLayoutNivel.error = "Nível obrigatório"
             else binding.formularioReceitaLayoutNivel.error = null
         }
+    }
 
+    private fun observerLimpaFormulario() {
         // Observer limpa formulario
         viewModel.limpaForm.observe(this@FormularioReceita) { ifClear ->
             if (ifClear) {
@@ -158,14 +181,9 @@ class FormularioReceita : AppCompatActivity() {
                     formularioReceitaNivel.setText("")
                     formularioReceitaIngrediente.setText("")
                     formularioReceitaPreparo.setText("")
+                    formularioReceitaImagem.load(R.drawable.default_background)
                 }
             }
-        }
-
-        // Observer carrega foto
-        viewModel.carregaFoto.observe(this@FormularioReceita) { imagem ->
-            binding.formularioReceitaImagem.load(imagem)
-            imagemReceita = imagem
         }
     }
 
@@ -191,10 +209,8 @@ class FormularioReceita : AppCompatActivity() {
         val preparo = binding.formularioReceitaPreparo.text.toString()
         val switch = if (binding.formularioReceitaSwitch.isChecked) 1 else 0
 
-
         lifecycleScope.launch {
             viewModel.salvaReceita(
-
                 PresenterReceita(
                     id = receitaId,
                     titulo = titulo,
@@ -215,17 +231,12 @@ class FormularioReceita : AppCompatActivity() {
                 .setIcon(R.drawable.ic_action_warning)
                 .setTitle("Apagar essa receita?")
                 .setPositiveButton("Sim") { _, _ ->
-                    lifecycleScope.launch {
-                        viewModel.removeReceita(receita)
-                    }
+                    lifecycleScope.launch { viewModel.removeReceita(receita) }
                 }
                 .setNegativeButton("Não") { _, _ -> }
                 .show()
         }
-
     }
 
-    private fun limparFormulario() {
-        viewModel.limpaFormulario()
-    }
+    private fun limparFormulario() { viewModel.limpaFormulario() }
 }

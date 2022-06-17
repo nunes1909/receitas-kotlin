@@ -75,15 +75,6 @@ class FormularioReceitaViewModel(
     private var _salvaReceita = MutableLiveData<Boolean>()
     val salvaReceita = _salvaReceita as LiveData<Boolean>
 
-    private var _validaTitulo = MutableLiveData<Boolean>()
-    val validaTitulo = _validaTitulo as LiveData<Boolean>
-
-    private var _validaTipo = MutableLiveData<Boolean>()
-    val validaTipo = _validaTipo as LiveData<Boolean>
-
-    private var _validaNivel = MutableLiveData<Boolean>()
-    val validaNivel = _validaNivel as LiveData<Boolean>
-
     private var validacao = false
 
     suspend fun salvaReceita(receita: PresenterReceita) {
@@ -99,6 +90,18 @@ class FormularioReceitaViewModel(
         }
     }
 
+    /**
+     * LiveDatas das validações dos campos obrigatórios no formulário
+     */
+    private var _validaTitulo = MutableLiveData<Boolean>()
+    val validaTitulo = _validaTitulo as LiveData<Boolean>
+
+    private var _validaTipo = MutableLiveData<Boolean>()
+    val validaTipo = _validaTipo as LiveData<Boolean>
+
+    private var _validaNivel = MutableLiveData<Boolean>()
+    val validaNivel = _validaNivel as LiveData<Boolean>
+
     private fun validaCampos(valor: String): Boolean {
         return if (valor.isNotEmpty()) {
             true
@@ -108,6 +111,9 @@ class FormularioReceitaViewModel(
         }
     }
 
+    /**
+     * LiveData que carrega a foto na imageview do formulário
+     */
     private var _mCarregaFoto = MutableLiveData<Bitmap>()
     val carregaFoto = _mCarregaFoto as LiveData<Bitmap>
 
@@ -128,11 +134,14 @@ class FormularioReceitaViewModel(
         val idReceita = receitaFormatada.id
         _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))
     }
-    private val _mLimpaForm = MutableLiveData<Boolean>()
 
+    /**
+     * LiveData que limpa os dados do formulário
+     */
+    private val _mLimpaForm = MutableLiveData<Boolean>()
     val limpaForm = _mLimpaForm as LiveData<Boolean>
 
-    fun limpaFormulario(){
+    fun limpaFormulario() {
         _mLimpaForm.value = true
     }
 

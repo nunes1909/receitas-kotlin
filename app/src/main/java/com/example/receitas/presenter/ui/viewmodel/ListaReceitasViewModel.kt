@@ -36,7 +36,7 @@ class ListaReceitasViewModel(
     private var _mDeletaTodas = MutableLiveData<Boolean>()
     val deleta = _mDeletaTodas as LiveData<Boolean>
 
-    suspend fun deletaTodas(){
+    suspend fun deletaTodas() {
         _mDeletaTodas.postValue(deletaTodasReceitasUseCase())
     }
 }

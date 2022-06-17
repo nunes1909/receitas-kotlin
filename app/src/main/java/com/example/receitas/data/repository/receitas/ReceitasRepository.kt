@@ -1,23 +1,14 @@
-package com.example.receitas.data.repository
+package com.example.receitas.data.repository.receitas
 
 import android.util.Log
-import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
-import com.example.receitas.data.database.dao.TipoReceitaDao
 import com.example.receitas.domain.model.Receita
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-/**
- * Repository de receitas implementando a interface de busca DataSource
- */
-
 class ReceitasRepository(
-    private val receitaDao: ReceitaDao,
-    private val tipoDao: TipoReceitaDao,
-    private val nivelDao: NivelReceitaDao
+    private val receitaDao: ReceitaDao
 ) : ReceitasDataSource {
-
     // Salva receita
     override suspend fun salvaReceita(receita: Receita): Boolean {
         val save: Boolean = try {
@@ -54,6 +45,7 @@ class ReceitasRepository(
         }
     }
 
+    // Remove uma receita pelo id
     override suspend fun deletaReceita(id: Long): Boolean {
         return try {
             receitaDao.deleta(id)
@@ -64,6 +56,7 @@ class ReceitasRepository(
         }
     }
 
+    // Remove todas as receitas
     override suspend fun removeTodasReceitas(): Boolean {
         return try {
             receitaDao.deletaTodas()
@@ -72,31 +65,5 @@ class ReceitasRepository(
             throw e
             false
         }
-    }
-
-    // Busca os tipos de receita
-    override fun buscaTipoValues(): Flow<List<String>> {
-        return tipoDao.buscaTipos()
-    }
-
-    // Busca os niveis de receita
-    override fun buscaNivelValues(): Flow<List<String>> {
-        return nivelDao.buscaNiveis()
-    }
-
-    override suspend fun buscaTipoIdPelaDescricao(descricao: String): Int {
-        return tipoDao.buscaId(descricao)
-    }
-
-    override suspend fun buscaTipoDescricaoPeloId(id: Int): String {
-        return tipoDao.buscaDescricao(id)
-    }
-
-    override suspend fun buscaNivelIdPelaDescricao(descricao: String): Int {
-        return nivelDao.buscaId(descricao)
-    }
-
-    override suspend fun buscaNivelDescricaoPeloId(id: Int): String {
-        return nivelDao.buscaDescricao(id)
     }
 }

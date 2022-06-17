@@ -6,7 +6,6 @@ import com.example.receitas.presenter.model.PresenterReceita
 /**
  * Classe que recebe e devolve as receitas Presenter e Domain para a View
  */
-
 class ResourceReceita(
     private val presenterReceita: PresenterReceita,
     private val receita: Receita
