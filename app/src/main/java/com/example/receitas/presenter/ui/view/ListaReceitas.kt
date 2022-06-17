@@ -1,6 +1,7 @@
 package com.example.receitas.presenter.ui.view
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.imageLoader
 import com.example.receitas.R
 import com.example.receitas.databinding.ListaReceitasBinding
 import com.example.receitas.presenter.adapter.ListaReceitasAdapter
@@ -54,11 +56,11 @@ class ListaReceitas : AppCompatActivity() {
     }
 
     private fun configuraCliqueRecycler() {
-        adapter.listener = { id ->
-            val intent = Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
+        adapter.listener = { id: Long ->
+            Intent(this@ListaReceitas, FormularioReceita::class.java).apply {
                 putExtra("receita_id", id)
+                startActivity(this)
             }
-            startActivity(intent)
         }
     }
 

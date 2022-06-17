@@ -16,7 +16,7 @@
             android:id="@+id/item_rv_receita_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/item_rv_receita_titulo"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +50,11 @@
             tools:text="Pão, salsicha, batata palha, cebola, tomate" />
 
         <TextView
+            android:id="@+id/item_rv_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
             android:text="Clique para ver mais..."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/item_rv_receita_ingredientes"
@@ -63,13 +66,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/item_rv_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.94"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_receita_ingredientes">
+            app:layout_constraintTop_toTopOf="@+id/item_rv_info">
 
             <ImageView
                 android:id="@+id/nivel_facil"

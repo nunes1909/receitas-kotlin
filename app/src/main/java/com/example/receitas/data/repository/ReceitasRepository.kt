@@ -1,5 +1,6 @@
 package com.example.receitas.data.repository
 
+import android.util.Log
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
@@ -19,7 +20,7 @@ class ReceitasRepository(
 
     // Salva receita
     override suspend fun salvaReceita(receita: Receita): Boolean {
-        return try {
+        val save: Boolean = try {
             if (receita.id > 0) {
                 receitaDao.edita(receita)
             } else {
@@ -27,9 +28,10 @@ class ReceitasRepository(
             }
             true
         } catch (e: Exception) {
+            Log.e("TAG", "salvaReceita: $e")
             false
         }
-
+        return save
     }
 
     // Busca todas as receitas

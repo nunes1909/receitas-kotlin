@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d88a71654de8596cf40018bcf5919ecf",
+    "identityHash": "0522caaca12b19b7e79b9edf652531bf",
     "entities": [
       {
         "tableName": "Receita",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT NOT NULL, `tipoId` INTEGER NOT NULL, `nivelId` INTEGER NOT NULL, `ingredientes` TEXT, `preparo` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT NOT NULL, `tipo_id` INTEGER NOT NULL, `nivel_id` INTEGER NOT NULL, `ingredientes` TEXT, `preparo` TEXT, `imagem` BLOB, `exibeImagem` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -22,13 +22,13 @@
           },
           {
             "fieldPath": "tipoId",
-            "columnName": "tipoId",
+            "columnName": "tipo_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "nivelId",
-            "columnName": "nivelId",
+            "columnName": "nivel_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -43,6 +43,18 @@
             "columnName": "preparo",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "imagem",
+            "columnName": "imagem",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exibeImagem",
+            "columnName": "exibeImagem",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -110,7 +122,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd88a71654de8596cf40018bcf5919ecf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0522caaca12b19b7e79b9edf652531bf')"
     ]
   }
 }

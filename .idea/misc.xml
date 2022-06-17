@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_album.xml" value="0.3205" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_clear.xml" value="0.2855" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_delete.xml" value="0.3775" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/drawable-anydpi/ic_action_order.xml" value="0.2685" />
@@ -15,13 +16,15 @@
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/drop_nivel_receita.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/drop_tipo_receita.xml" value="0.553125" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/drop_values_receita.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/file_path.xml" value="0.553125" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/formulario_receita.xml" value="0.5" />
-        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/item_rv_receita.xml" value="0.25" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/item_rv_receita.xml" value="0.5" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/layout/lista_receitas.xml" value="0.5" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/menu/menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/menu/menu_formulario_receita.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/menu/menu_lista_receitas.xml" value="0.3182291666666667" />
         <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/menu/menu_receita.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/gabri/AndroidStudioProjects/Receitas/app/src/main/res/xml/file_path.xml" value="0.5541666666666667" />
       </map>
     </option>
   </component>

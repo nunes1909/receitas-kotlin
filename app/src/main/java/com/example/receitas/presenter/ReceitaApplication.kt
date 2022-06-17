@@ -1,6 +1,8 @@
 package com.example.receitas.presenter
 
 import android.app.Application
+import coil.ImageLoader
+import coil.ImageLoaderFactory
 import com.example.receitas.AppModules
 import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.domain.model.NivelReceita
@@ -11,7 +13,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class ReceitaApplication : Application() {
+class ReceitaApplication : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +29,11 @@ class ReceitaApplication : Application() {
         }
     }
 
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader.Builder(this)
+            .crossfade(true)
+            .build()
+    }
 
     private suspend fun salvaNivel() {
         try {

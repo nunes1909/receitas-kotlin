@@ -1,5 +1,6 @@
 package com.example.receitas.presenter.ui.viewmodel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -107,11 +108,19 @@ class FormularioReceitaViewModel(
         }
     }
 
+    private var _mCarregaFoto = MutableLiveData<Bitmap>()
+    val carregaFoto = _mCarregaFoto as LiveData<Bitmap>
+
+    fun carregaImagem(imageString: Bitmap) {
+        _mCarregaFoto.value = imageString
+    }
+
     /**
      * LiveData para remover uma receita
      * Neste LiveData existe uma transformação de model (presenter para domain)
      */
     private var _mRemoveReceita = MutableLiveData<Boolean>()
+
     val mRemoveReceita = _mRemoveReceita as LiveData<Boolean>
 
     suspend fun removeReceita(receita: PresenterReceita) {
@@ -119,8 +128,8 @@ class FormularioReceitaViewModel(
         val idReceita = receitaFormatada.id
         _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))
     }
-
     private val _mLimpaForm = MutableLiveData<Boolean>()
+
     val limpaForm = _mLimpaForm as LiveData<Boolean>
 
     fun limpaFormulario(){

@@ -1,45 +1,86 @@
 package com.example.receitas.presenter.ui.view
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.example.receitas.R
 import com.example.receitas.databinding.FormularioReceitaBinding
 import com.example.receitas.presenter.model.PresenterReceita
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class FormularioReceita : AppCompatActivity() {
+
 
     private val binding by lazy {
         FormularioReceitaBinding.inflate(layoutInflater)
     }
+    private val viewModel: FormularioReceitaViewModel by viewModel()
     private var receitaId = 0L
     private var presenterReceita: PresenterReceita? = null
-    private val viewModel: FormularioReceitaViewModel by viewModel()
+    private var imagemReceita: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        configuraFab()
         tentaCarregarId()
         lifecycleScope.launch {
             configuraFormulario()
         }
-
         observers()
+    }
 
+    private fun configuraFab() {
+        binding.formularioReceitaFabCam.setOnClickListener {
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                startActivityForResult(this, 1)
+            }
+        }
+
+        binding.formularioReceitaFabAlbum.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI
+            )
+            startActivityForResult(Intent.createChooser(intent, "Selecione uma imagem"), 2)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // Result cam
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            val image = data?.extras?.get("data") as Bitmap
+            viewModel.carregaImagem(image)
+        }
+
+        // Result album
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            val imageUri = data?.data
+
+            if (imageUri != null) {
+                val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                viewModel.carregaImagem(bitmap)
+            }
+        }
     }
 
     private fun tentaCarregarId() {
         val idRecebido = intent.getLongExtra("receita_id", 0L)
         receitaId = idRecebido
+//        val imagemRecebida = intent.getByteArrayExtra("receita_image")
+//        imagemReceita = imagemRecebida
     }
 
     private suspend fun configuraFormulario() {
@@ -71,6 +112,7 @@ class FormularioReceita : AppCompatActivity() {
         viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { resource ->
             presenterReceita = resource.pushPresenterReceita()
             val receita = resource.pushReceita()
+            imagemReceita = receita.imagem
             binding.run {
                 formularioReceitaTitulo.setText(receita.titulo)
                 formularioReceitaTipo.setText(
@@ -81,6 +123,8 @@ class FormularioReceita : AppCompatActivity() {
                 )
                 formularioReceitaIngrediente.setText(receita.ingredientes)
                 formularioReceitaPreparo.setText(receita.preparo)
+                formularioReceitaImagem.load(receita.imagem)
+                if (receita.exibeImagem == 1) formularioReceitaSwitch.isChecked = true
             }
         }
 
@@ -105,6 +149,7 @@ class FormularioReceita : AppCompatActivity() {
             else binding.formularioReceitaLayoutNivel.error = null
         }
 
+        // Observer limpa formulario
         viewModel.limpaForm.observe(this@FormularioReceita) { ifClear ->
             if (ifClear) {
                 binding.run {
@@ -115,6 +160,12 @@ class FormularioReceita : AppCompatActivity() {
                     formularioReceitaPreparo.setText("")
                 }
             }
+        }
+
+        // Observer carrega foto
+        viewModel.carregaFoto.observe(this@FormularioReceita) { imagem ->
+            binding.formularioReceitaImagem.load(imagem)
+            imagemReceita = imagem
         }
     }
 
@@ -138,6 +189,8 @@ class FormularioReceita : AppCompatActivity() {
         val nivel = binding.formularioReceitaNivel.text.toString()
         val ingredientes = binding.formularioReceitaIngrediente.text.toString().trim()
         val preparo = binding.formularioReceitaPreparo.text.toString()
+        val switch = if (binding.formularioReceitaSwitch.isChecked) 1 else 0
+
 
         lifecycleScope.launch {
             viewModel.salvaReceita(
@@ -148,7 +201,9 @@ class FormularioReceita : AppCompatActivity() {
                     tipoId = tipo,
                     nivelId = nivel,
                     ingredientes = ingredientes,
-                    preparo = preparo
+                    preparo = preparo,
+                    imagem = imagemReceita,
+                    exibeImagem = switch
                 )
             )
         }

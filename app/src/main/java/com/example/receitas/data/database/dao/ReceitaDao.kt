@@ -31,9 +31,9 @@ interface ReceitaDao {
     @Query("SELECT * FROM Receita WHERE id = :id")
     suspend fun buscaReceitaPorId(id: Long): Receita
 
-    @Query("SELECT * FROM Receita ORDER BY tipoId ASC")
+    @Query("SELECT * FROM Receita ORDER BY tipo_id ASC")
     fun reorderTipo(): Flow<List<Receita>>
 
-    @Query("SELECT * FROM Receita ORDER BY nivelId ASC")
+    @Query("SELECT * FROM Receita ORDER BY nivel_id ASC")
     fun reorderNivel(): Flow<List<Receita>>
 }

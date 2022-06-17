@@ -20,6 +20,7 @@ import com.example.receitas.domain.useCase.deletaReceita.DeletaReceita
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitas
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
+import com.example.receitas.presenter.mapper.ImageMapper
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel

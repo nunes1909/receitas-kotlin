@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.receitas.data.database.converters.ImageConverter
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
@@ -24,6 +26,7 @@ import com.example.receitas.domain.model.TipoReceita
     version = 1,
     exportSchema = true
 )
+@TypeConverters(ImageConverter::class)
 abstract class ReceitaDatabase : RoomDatabase() {
 
     abstract fun receitaDao(): ReceitaDao

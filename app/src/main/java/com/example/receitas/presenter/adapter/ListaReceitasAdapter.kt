@@ -1,7 +1,6 @@
 package com.example.receitas.presenter.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -24,23 +23,16 @@ class ListaReceitasAdapter(
             val titulo = binding.itemRvReceitaTitulo
             titulo.text = receita.titulo
 
+            if (receita.imagem != null && receita.exibeImagem == 1){
+                binding.itemRvReceitaImage.load(receita.imagem)
+            } else {
+                configuraImagemTipo(receita.tipoId)
+            }
+
             val ingredientes = binding.itemRvReceitaIngredientes
             ingredientes.text = receita.ingredientes
 
             configuraImageNivel(receita.nivelId)
-            configuraImagemTipo(receita.tipoId)
-
-            visibility(view = binding.itemRvReceitaImage, receita.tipoId)
-            visibility(view = binding.viewGroupNivel, receita.nivelId)
-        }
-
-        // Valida a visibility das views Tipo e Nivel
-        fun visibility(view: View, param: Int?) {
-            return if (param != null) {
-                view.visibility = View.VISIBLE
-            } else {
-                view.visibility = View.GONE
-            }
         }
 
         // Configura image de dificuldade

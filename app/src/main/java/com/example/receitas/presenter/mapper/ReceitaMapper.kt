@@ -25,7 +25,9 @@ class ReceitaMapper(
             tipoId = tipoId,
             nivelId = nivelId,
             ingredientes = presenterReceita.ingredientes,
-            preparo = presenterReceita.preparo
+            preparo = presenterReceita.preparo,
+            imagem = presenterReceita.imagem,
+            exibeImagem = presenterReceita.exibeImagem
         )
     }
 
@@ -41,7 +43,9 @@ class ReceitaMapper(
             tipoId = tipo,
             nivelId = nivel,
             ingredientes = receita.ingredientes,
-            preparo = receita.preparo
+            preparo = receita.preparo,
+            imagem = receita.imagem,
+            exibeImagem = receita.exibeImagem
         )
     }
 }

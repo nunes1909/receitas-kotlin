@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         tools:context=".presenter.ui.view.FormularioReceita">
 
-
         <ImageView
             android:id="@+id/formulario_receita_imagem"
             android:layout_width="0dp"
@@ -22,13 +21,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/formulario_receita_fab"
+            android:id="@+id/formulario_receita_fab_cam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="18dp"
             android:src="@drawable/ic_action_photo"
             app:layout_constraintBottom_toBottomOf="@id/formulario_receita_imagem"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/formulario_receita_imagem" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/formulario_receita_fab_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:src="@drawable/ic_action_album"
+            app:layout_constraintBottom_toBottomOf="@id/formulario_receita_imagem"
+            app:layout_constraintEnd_toStartOf="@id/formulario_receita_fab_cam"
             app:layout_constraintTop_toBottomOf="@id/formulario_receita_imagem" />
 
         <androidx.cardview.widget.CardView
@@ -37,7 +46,7 @@
             android:layout_marginStart="16dp"
             android:backgroundTint="@color/colorSecondaryVariant"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            app:cardElevation="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/formulario_receita_imagem"
             app:layout_constraintBottom_toBottomOf="@id/formulario_receita_imagem">
@@ -67,7 +76,7 @@
             app:helperText="Obrigatório*"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/formulario_receita_fab">
+            app:layout_constraintTop_toBottomOf="@+id/formulario_receita_fab_cam">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/formulario_receita_titulo"
