@@ -1,8 +1,8 @@
-package com.example.receitas.data.repository.formulario
+package com.example.receitas.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface FormularioDataSource {
+interface FormularioRepository {
 
     // Busca value Tipo
     fun buscaTipoValues(): Flow<List<String>>

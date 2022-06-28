@@ -1,14 +1,15 @@
-package com.example.receitas.data.repository.receitas
+package com.example.receitas.data.repository
 
 import android.util.Log
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.domain.model.Receita
+import com.example.receitas.domain.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class ReceitasRepository(
+class ReceitasRepositoryImpl(
     private val receitaDao: ReceitaDao
-) : ReceitasDataSource {
+) : ReceitasRepository {
     // Salva receita
     override suspend fun salvaReceita(receita: Receita): Boolean {
         val save: Boolean = try {

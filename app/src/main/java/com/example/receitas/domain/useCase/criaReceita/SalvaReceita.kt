@@ -1,7 +1,7 @@
 package com.example.receitas.domain.useCase.criaReceita
 
-import com.example.receitas.data.repository.receitas.ReceitasRepository
 import com.example.receitas.domain.model.Receita
+import com.example.receitas.domain.repository.ReceitasRepository
 
 class SalvaReceita(
     private val repository: ReceitasRepository

@@ -1,6 +1,6 @@
 package com.example.receitas.domain.useCase.deletaReceita
 
-import com.example.receitas.data.repository.receitas.ReceitasRepository
+import com.example.receitas.domain.repository.ReceitasRepository
 
 class DeletaReceita(
     private val repository: ReceitasRepository

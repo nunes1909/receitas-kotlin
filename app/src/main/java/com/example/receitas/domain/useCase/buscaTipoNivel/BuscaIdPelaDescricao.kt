@@ -1,9 +1,9 @@
 package com.example.receitas.domain.useCase.buscaTipoNivel
 
-import com.example.receitas.data.repository.formulario.FormularioRepository
+import com.example.receitas.data.repository.FormularioRepositoryImpl
 
 class BuscaIdPelaDescricao(
-    private val repository: FormularioRepository
+    private val repository: FormularioRepositoryImpl
 ) : BuscaIdPelaDescricaoUseCase {
     override suspend fun buscaTipoId(descricao: String): Int {
         return repository.buscaTipoIdPelaDescricao(descricao = descricao)

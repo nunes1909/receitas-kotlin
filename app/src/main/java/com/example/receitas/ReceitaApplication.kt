@@ -1,12 +1,15 @@
-package com.example.receitas.presenter
+package com.example.receitas
 
 import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
-import com.example.receitas.AppModules
 import com.example.receitas.data.database.ReceitaDatabase
+import com.example.receitas.data.di.dataBaseModules
+import com.example.receitas.data.di.dataModules
+import com.example.receitas.domain.di.domainModules
 import com.example.receitas.domain.model.NivelReceita
 import com.example.receitas.domain.model.TipoReceita
+import com.example.receitas.presenter.di.presenterModules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +22,7 @@ class ReceitaApplication : Application(), ImageLoaderFactory {
         super.onCreate()
         startKoin {
             androidContext(this@ReceitaApplication)
-            modules(AppModules.modules)
+            modules(presenterModules + domainModules + dataModules)
         }
 
         val scope = CoroutineScope(Dispatchers.IO)
@@ -56,10 +59,8 @@ class ReceitaApplication : Application(), ImageLoaderFactory {
             val tipo0 = TipoReceita(id = 0, "Refeição")
             val tipo1 = TipoReceita(id = 1, "Saudável")
             val tipo2 = TipoReceita(id = 2, "Lanche")
-            val tipo3 = TipoReceita(id = 3, "Sobremesa")
-            val tipo4 = TipoReceita(id = 4, "Rápido")
-            val tipo5 = TipoReceita(id = 5, "Drink")
-            tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3, tipo4, tipo5)
+            val tipo3 = TipoReceita(id = 4, "Drink")
+            tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3)
         } catch (e: Exception) {
             throw e
         }

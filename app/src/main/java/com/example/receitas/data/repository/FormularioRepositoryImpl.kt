@@ -1,13 +1,14 @@
-package com.example.receitas.data.repository.formulario
+package com.example.receitas.data.repository
 
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
+import com.example.receitas.domain.repository.FormularioRepository
 import kotlinx.coroutines.flow.Flow
 
-class FormularioRepository(
+class FormularioRepositoryImpl(
     private val tipoDao: TipoReceitaDao,
     private val nivelDao: NivelReceitaDao
-): FormularioDataSource {
+): FormularioRepository {
     // Busca os tipos de receita
     override fun buscaTipoValues(): Flow<List<String>> {
         return tipoDao.buscaTipos()

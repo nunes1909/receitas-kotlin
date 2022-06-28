@@ -1,6 +1,6 @@
 package com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario
 
-import com.example.receitas.data.repository.formulario.FormularioRepository
+import com.example.receitas.domain.repository.FormularioRepository
 import kotlinx.coroutines.flow.Flow
 
 class BuscaTodosTipos(
