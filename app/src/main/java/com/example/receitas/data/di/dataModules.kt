@@ -20,4 +20,7 @@ val repositoryModules = module {
     factory { FormularioRepositoryImpl(get(), get()) }
 }
 
-val dataModules = listOf(dataBaseModules, repositoryModules)
+val dataModules = listOf(
+    dataBaseModules,
+    repositoryModules
+)

@@ -15,13 +15,13 @@
 
         <menu>
             <item
-                android:id="@+id/ic_order_tipo"
-                android:title="Tipo"
-                app:showAsAction="ifRoom"/>
+                android:id="@+id/ic_order_nivel_asc"
+                android:title="Nível menor"
+                app:showAsAction="ifRoom" />
             <item
-                android:id="@+id/ic_order_nivel"
-                android:title="Nível"
-                app:showAsAction="ifRoom"/>
+                android:id="@+id/ic_order_nivel_desc"
+                android:title="Nível maior"
+                app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/ic_order_id_desc"
                 android:title="Mais recente"

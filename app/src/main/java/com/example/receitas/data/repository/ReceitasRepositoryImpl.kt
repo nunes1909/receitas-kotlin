@@ -29,8 +29,8 @@ class ReceitasRepositoryImpl(
     // Busca todas as receitas
     override fun buscaTodasReceitas(valor: String): Flow<List<Receita>> {
         return when (valor) {
-            "tipo" -> receitaDao.reorderTipo()
-            "nivel" -> receitaDao.reorderNivel()
+            "nivel_asc" -> receitaDao.reorderNivelAsc()
+            "nivel_desc" -> receitaDao.reorderNivelDesc()
             "asc" -> receitaDao.reorderIdCrescente()
             "desc" -> receitaDao.reorderIdDecrescente()
             else -> flowOf()

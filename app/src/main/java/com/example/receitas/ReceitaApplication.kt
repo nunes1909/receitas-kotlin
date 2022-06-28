@@ -59,8 +59,9 @@ class ReceitaApplication : Application(), ImageLoaderFactory {
             val tipo0 = TipoReceita(id = 0, "Refeição")
             val tipo1 = TipoReceita(id = 1, "Saudável")
             val tipo2 = TipoReceita(id = 2, "Lanche")
-            val tipo3 = TipoReceita(id = 4, "Drink")
-            tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3)
+            val tipo3 = TipoReceita(id = 3, "Doce")
+            val tipo4 = TipoReceita(id = 4, "Drink")
+            tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3, tipo4)
         } catch (e: Exception) {
             throw e
         }

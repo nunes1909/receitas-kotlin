@@ -1,7 +1,6 @@
 package com.example.receitas.presenter.ui.view
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,10 +8,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.imageLoader
 import com.example.receitas.R
 import com.example.receitas.databinding.ListaReceitasBinding
-import com.example.receitas.presenter.adapter.ListaReceitasAdapter
+import com.example.receitas.presenter.ui.adapter.ListaReceitasAdapter
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -86,8 +84,8 @@ class ListaReceitas : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.ic_action_delete_all -> removeTodasReceitas()
-            R.id.ic_order_tipo -> reorderReceitas("tipo")
-            R.id.ic_order_nivel -> reorderReceitas("nivel")
+            R.id.ic_order_nivel_asc -> reorderReceitas("nivel_asc")
+            R.id.ic_order_nivel_desc -> reorderReceitas("nivel_desc")
             R.id.ic_order_id_asc -> reorderReceitas("asc")
             R.id.ic_order_id_desc -> reorderReceitas("desc")
         }

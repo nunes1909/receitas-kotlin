@@ -33,9 +33,9 @@ interface ReceitaDao {
     @Query("SELECT * FROM Receita ORDER BY id DESC")
     fun reorderIdDecrescente(): Flow<List<Receita>>
 
-    @Query("SELECT * FROM Receita ORDER BY tipo_id ASC")
-    fun reorderTipo(): Flow<List<Receita>>
-
     @Query("SELECT * FROM Receita ORDER BY nivel_id ASC")
-    fun reorderNivel(): Flow<List<Receita>>
+    fun reorderNivelAsc(): Flow<List<Receita>>
+
+    @Query("SELECT * FROM Receita ORDER BY nivel_id DESC")
+    fun reorderNivelDesc(): Flow<List<Receita>>
 }

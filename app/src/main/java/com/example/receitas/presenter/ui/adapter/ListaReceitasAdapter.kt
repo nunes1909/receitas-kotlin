@@ -1,4 +1,4 @@
-package com.example.receitas.presenter.adapter
+package com.example.receitas.presenter.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -62,9 +62,8 @@ class ListaReceitasAdapter(
                 0 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
                 1 -> binding.itemRvReceitaImage.load(R.drawable.saudavel)
                 2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
-                3 -> binding.itemRvReceitaImage.load(R.drawable.sobremesa)
-                4 -> binding.itemRvReceitaImage.load(R.drawable.rapido)
-                5 -> binding.itemRvReceitaImage.load(R.drawable.drink)
+                3 -> binding.itemRvReceitaImage.load(R.drawable.doce)
+                4 -> binding.itemRvReceitaImage.load(R.drawable.drink)
             }
         }
     }

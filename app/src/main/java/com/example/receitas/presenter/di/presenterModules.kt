@@ -1,11 +1,5 @@
 package com.example.receitas.presenter.di
 
-import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorId
-import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
-import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitas
-import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
-import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitas
-import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
@@ -22,7 +16,6 @@ val listaReceitasViewModelModules = module {
 }
 
 val formularioReceitasViewModelModules = module {
-
     factory { ReceitaMapper(get(), get()) }
 
     viewModel {
@@ -37,4 +30,7 @@ val formularioReceitasViewModelModules = module {
     }
 }
 
-val presenterModules = listOf(listaReceitasViewModelModules, formularioReceitasViewModelModules)
+val presenterModules = listOf(
+    listaReceitasViewModelModules,
+    formularioReceitasViewModelModules
+)
