@@ -39,6 +39,6 @@ val domainModules = module {
     factory<BuscaDescricaoPeloIdUseCase> { BuscaDescricaoPeloId( get() ) }
     factory<BuscaIdPelaDescricaoUseCase> { BuscaIdPelaDescricao( get() ) }
 
-    factory<ReceitasRepository> { ReceitasRepositoryImpl(get()) }
+    factory<ReceitasRepository> { ReceitasRepositoryImpl(get(), get()) }
     factory<FormularioRepository> { FormularioRepositoryImpl(get(), get()) }
 }

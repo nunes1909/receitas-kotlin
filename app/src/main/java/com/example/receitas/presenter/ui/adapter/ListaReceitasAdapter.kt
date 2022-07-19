@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.receitas.R
+import com.example.receitas.*
 import com.example.receitas.databinding.ItemRvReceitaBinding
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.presenter.model.ReceitaPresenter
+
 
 class ListaReceitasAdapter(
-    receitas: List<Receita> = emptyList(),
+    receitas: List<ReceitaPresenter> = emptyList(),
     var listener: (id: Long) -> Unit = {}
 ) : RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
 
@@ -19,7 +20,7 @@ class ListaReceitasAdapter(
         private val binding: ItemRvReceitaBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun vincula(receita: Receita) {
+        fun vincula(receita: ReceitaPresenter) {
             val titulo = binding.itemRvReceitaTitulo
             titulo.text = receita.titulo
 
@@ -36,19 +37,19 @@ class ListaReceitasAdapter(
         }
 
         // Configura image de dificuldade
-        private fun configuraImageNivel(nivelId: Int?) {
-            when (nivelId) {
-                0 -> {
+        private fun configuraImageNivel(nivel: String?) {
+            when (nivel) {
+                FACIL -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_false)
                     binding.nivelDificil.load(R.drawable.ic_action_star_false)
                 }
-                1 -> {
+                MEDIO -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_true)
                     binding.nivelDificil.load(R.drawable.ic_action_star_false)
                 }
-                2 -> {
+                DIFICIL -> {
                     binding.nivelFacil.load(R.drawable.ic_action_star_true)
                     binding.nivelMedio.load(R.drawable.ic_action_star_true)
                     binding.nivelDificil.load(R.drawable.ic_action_star_true)
@@ -57,13 +58,13 @@ class ListaReceitasAdapter(
         }
 
         // Configura image de Tipo
-        private fun configuraImagemTipo(tipoId: Int?) {
-            when (tipoId) {
-                0 -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
-                1 -> binding.itemRvReceitaImage.load(R.drawable.saudavel)
-                2 -> binding.itemRvReceitaImage.load(R.drawable.lanche)
-                3 -> binding.itemRvReceitaImage.load(R.drawable.doce)
-                4 -> binding.itemRvReceitaImage.load(R.drawable.drink)
+        private fun configuraImagemTipo(tipo: String?) {
+            when (tipo) {
+                REFEICAO -> binding.itemRvReceitaImage.load(R.drawable.refeicao)
+                SAUDAVEL -> binding.itemRvReceitaImage.load(R.drawable.saudavel)
+                LANCHE -> binding.itemRvReceitaImage.load(R.drawable.lanche)
+                DOCE -> binding.itemRvReceitaImage.load(R.drawable.doce)
+                DRINK -> binding.itemRvReceitaImage.load(R.drawable.drink)
             }
         }
     }
@@ -87,7 +88,7 @@ class ListaReceitasAdapter(
     override fun getItemCount() = receitas.size
 
     // Atualiza a lista do Adapter
-    fun atualiza(lista: List<Receita>) {
+    fun atualiza(lista: List<ReceitaPresenter>) {
         this.receitas.clear()
         notifyItemRangeRemoved(0, this.receitas.size)
         this.receitas.addAll(lista)

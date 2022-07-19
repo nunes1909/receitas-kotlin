@@ -2,13 +2,16 @@ package com.example.receitas.data.repository
 
 import android.util.Log
 import com.example.receitas.data.database.dao.ReceitaDao
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.data.mapper.DataMapper
+import com.example.receitas.data.model.Receita
+import com.example.receitas.domain.model.ReceitaDomain
 import com.example.receitas.domain.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class ReceitasRepositoryImpl(
-    private val receitaDao: ReceitaDao
+    private val receitaDao: ReceitaDao,
+    private val dataMapper: DataMapper
 ) : ReceitasRepository {
     // Salva receita
     override suspend fun salvaReceita(receita: Receita): Boolean {
@@ -27,13 +30,30 @@ class ReceitasRepositoryImpl(
     }
 
     // Busca todas as receitas
-    override fun buscaTodasReceitas(valor: String): Flow<List<Receita>> {
-        return when (valor) {
-            "nivel_asc" -> receitaDao.reorderNivelAsc()
-            "nivel_desc" -> receitaDao.reorderNivelDesc()
-            "asc" -> receitaDao.reorderIdCrescente()
-            "desc" -> receitaDao.reorderIdDecrescente()
-            else -> flowOf()
+    override suspend fun buscaTodasReceitas(valor: String): Flow<List<ReceitaDomain>> {
+        return try {
+            when (valor) {
+                "nivel_asc" -> {
+                    val flowNiveAsc = receitaDao.reorderNivelAsc()
+                    dataMapper.paraFlowDomain(flowNiveAsc)
+                }
+                "nivel_desc" -> {
+                    val flowNivelDesc = receitaDao.reorderNivelDesc()
+                    dataMapper.paraFlowDomain(flowNivelDesc)
+                }
+                "asc" -> {
+                    val flowAsc = receitaDao.reorderIdCrescente()
+                    dataMapper.paraFlowDomain(flowAsc)
+                }
+                "desc" -> {
+                    val flowDesc = receitaDao.reorderIdDecrescente()
+                    dataMapper.paraFlowDomain(flowDesc)
+                }
+                else -> flowOf()
+            }
+        } catch (e: Exception) {
+            Log.e("BuscaTodasReceitas", "BuscaTodasReceitas: $e")
+            flowOf()
         }
     }
 

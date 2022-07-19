@@ -1,9 +1,12 @@
 package com.example.receitas.presenter.mapper
 
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.data.model.Receita
+import com.example.receitas.domain.model.ReceitaDomain
 import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaDescricaoPeloIdUseCase
 import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaIdPelaDescricaoUseCase
-import com.example.receitas.presenter.model.PresenterReceita
+import com.example.receitas.presenter.model.ReceitaPresenter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * Classe responsável por transformar a Model da Domain (principal)
@@ -14,7 +17,7 @@ class ReceitaMapper(
     private val buscaDescricaoPeloIdUseCase: BuscaDescricaoPeloIdUseCase
 ) {
     // Transforma a Presenter em Domain
-    suspend fun dePresenterParaDomain(presenterReceita: PresenterReceita): Receita {
+    suspend fun dePresenterParaDomain(presenterReceita: ReceitaPresenter): Receita {
 
         val tipoId = buscaIdPelaDescricaoUseCase.buscaTipoId(presenterReceita.tipoId)
         val nivelId = buscaIdPelaDescricaoUseCase.buscaNivelId(presenterReceita.nivelId)
@@ -32,12 +35,12 @@ class ReceitaMapper(
     }
 
     // Transforma a Domain em Presenter
-    suspend fun deDomainParaPresenter(receita: Receita): PresenterReceita {
+    suspend fun deDomainParaPresenter(receita: Receita): ReceitaPresenter {
 
         val tipo = buscaDescricaoPeloIdUseCase.buscaTipoDescricao(receita.tipoId)
         val nivel = buscaDescricaoPeloIdUseCase.buscaNivelDescricao(receita.nivelId)
 
-        return PresenterReceita(
+        return ReceitaPresenter(
             id = receita.id,
             titulo = receita.titulo,
             tipoId = tipo,

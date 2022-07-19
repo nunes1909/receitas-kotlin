@@ -1,6 +1,7 @@
 package com.example.receitas.domain.repository
 
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.data.model.Receita
+import com.example.receitas.domain.model.ReceitaDomain
 import kotlinx.coroutines.flow.Flow
 
 interface ReceitasRepository {
@@ -9,7 +10,7 @@ interface ReceitasRepository {
     suspend fun salvaReceita(receita: Receita): Boolean
 
     // Busca todas receitas
-    fun buscaTodasReceitas(valor: String): Flow<List<Receita>>
+    suspend fun buscaTodasReceitas(valor: String): Flow<List<ReceitaDomain>>
 
     // Busca receita por id
     suspend fun buscaReceitaPorId(id: Long): Receita

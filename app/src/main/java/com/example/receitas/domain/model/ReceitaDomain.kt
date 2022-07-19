@@ -1,8 +1,8 @@
-package com.example.receitas.presenter.model
+package com.example.receitas.domain.model
 
 import android.graphics.Bitmap
 
-data class ReceitaPresenter(
+class ReceitaDomain(
     val id: Long,
     val titulo: String,
     var tipoId: String,
@@ -12,3 +12,6 @@ data class ReceitaPresenter(
     val imagem: Bitmap? = null,
     val exibeImagem: Int
 )
+
+
+

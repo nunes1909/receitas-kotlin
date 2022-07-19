@@ -9,9 +9,9 @@ import com.example.receitas.data.database.converters.Converter
 import com.example.receitas.data.database.dao.NivelReceitaDao
 import com.example.receitas.data.database.dao.ReceitaDao
 import com.example.receitas.data.database.dao.TipoReceitaDao
-import com.example.receitas.domain.model.NivelReceita
-import com.example.receitas.domain.model.Receita
-import com.example.receitas.domain.model.TipoReceita
+import com.example.receitas.data.model.NivelReceita
+import com.example.receitas.data.model.Receita
+import com.example.receitas.data.model.TipoReceita
 
 @Database(
     entities = [

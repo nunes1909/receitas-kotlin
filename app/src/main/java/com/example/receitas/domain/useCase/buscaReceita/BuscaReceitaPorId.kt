@@ -1,6 +1,6 @@
 package com.example.receitas.domain.useCase.buscaReceita
 
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.data.model.Receita
 import com.example.receitas.domain.repository.ReceitasRepository
 
 class BuscaReceitaPorId(

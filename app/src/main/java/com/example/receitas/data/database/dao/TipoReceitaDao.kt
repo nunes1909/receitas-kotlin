@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.receitas.domain.model.TipoReceita
+import com.example.receitas.data.model.TipoReceita
 import kotlinx.coroutines.flow.Flow
 
 @Dao

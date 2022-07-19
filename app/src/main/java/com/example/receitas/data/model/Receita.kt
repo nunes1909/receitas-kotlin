@@ -1,4 +1,4 @@
-package com.example.receitas.domain.model
+package com.example.receitas.data.model
 
 import android.graphics.Bitmap
 import android.os.Parcelable
@@ -22,3 +22,4 @@ data class Receita(
     val imagem: Bitmap? = null,
     val exibeImagem: Int
 ) : Parcelable
+

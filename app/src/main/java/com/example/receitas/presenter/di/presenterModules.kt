@@ -1,5 +1,6 @@
 package com.example.receitas.presenter.di
 
+import com.example.receitas.presenter.mapper.PresenterMapper
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
@@ -10,6 +11,7 @@ val listaReceitasViewModelModules = module {
     viewModel {
         ListaReceitasViewModel(
             get(),
+            get(),
             get()
         )
     }
@@ -17,6 +19,7 @@ val listaReceitasViewModelModules = module {
 
 val formularioReceitasViewModelModules = module {
     factory { ReceitaMapper(get(), get()) }
+    factory { PresenterMapper() }
 
     viewModel {
         FormularioReceitaViewModel(

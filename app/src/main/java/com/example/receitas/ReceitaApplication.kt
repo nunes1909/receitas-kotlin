@@ -4,11 +4,10 @@ import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.example.receitas.data.database.ReceitaDatabase
-import com.example.receitas.data.di.dataBaseModules
 import com.example.receitas.data.di.dataModules
 import com.example.receitas.domain.di.domainModules
-import com.example.receitas.domain.model.NivelReceita
-import com.example.receitas.domain.model.TipoReceita
+import com.example.receitas.data.model.NivelReceita
+import com.example.receitas.data.model.TipoReceita
 import com.example.receitas.presenter.di.presenterModules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

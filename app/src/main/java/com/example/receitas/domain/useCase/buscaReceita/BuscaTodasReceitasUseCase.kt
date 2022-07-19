@@ -1,8 +1,8 @@
 package com.example.receitas.domain.useCase.buscaReceita
 
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.domain.model.ReceitaDomain
 import kotlinx.coroutines.flow.Flow
 
 interface BuscaTodasReceitasUseCase {
-    operator fun invoke(valor: String): Flow<List<Receita>>
+    suspend operator fun invoke(valor: String): Flow<List<ReceitaDomain>>
 }

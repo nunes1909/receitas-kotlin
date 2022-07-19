@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.receitas.R
 import com.example.receitas.databinding.FormularioReceitaBinding
-import com.example.receitas.presenter.model.PresenterReceita
+import com.example.receitas.presenter.model.ReceitaPresenter
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +25,7 @@ class FormularioReceita : AppCompatActivity() {
     }
     private val viewModel: FormularioReceitaViewModel by viewModel()
     private var receitaId = 0L
-    private var presenterReceita: PresenterReceita? = null
+    private var presenterReceita: ReceitaPresenter? = null
     private var imagemReceita: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -211,7 +211,7 @@ class FormularioReceita : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.salvaReceita(
-                PresenterReceita(
+                ReceitaPresenter(
                     id = receitaId,
                     titulo = titulo,
                     tipoId = tipo,

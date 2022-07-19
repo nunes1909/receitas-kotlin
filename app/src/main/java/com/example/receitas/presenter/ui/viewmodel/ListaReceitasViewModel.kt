@@ -3,30 +3,28 @@ package com.example.receitas.presenter.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.receitas.domain.model.Receita
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
-import kotlinx.coroutines.launch
+import com.example.receitas.presenter.mapper.PresenterMapper
+import com.example.receitas.presenter.model.ReceitaPresenter
 
 class ListaReceitasViewModel(
     private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase,
-    private val deletaTodasReceitasUseCase: DeletaTodasReceitasUseCase
+    private val deletaTodasReceitasUseCase: DeletaTodasReceitasUseCase,
+    private val presenterMapper: PresenterMapper
 ) : ViewModel() {
 
     /**
      * LiveData que busca todas as receitas no Banco
      */
-    private var _mBusca = MutableLiveData<List<Receita>>()
-    val busca = _mBusca as LiveData<List<Receita>>
+    private var _mBusca = MutableLiveData<List<ReceitaPresenter>>()
+    val busca = _mBusca as LiveData<List<ReceitaPresenter>>
 
     suspend fun buscaReceitas(item: String) {
-        val flowReceitas = buscaTodasReceitasUseCase(item)
-
-        viewModelScope.launch {
-            flowReceitas.collect { listReceitas ->
-                _mBusca.value = listReceitas
-            }
+        val flowDomain = buscaTodasReceitasUseCase(item)
+        val flowPresenter = presenterMapper.paraFlowPresenter(flowDomain)
+        flowPresenter.collect{ lista ->
+            _mBusca.value = lista
         }
     }
 

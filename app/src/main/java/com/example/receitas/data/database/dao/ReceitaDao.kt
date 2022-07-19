@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.receitas.domain.model.Receita
+import com.example.receitas.data.model.Receita
 import kotlinx.coroutines.flow.Flow
 
 @Dao
