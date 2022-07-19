@@ -9,6 +9,7 @@ import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.Busc
 import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
+import com.example.receitas.presenter.mapper.PresenterMapper
 import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.mapper.ResourceReceita
 import com.example.receitas.presenter.model.ReceitaPresenter
@@ -23,6 +24,7 @@ class FormularioReceitaViewModel(
     private val deletaReceitaUseCase: DeletaReceitaUseCase,
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
     private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
+    private val presenterMapper: PresenterMapper
 ) : ViewModel() {
 
     /**
@@ -85,8 +87,8 @@ class FormularioReceitaViewModel(
         _validaNivel.value = validaCampos(receita.nivelId)
 
         if (validacao) {
-            val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
-            _salvaReceita.value = salvaReceitaUseCase(receitaFormatada)
+            val receitaDomain = presenterMapper.paraDomain(receita)
+            _salvaReceita.value = salvaReceitaUseCase(receitaDomain)
         }
     }
 

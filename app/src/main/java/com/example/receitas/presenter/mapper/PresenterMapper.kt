@@ -26,4 +26,15 @@ class PresenterMapper {
         imagem = receitaDomain.imagem,
         exibeImagem = receitaDomain.exibeImagem
     )
+
+    suspend fun paraDomain(receitaPresenter: ReceitaPresenter) = ReceitaDomain(
+        id = receitaPresenter.id,
+        titulo = receitaPresenter.titulo,
+        tipoId = receitaPresenter.tipoId,
+        nivelId = receitaPresenter.nivelId,
+        ingredientes = receitaPresenter.ingredientes,
+        preparo = receitaPresenter.preparo,
+        imagem = receitaPresenter.imagem,
+        exibeImagem = receitaPresenter.exibeImagem
+    )
 }

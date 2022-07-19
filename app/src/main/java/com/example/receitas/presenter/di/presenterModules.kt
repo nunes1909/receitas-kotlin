@@ -29,6 +29,7 @@ val formularioReceitasViewModelModules = module {
             get(),
             get(),
             get(),
+            get()
         )
     }
 }

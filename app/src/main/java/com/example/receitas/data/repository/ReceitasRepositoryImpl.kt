@@ -14,18 +14,22 @@ class ReceitasRepositoryImpl(
     private val dataMapper: DataMapper
 ) : ReceitasRepository {
     // Salva receita
-    override suspend fun salvaReceita(receita: Receita): Boolean {
+    override suspend fun salvaReceita(receita: ReceitaDomain): Boolean {
         val save: Boolean = try {
+            val receitaData = dataMapper.paraData(receita)
+
             if (receita.id > 0) {
-                receitaDao.edita(receita)
+                receitaDao.edita(receitaData)
             } else {
-                receitaDao.salva(receita)
+                receitaDao.salva(receitaData)
             }
+
             true
         } catch (e: Exception) {
             Log.e("TAG", "salvaReceita: $e")
             false
         }
+
         return save
     }
 

@@ -38,4 +38,20 @@ class DataMapper(
         )
     }
 
+    suspend fun paraData(receitaDomain: ReceitaDomain): Receita {
+        val tipo = tipoReceitaDao.buscaId(receitaDomain.tipoId)
+        val nivel = nivelReceitaDao.buscaId(receitaDomain.nivelId)
+
+        return Receita(
+            id = receitaDomain.id,
+            titulo = receitaDomain.titulo,
+            tipoId = tipo,
+            nivelId = nivel,
+            ingredientes = receitaDomain.ingredientes,
+            preparo = receitaDomain.preparo,
+            imagem = receitaDomain.imagem,
+            exibeImagem = receitaDomain.exibeImagem
+        )
+    }
+
 }
