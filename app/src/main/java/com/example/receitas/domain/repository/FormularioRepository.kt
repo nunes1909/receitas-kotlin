@@ -1,5 +1,6 @@
 package com.example.receitas.domain.repository
 
+import com.example.receitas.domain.model.NivelDomain
 import kotlinx.coroutines.flow.Flow
 
 interface FormularioRepository {
@@ -8,7 +9,7 @@ interface FormularioRepository {
     fun buscaTipoValues(): Flow<List<String>>
 
     // Busca value Nivel
-    fun buscaNivelValues(): Flow<List<String>>
+    suspend fun buscaNivelValues(): Flow<List<NivelDomain>>
 
     // Busca o id do tipo pela descrição
     suspend fun buscaTipoIdPelaDescricao(descricao: String): Int

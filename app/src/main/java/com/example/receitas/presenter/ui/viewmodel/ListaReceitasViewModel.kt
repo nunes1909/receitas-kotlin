@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
-import com.example.receitas.presenter.mapper.PresenterMapper
+import com.example.receitas.presenter.receita.mapper.ReceitaPresenterMapper
 import com.example.receitas.presenter.model.ReceitaPresenter
 
 class ListaReceitasViewModel(
     private val buscaTodasReceitasUseCase: BuscaTodasReceitasUseCase,
     private val deletaTodasReceitasUseCase: DeletaTodasReceitasUseCase,
-    private val presenterMapper: PresenterMapper
+    private val presenterMapper: ReceitaPresenterMapper
 ) : ViewModel() {
 
     /**

@@ -1,4 +1,4 @@
-package com.example.receitas
+package com.example.receitas.presenter.util
 
 import android.app.Application
 import coil.ImageLoader
@@ -6,8 +6,8 @@ import coil.ImageLoaderFactory
 import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.data.di.dataModules
 import com.example.receitas.domain.di.domainModules
-import com.example.receitas.data.model.NivelReceita
-import com.example.receitas.data.model.TipoReceita
+import com.example.receitas.data.formulario.model.Nivel
+import com.example.receitas.data.formulario.model.TipoReceita
 import com.example.receitas.presenter.di.presenterModules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,9 +42,9 @@ class ReceitaApplication : Application(), ImageLoaderFactory {
             val nivelReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).nivelReceitaDao()
 
-            val nivel1 = NivelReceita(0, "Fácil")
-            val nivel2 = NivelReceita(1, "Médio")
-            val nivel3 = NivelReceita(2, "Difícil")
+            val nivel1 = Nivel(0, "Fácil")
+            val nivel2 = Nivel(1, "Médio")
+            val nivel3 = Nivel(2, "Difícil")
             nivelReceitaDao.salvaNivel(nivel1, nivel2, nivel3)
         } catch (e: Exception) {
             throw e

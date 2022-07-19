@@ -1,6 +1,5 @@
 package com.example.receitas.domain.repository
 
-import com.example.receitas.data.model.Receita
 import com.example.receitas.domain.model.ReceitaDomain
 import kotlinx.coroutines.flow.Flow
 

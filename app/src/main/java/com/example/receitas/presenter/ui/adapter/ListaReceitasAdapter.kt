@@ -7,6 +7,7 @@ import coil.load
 import com.example.receitas.*
 import com.example.receitas.databinding.ItemRvReceitaBinding
 import com.example.receitas.presenter.model.ReceitaPresenter
+import com.example.receitas.presenter.util.*
 
 
 class ListaReceitasAdapter(

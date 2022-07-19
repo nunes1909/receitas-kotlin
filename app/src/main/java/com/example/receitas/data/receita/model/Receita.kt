@@ -1,4 +1,4 @@
-package com.example.receitas.data.model
+package com.example.receitas.data.receita.model
 
 import android.graphics.Bitmap
 import android.os.Parcelable

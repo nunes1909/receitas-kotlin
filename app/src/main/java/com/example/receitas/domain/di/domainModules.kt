@@ -1,7 +1,7 @@
 package com.example.receitas.domain.di
 
-import com.example.receitas.data.repository.FormularioRepositoryImpl
-import com.example.receitas.data.repository.ReceitasRepositoryImpl
+import com.example.receitas.data.formulario.repository.FormularioRepositoryImpl
+import com.example.receitas.data.receita.repository.ReceitasRepositoryImpl
 import com.example.receitas.domain.repository.FormularioRepository
 import com.example.receitas.domain.repository.ReceitasRepository
 import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorId
@@ -40,5 +40,5 @@ val domainModules = module {
     factory<BuscaIdPelaDescricaoUseCase> { BuscaIdPelaDescricao( get() ) }
 
     factory<ReceitasRepository> { ReceitasRepositoryImpl(get(), get()) }
-    factory<FormularioRepository> { FormularioRepositoryImpl(get(), get()) }
+    factory<FormularioRepository> { FormularioRepositoryImpl(get(), get(), get()) }
 }

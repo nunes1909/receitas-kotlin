@@ -1,4 +1,4 @@
-package com.example.receitas
+package com.example.receitas.presenter.util
 
 const val REFEICAO = "Refeição"
 const val SAUDAVEL = "Saudável"

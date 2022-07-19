@@ -1,4 +1,4 @@
-package com.example.receitas.presenter.mapper
+package com.example.receitas.presenter.receita.resource
 
 import com.example.receitas.presenter.model.ReceitaPresenter
 import com.example.receitas.presenter.model.TipoNivelPresenter

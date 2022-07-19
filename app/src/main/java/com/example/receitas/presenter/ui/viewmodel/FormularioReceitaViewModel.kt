@@ -9,11 +9,14 @@ import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.Busc
 import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosTiposUseCase
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
-import com.example.receitas.presenter.mapper.PresenterMapper
-import com.example.receitas.presenter.mapper.ResourceReceita
+import com.example.receitas.presenter.formulario.mapper.NivelPresenterMapper
+import com.example.receitas.presenter.formulario.model.NivelPresenter
+import com.example.receitas.presenter.receita.mapper.ReceitaPresenterMapper
+import com.example.receitas.presenter.receita.resource.ResourceReceita
 import com.example.receitas.presenter.model.ReceitaPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FormularioReceitaViewModel(
@@ -22,7 +25,8 @@ class FormularioReceitaViewModel(
     private val deletaReceitaUseCase: DeletaReceitaUseCase,
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
     private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
-    private val presenterMapper: PresenterMapper
+    private val receitaPresenterMapper: ReceitaPresenterMapper,
+    private val nivelPresenterMapper: NivelPresenterMapper
 ) : ViewModel() {
 
     /**
@@ -36,18 +40,18 @@ class FormularioReceitaViewModel(
 
     suspend fun configuraFormulario() {
         val flowTipoReceita = buscaTodosTiposUseCase()
-        val flowNivelReceita = buscaTodosNiveisUseCase()
-
         CoroutineScope(Dispatchers.IO).launch {
             flowTipoReceita.collect { listTipoDesc ->
                 _mBuscaTipo.postValue(listTipoDesc)
             }
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            flowNivelReceita.collect { listNivelDesc ->
-                _mBuscaNivel.postValue(listNivelDesc)
+        val flowDomain = buscaTodosNiveisUseCase()
+        nivelPresenterMapper.paraFlowPresenter(flowDomain).collect { lista ->
+            val nivelToString = lista.map {
+                it.descricao
             }
+            _mBuscaNivel.postValue(nivelToString)
         }
     }
 
@@ -62,9 +66,9 @@ class FormularioReceitaViewModel(
         if (id > 0L && id != null) {
             val receita = buscaReceitaPorIdUseCase(id = id)
 
-            val receitaPresenter = presenterMapper.paraPresenter(receita)
+            val receitaPresenter = receitaPresenterMapper.paraPresenter(receita)
 
-            val idTipoNivel = presenterMapper.buscaIdTipoNivel(
+            val idTipoNivel = receitaPresenterMapper.buscaIdTipoNivel(
                 nivel = receitaPresenter.nivel,
                 tipo = receitaPresenter.tipo
             )
@@ -96,7 +100,7 @@ class FormularioReceitaViewModel(
         _validaNivel.value = validaCampos(receita.nivel)
 
         if (validacao) {
-            val receitaDomain = presenterMapper.paraDomain(receita)
+            val receitaDomain = receitaPresenterMapper.paraDomain(receita)
             _salvaReceita.value = salvaReceitaUseCase(receitaDomain)
         }
     }
@@ -141,7 +145,7 @@ class FormularioReceitaViewModel(
     val mRemoveReceita = _mRemoveReceita as LiveData<Boolean>
 
     suspend fun removeReceita(receita: ReceitaPresenter) {
-        val receitaDomain = presenterMapper.paraDomain(receita)
+        val receitaDomain = receitaPresenterMapper.paraDomain(receita)
         val idReceitaDomain = receitaDomain.id
         _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceitaDomain))
     }

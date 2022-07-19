@@ -6,17 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.receitas.data.database.converters.Converter
-import com.example.receitas.data.database.dao.NivelReceitaDao
-import com.example.receitas.data.database.dao.ReceitaDao
-import com.example.receitas.data.database.dao.TipoReceitaDao
-import com.example.receitas.data.model.NivelReceita
-import com.example.receitas.data.model.Receita
-import com.example.receitas.data.model.TipoReceita
+import com.example.receitas.data.formulario.dao.NivelReceitaDao
+import com.example.receitas.data.receita.dao.ReceitaDao
+import com.example.receitas.data.formulario.dao.TipoReceitaDao
+import com.example.receitas.data.formulario.model.Nivel
+import com.example.receitas.data.receita.model.Receita
+import com.example.receitas.data.formulario.model.TipoReceita
 
 @Database(
     entities = [
         Receita::class,
-        NivelReceita::class,
+        Nivel::class,
         TipoReceita::class
     ],
     version = 1,

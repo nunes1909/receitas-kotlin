@@ -1,13 +1,16 @@
-package com.example.receitas.data.repository
+package com.example.receitas.data.formulario.repository
 
-import com.example.receitas.data.database.dao.NivelReceitaDao
-import com.example.receitas.data.database.dao.TipoReceitaDao
+import com.example.receitas.data.formulario.dao.NivelReceitaDao
+import com.example.receitas.data.formulario.dao.TipoReceitaDao
+import com.example.receitas.data.formulario.mapper.NivelDataMapper
+import com.example.receitas.domain.model.NivelDomain
 import com.example.receitas.domain.repository.FormularioRepository
 import kotlinx.coroutines.flow.Flow
 
 class FormularioRepositoryImpl(
     private val tipoDao: TipoReceitaDao,
-    private val nivelDao: NivelReceitaDao
+    private val nivelDao: NivelReceitaDao,
+    private val nivelDataMapper: NivelDataMapper
 ): FormularioRepository {
     // Busca os tipos de receita
     override fun buscaTipoValues(): Flow<List<String>> {
@@ -15,8 +18,9 @@ class FormularioRepositoryImpl(
     }
 
     // Busca os niveis de receita
-    override fun buscaNivelValues(): Flow<List<String>> {
-        return nivelDao.buscaNiveis()
+    override suspend fun buscaNivelValues(): Flow<List<NivelDomain>> {
+        val flowNivel = nivelDao.buscaNiveis()
+        return nivelDataMapper.paraFlowDomain(flowNivel)
     }
 
     override suspend fun buscaTipoIdPelaDescricao(descricao: String): Int {

@@ -1,6 +1,6 @@
 package com.example.receitas.domain.useCase.buscaTipoNivel
 
-import com.example.receitas.data.repository.FormularioRepositoryImpl
+import com.example.receitas.data.formulario.repository.FormularioRepositoryImpl
 
 class BuscaIdPelaDescricao(
     private val repository: FormularioRepositoryImpl

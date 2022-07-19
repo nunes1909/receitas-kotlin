@@ -1,9 +1,8 @@
-package com.example.receitas.data.repository
+package com.example.receitas.data.receita.repository
 
 import android.util.Log
-import com.example.receitas.data.database.dao.ReceitaDao
-import com.example.receitas.data.mapper.DataMapper
-import com.example.receitas.data.model.Receita
+import com.example.receitas.data.receita.dao.ReceitaDao
+import com.example.receitas.data.receita.mapper.ReceitaDataMapper
 import com.example.receitas.domain.model.ReceitaDomain
 import com.example.receitas.domain.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class ReceitasRepositoryImpl(
     private val receitaDao: ReceitaDao,
-    private val dataMapper: DataMapper
+    private val dataMapper: ReceitaDataMapper
 ) : ReceitasRepository {
     // Salva receita
     override suspend fun salvaReceita(receita: ReceitaDomain): Boolean {

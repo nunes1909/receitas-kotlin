@@ -1,8 +1,9 @@
 package com.example.receitas.data.di
 
 import com.example.receitas.data.database.ReceitaDatabase
-import com.example.receitas.data.mapper.DataMapper
-import com.example.receitas.data.repository.FormularioRepositoryImpl
+import com.example.receitas.data.formulario.mapper.NivelDataMapper
+import com.example.receitas.data.receita.mapper.ReceitaDataMapper
+import com.example.receitas.data.formulario.repository.FormularioRepositoryImpl
 import org.koin.dsl.module
 
 val dataBaseModules = module {
@@ -14,8 +15,9 @@ val dataBaseModules = module {
 
 val repositoryModules = module {
 //    factory<ReceitasRepository> { ReceitasRepositoryImpl(get()) }
-    factory { DataMapper(get(), get()) }
-    factory { FormularioRepositoryImpl(get(), get()) }
+    factory { ReceitaDataMapper(get(), get()) }
+    factory { NivelDataMapper() }
+    factory { FormularioRepositoryImpl(get(), get(), get()) }
 }
 
 val dataModules = listOf(

@@ -1,13 +1,13 @@
-package com.example.receitas.data.mapper
+package com.example.receitas.data.receita.mapper
 
-import com.example.receitas.data.database.dao.NivelReceitaDao
-import com.example.receitas.data.database.dao.TipoReceitaDao
-import com.example.receitas.data.model.Receita
+import com.example.receitas.data.formulario.dao.NivelReceitaDao
+import com.example.receitas.data.formulario.dao.TipoReceitaDao
+import com.example.receitas.data.receita.model.Receita
 import com.example.receitas.domain.model.ReceitaDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class DataMapper(
+class ReceitaDataMapper(
     private val nivelReceitaDao: NivelReceitaDao,
     private val tipoReceitaDao: TipoReceitaDao
 ) {

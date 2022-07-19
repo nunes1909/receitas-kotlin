@@ -1,6 +1,7 @@
 package com.example.receitas.presenter.di
 
-import com.example.receitas.presenter.mapper.PresenterMapper
+import com.example.receitas.presenter.formulario.mapper.NivelPresenterMapper
+import com.example.receitas.presenter.receita.mapper.ReceitaPresenterMapper
 import com.example.receitas.presenter.ui.viewmodel.FormularioReceitaViewModel
 import com.example.receitas.presenter.ui.viewmodel.ListaReceitasViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,10 +18,12 @@ val listaReceitasViewModelModules = module {
 }
 
 val formularioReceitasViewModelModules = module {
-    factory { PresenterMapper(get()) }
+    factory { ReceitaPresenterMapper(get()) }
+    factory { NivelPresenterMapper() }
 
     viewModel {
         FormularioReceitaViewModel(
+            get(),
             get(),
             get(),
             get(),

@@ -1,10 +1,10 @@
-package com.example.receitas.data.database.dao
+package com.example.receitas.data.formulario.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.receitas.data.model.TipoReceita
+import com.example.receitas.data.formulario.model.TipoReceita
 import kotlinx.coroutines.flow.Flow
 
 @Dao

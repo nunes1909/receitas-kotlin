@@ -1,4 +1,4 @@
-package com.example.receitas.presenter.mapper
+package com.example.receitas.presenter.receita.mapper
 
 import com.example.receitas.domain.model.ReceitaDomain
 import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaIdPelaDescricaoUseCase
@@ -7,7 +7,7 @@ import com.example.receitas.presenter.model.TipoNivelPresenter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class PresenterMapper(
+class ReceitaPresenterMapper(
     private val buscaIdPelaDescricaoUseCase: BuscaIdPelaDescricaoUseCase
 ) {
     suspend fun paraFlowPresenter(flowDomain: Flow<List<ReceitaDomain>>) = flow {

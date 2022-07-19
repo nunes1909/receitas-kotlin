@@ -1,10 +1,10 @@
-package com.example.receitas.data.database.dao
+package com.example.receitas.data.receita.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.receitas.data.model.Receita
+import com.example.receitas.data.receita.model.Receita
 import kotlinx.coroutines.flow.Flow
 
 @Dao
