@@ -1,15 +1,15 @@
 package com.example.receitas.presenter.mapper
 
-import com.example.receitas.data.model.Receita
 import com.example.receitas.presenter.model.ReceitaPresenter
+import com.example.receitas.presenter.model.TipoNivelPresenter
 
 /**
  * Classe que recebe e devolve as receitas Presenter e Domain para a View
  */
 class ResourceReceita(
     private val presenterReceita: ReceitaPresenter,
-    private val receita: Receita
+    private val tipoNivelPresenter: TipoNivelPresenter
 ) {
-    fun pushReceita() = receita
-    fun pushPresenterReceita(): ReceitaPresenter = presenterReceita
+    fun buscaTipoNivel(): TipoNivelPresenter = tipoNivelPresenter
+    fun buscaPresenterReceita(): ReceitaPresenter = presenterReceita
 }

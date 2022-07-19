@@ -19,7 +19,7 @@ val listaReceitasViewModelModules = module {
 
 val formularioReceitasViewModelModules = module {
     factory { ReceitaMapper(get(), get()) }
-    factory { PresenterMapper() }
+    factory { PresenterMapper(get()) }
 
     viewModel {
         FormularioReceitaViewModel(

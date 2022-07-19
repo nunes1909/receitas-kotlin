@@ -27,13 +27,13 @@ class ListaReceitasAdapter(
             if (receita.imagem != null && receita.exibeImagem == 1) {
                 binding.itemRvReceitaImage.load(receita.imagem)
             } else {
-                configuraImagemTipo(receita.tipoId)
+                configuraImagemTipo(receita.tipo)
             }
 
             val ingredientes = binding.itemRvReceitaIngredientes
             ingredientes.text = receita.ingredientes
 
-            configuraImageNivel(receita.nivelId)
+            configuraImageNivel(receita.nivel)
         }
 
         // Configura image de dificuldade

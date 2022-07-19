@@ -22,15 +22,15 @@ class DataMapper(
         }
     }
 
-    private suspend fun paraDomain(receita: Receita): ReceitaDomain {
+    suspend fun paraDomain(receita: Receita): ReceitaDomain {
         val tipo = tipoReceitaDao.buscaDescricao(receita.tipoId)
         val nivel = nivelReceitaDao.buscaDescricao(receita.nivelId)
 
         return ReceitaDomain(
             id = receita.id,
             titulo = receita.titulo,
-            tipoId = tipo,
-            nivelId = nivel,
+            tipo = tipo,
+            nivel = nivel,
             ingredientes = receita.ingredientes,
             preparo = receita.preparo,
             imagem = receita.imagem,
@@ -39,8 +39,8 @@ class DataMapper(
     }
 
     suspend fun paraData(receitaDomain: ReceitaDomain): Receita {
-        val tipo = tipoReceitaDao.buscaId(receitaDomain.tipoId)
-        val nivel = nivelReceitaDao.buscaId(receitaDomain.nivelId)
+        val tipo = tipoReceitaDao.buscaId(receitaDomain.tipo)
+        val nivel = nivelReceitaDao.buscaId(receitaDomain.nivel)
 
         return Receita(
             id = receitaDomain.id,

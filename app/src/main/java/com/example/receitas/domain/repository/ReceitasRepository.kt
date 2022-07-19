@@ -13,7 +13,7 @@ interface ReceitasRepository {
     suspend fun buscaTodasReceitas(valor: String): Flow<List<ReceitaDomain>>
 
     // Busca receita por id
-    suspend fun buscaReceitaPorId(id: Long): Receita
+    suspend fun buscaReceitaPorId(id: Long): ReceitaDomain
 
     // Deleta receita
     suspend fun deletaReceita(id: Long): Boolean

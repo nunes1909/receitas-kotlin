@@ -93,6 +93,7 @@ class FormularioReceita : AppCompatActivity() {
             }
         }
     }
+
     /**
      * Fim config image
      */
@@ -132,23 +133,23 @@ class FormularioReceita : AppCompatActivity() {
 
         // Observa a busca da receita pelo Id e popula os campos
         viewModel.buscaReceitaPorId.observe(this@FormularioReceita) { resource ->
-
-            presenterReceita = resource.pushPresenterReceita()
-            val receita = resource.pushReceita()
-            imagemReceita = receita.imagem
+            presenterReceita = resource.buscaPresenterReceita()
+            imagemReceita = resource.buscaPresenterReceita().imagem
 
             binding.run {
-                formularioReceitaTitulo.setText(receita.titulo)
+                formularioReceitaTitulo.setText(presenterReceita!!.titulo)
                 formularioReceitaTipo.setText(
-                    formularioReceitaTipo.adapter.getItem(receita.tipoId).toString(), false
+                    formularioReceitaTipo.adapter.getItem(resource.buscaTipoNivel().tipoId!!)
+                        .toString(), false
                 )
                 formularioReceitaNivel.setText(
-                    formularioReceitaNivel.adapter.getItem(receita.nivelId).toString(), false
+                    formularioReceitaNivel.adapter.getItem(resource.buscaTipoNivel().nivelId!!)
+                        .toString(), false
                 )
-                formularioReceitaIngrediente.setText(receita.ingredientes)
-                formularioReceitaPreparo.setText(receita.preparo)
-                formularioReceitaImagem.load(receita.imagem)
-                if (receita.exibeImagem == 1) formularioReceitaSwitch.isChecked = true
+                formularioReceitaIngrediente.setText(presenterReceita!!.ingredientes)
+                formularioReceitaPreparo.setText(presenterReceita!!.preparo)
+                formularioReceitaImagem.load(presenterReceita!!.imagem)
+                if (presenterReceita!!.exibeImagem == 1) formularioReceitaSwitch.isChecked = true
             }
         }
     }
@@ -214,8 +215,8 @@ class FormularioReceita : AppCompatActivity() {
                 ReceitaPresenter(
                     id = receitaId,
                     titulo = titulo,
-                    tipoId = tipo,
-                    nivelId = nivel,
+                    tipo = tipo,
+                    nivel = nivel,
                     ingredientes = ingredientes,
                     preparo = preparo,
                     imagem = imagemReceita,
@@ -238,5 +239,7 @@ class FormularioReceita : AppCompatActivity() {
         }
     }
 
-    private fun limparFormulario() { viewModel.limpaFormulario() }
+    private fun limparFormulario() {
+        viewModel.limpaFormulario()
+    }
 }

@@ -56,16 +56,18 @@ class ReceitasRepositoryImpl(
                 else -> flowOf()
             }
         } catch (e: Exception) {
-            Log.e("BuscaTodasReceitas", "BuscaTodasReceitas: $e")
+            Log.e("BuscaTodasReceitas", "Erro ao buscar as receitas: $e")
             flowOf()
         }
     }
 
     // Busca receita pelo Id
-    override suspend fun buscaReceitaPorId(id: Long): Receita {
+    override suspend fun buscaReceitaPorId(id: Long): ReceitaDomain {
         return try {
-            receitaDao.buscaReceitaPorId(id)
+            val receita = receitaDao.buscaReceitaPorId(id)
+            dataMapper.paraDomain(receita)
         } catch (e: Exception) {
+            Log.e("BuscaReceitaPorId", "Erro ao buscar a receita pelo ID $e")
             throw e
         }
     }

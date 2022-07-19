@@ -19,8 +19,8 @@ class ReceitaMapper(
     // Transforma a Presenter em Domain
     suspend fun dePresenterParaDomain(presenterReceita: ReceitaPresenter): Receita {
 
-        val tipoId = buscaIdPelaDescricaoUseCase.buscaTipoId(presenterReceita.tipoId)
-        val nivelId = buscaIdPelaDescricaoUseCase.buscaNivelId(presenterReceita.nivelId)
+        val tipoId = buscaIdPelaDescricaoUseCase.buscaTipoId(presenterReceita.tipo)
+        val nivelId = buscaIdPelaDescricaoUseCase.buscaNivelId(presenterReceita.nivel)
 
         return Receita(
             id = presenterReceita.id,
@@ -43,8 +43,8 @@ class ReceitaMapper(
         return ReceitaPresenter(
             id = receita.id,
             titulo = receita.titulo,
-            tipoId = tipo,
-            nivelId = nivel,
+            tipo = tipo,
+            nivel = nivel,
             ingredientes = receita.ingredientes,
             preparo = receita.preparo,
             imagem = receita.imagem,

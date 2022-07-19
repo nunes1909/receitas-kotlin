@@ -63,9 +63,20 @@ class FormularioReceitaViewModel(
     suspend fun buscaPorId(id: Long) {
         if (id > 0L && id != null) {
             val receita = buscaReceitaPorIdUseCase(id = id)
-            val receitaFormatada = receitaMapper.deDomainParaPresenter(receita)
 
-            _buscaReceitaPorId.postValue(ResourceReceita(receitaFormatada, receita))
+            val receitaPresenter = presenterMapper.paraPresenter(receita)
+
+            val idTipoNivel = presenterMapper.buscaIdTipoNivel(
+                nivel = receitaPresenter.nivel,
+                tipo = receitaPresenter.tipo
+            )
+
+            _buscaReceitaPorId.postValue(
+                ResourceReceita(
+                    presenterReceita = receitaPresenter,
+                    tipoNivelPresenter = idTipoNivel
+                )
+            )
         }
     }
 
@@ -83,8 +94,8 @@ class FormularioReceitaViewModel(
         validacao = true
 
         _validaTitulo.value = validaCampos(receita.titulo)
-        _validaTipo.value = validaCampos(receita.tipoId)
-        _validaNivel.value = validaCampos(receita.nivelId)
+        _validaTipo.value = validaCampos(receita.tipo)
+        _validaNivel.value = validaCampos(receita.nivel)
 
         if (validacao) {
             val receitaDomain = presenterMapper.paraDomain(receita)
