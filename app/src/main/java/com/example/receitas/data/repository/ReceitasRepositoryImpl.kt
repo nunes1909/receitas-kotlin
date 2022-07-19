@@ -78,7 +78,7 @@ class ReceitasRepositoryImpl(
             receitaDao.deleta(id)
             true
         } catch (e: Exception) {
-            throw e
+            Log.e("DeletaReceita", "Erro ao deletar a receita: $e")
             false
         }
     }
@@ -89,7 +89,7 @@ class ReceitasRepositoryImpl(
             receitaDao.deletaTodas()
             true
         } catch (e: Exception) {
-            throw e
+            Log.e("DeletaTodasReceitas", "Erro ao deletar todas receitas: $e")
             false
         }
     }

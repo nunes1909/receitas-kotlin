@@ -10,7 +10,6 @@ import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.Busc
 import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
 import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.presenter.mapper.PresenterMapper
-import com.example.receitas.presenter.mapper.ReceitaMapper
 import com.example.receitas.presenter.mapper.ResourceReceita
 import com.example.receitas.presenter.model.ReceitaPresenter
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FormularioReceitaViewModel(
-    private val receitaMapper: ReceitaMapper,
     private val salvaReceitaUseCase: SalvaReceitaUseCase,
     private val buscaReceitaPorIdUseCase: BuscaReceitaPorIdUseCase,
     private val deletaReceitaUseCase: DeletaReceitaUseCase,
@@ -143,9 +141,9 @@ class FormularioReceitaViewModel(
     val mRemoveReceita = _mRemoveReceita as LiveData<Boolean>
 
     suspend fun removeReceita(receita: ReceitaPresenter) {
-        val receitaFormatada = receitaMapper.dePresenterParaDomain(receita)
-        val idReceita = receitaFormatada.id
-        _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceita))
+        val receitaDomain = presenterMapper.paraDomain(receita)
+        val idReceitaDomain = receitaDomain.id
+        _mRemoveReceita.postValue(deletaReceitaUseCase(id = idReceitaDomain))
     }
 
     /**

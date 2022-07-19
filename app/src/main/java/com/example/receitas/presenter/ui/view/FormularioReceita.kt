@@ -183,6 +183,7 @@ class FormularioReceita : AppCompatActivity() {
                     formularioReceitaIngrediente.setText("")
                     formularioReceitaPreparo.setText("")
                     formularioReceitaImagem.load(R.drawable.default_background)
+                    formularioReceitaSwitch.isChecked = false
                 }
             }
         }
