@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "34de53cf43925eb587b68e17ee8f6d6c",
+    "identityHash": "a8ad3e889f8c0b18a1eb96d58f997ca0",
     "entities": [
       {
         "tableName": "Receita",
@@ -93,7 +93,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "TipoReceita",
+        "tableName": "Tipo",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `descricao` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -122,7 +122,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '34de53cf43925eb587b68e17ee8f6d6c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8ad3e889f8c0b18a1eb96d58f997ca0')"
     ]
   }
 }

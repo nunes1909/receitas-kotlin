@@ -1,7 +1,7 @@
 package com.example.receitas.data.formulario.mapper
 
 import com.example.receitas.data.formulario.model.Nivel
-import com.example.receitas.domain.model.NivelDomain
+import com.example.receitas.domain.formulario.model.NivelDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

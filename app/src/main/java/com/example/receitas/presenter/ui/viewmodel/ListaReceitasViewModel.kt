@@ -3,8 +3,8 @@ package com.example.receitas.presenter.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.receitas.domain.useCase.buscaReceita.BuscaTodasReceitasUseCase
-import com.example.receitas.domain.useCase.deletaReceita.DeletaTodasReceitasUseCase
+import com.example.receitas.domain.receita.useCase.buscaReceita.BuscaTodasReceitasUseCase
+import com.example.receitas.domain.receita.useCase.deletaReceita.DeletaTodasReceitasUseCase
 import com.example.receitas.presenter.receita.mapper.ReceitaPresenterMapper
 import com.example.receitas.presenter.model.ReceitaPresenter
 

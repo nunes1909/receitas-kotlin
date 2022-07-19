@@ -3,8 +3,8 @@ package com.example.receitas.data.receita.repository
 import android.util.Log
 import com.example.receitas.data.receita.dao.ReceitaDao
 import com.example.receitas.data.receita.mapper.ReceitaDataMapper
-import com.example.receitas.domain.model.ReceitaDomain
-import com.example.receitas.domain.repository.ReceitasRepository
+import com.example.receitas.domain.receita.model.ReceitaDomain
+import com.example.receitas.domain.receita.repository.ReceitasRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

@@ -6,18 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.receitas.data.database.converters.Converter
-import com.example.receitas.data.formulario.dao.NivelReceitaDao
+import com.example.receitas.data.formulario.dao.NivelDao
 import com.example.receitas.data.receita.dao.ReceitaDao
-import com.example.receitas.data.formulario.dao.TipoReceitaDao
+import com.example.receitas.data.formulario.dao.TipoDao
 import com.example.receitas.data.formulario.model.Nivel
 import com.example.receitas.data.receita.model.Receita
-import com.example.receitas.data.formulario.model.TipoReceita
+import com.example.receitas.data.formulario.model.Tipo
 
 @Database(
     entities = [
         Receita::class,
         Nivel::class,
-        TipoReceita::class
+        Tipo::class
     ],
     version = 1,
     exportSchema = true
@@ -26,8 +26,8 @@ import com.example.receitas.data.formulario.model.TipoReceita
 abstract class ReceitaDatabase : RoomDatabase() {
 
     abstract fun receitaDao(): ReceitaDao
-    abstract fun nivelReceitaDao(): NivelReceitaDao
-    abstract fun tipoReceitaDao(): TipoReceitaDao
+    abstract fun nivelReceitaDao(): NivelDao
+    abstract fun tipoReceitaDao(): TipoDao
 
     companion object {
         private const val DB_NAME = "receitas.db"

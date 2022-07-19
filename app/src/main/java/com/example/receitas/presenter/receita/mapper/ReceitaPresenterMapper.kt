@@ -1,7 +1,7 @@
 package com.example.receitas.presenter.receita.mapper
 
-import com.example.receitas.domain.model.ReceitaDomain
-import com.example.receitas.domain.useCase.buscaTipoNivel.BuscaIdPelaDescricaoUseCase
+import com.example.receitas.domain.receita.model.ReceitaDomain
+import com.example.receitas.domain.formulario.useCase.BuscaIdPelaDescricaoUseCase
 import com.example.receitas.presenter.model.ReceitaPresenter
 import com.example.receitas.presenter.model.TipoNivelPresenter
 import kotlinx.coroutines.flow.Flow

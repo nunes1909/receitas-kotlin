@@ -4,18 +4,18 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.receitas.domain.useCase.buscaReceita.BuscaReceitaPorIdUseCase
-import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosNiveisUseCase
-import com.example.receitas.domain.useCase.buscaTipoNivel.carregaFormulario.BuscaTodosTiposUseCase
-import com.example.receitas.domain.useCase.criaReceita.SalvaReceitaUseCase
-import com.example.receitas.domain.useCase.deletaReceita.DeletaReceitaUseCase
+import com.example.receitas.domain.receita.useCase.buscaReceita.BuscaReceitaPorIdUseCase
+import com.example.receitas.domain.formulario.useCase.nivel.BuscaTodosNiveisUseCase
+import com.example.receitas.domain.formulario.useCase.tipo.BuscaTodosTiposUseCase
+import com.example.receitas.domain.receita.useCase.criaReceita.SalvaReceitaUseCase
+import com.example.receitas.domain.receita.useCase.deletaReceita.DeletaReceitaUseCase
 import com.example.receitas.presenter.formulario.mapper.NivelPresenterMapper
-import com.example.receitas.presenter.formulario.model.NivelPresenter
+import com.example.receitas.presenter.formulario.mapper.TipoPresenterMapper
 import com.example.receitas.presenter.receita.mapper.ReceitaPresenterMapper
 import com.example.receitas.presenter.receita.resource.ResourceReceita
 import com.example.receitas.presenter.model.ReceitaPresenter
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,8 @@ class FormularioReceitaViewModel(
     private val buscaTodosTiposUseCase: BuscaTodosTiposUseCase,
     private val buscaTodosNiveisUseCase: BuscaTodosNiveisUseCase,
     private val receitaPresenterMapper: ReceitaPresenterMapper,
-    private val nivelPresenterMapper: NivelPresenterMapper
+    private val nivelPresenterMapper: NivelPresenterMapper,
+    private val tipoPresenterMapper: TipoPresenterMapper
 ) : ViewModel() {
 
     /**
@@ -39,19 +40,24 @@ class FormularioReceitaViewModel(
     val buscaNivel = _mBuscaNivel as LiveData<List<String>>
 
     suspend fun configuraFormulario() {
-        val flowTipoReceita = buscaTodosTiposUseCase()
-        CoroutineScope(Dispatchers.IO).launch {
-            flowTipoReceita.collect { listTipoDesc ->
-                _mBuscaTipo.postValue(listTipoDesc)
+        CoroutineScope(IO).launch {
+            val flowTipoDomain = buscaTodosTiposUseCase()
+            tipoPresenterMapper.paraFlowPresenter(flowTipoDomain).collect { lista ->
+                val tipoToString = lista.map {
+                    it.descricao
+                }
+                _mBuscaTipo.postValue(tipoToString)
             }
         }
 
-        val flowDomain = buscaTodosNiveisUseCase()
-        nivelPresenterMapper.paraFlowPresenter(flowDomain).collect { lista ->
-            val nivelToString = lista.map {
-                it.descricao
+        CoroutineScope(IO).launch {
+            val flowNivelDomain = buscaTodosNiveisUseCase()
+            nivelPresenterMapper.paraFlowPresenter(flowNivelDomain).collect { lista ->
+                val nivelToString = lista.map {
+                    it.descricao
+                }
+                _mBuscaNivel.postValue(nivelToString)
             }
-            _mBuscaNivel.postValue(nivelToString)
         }
     }
 

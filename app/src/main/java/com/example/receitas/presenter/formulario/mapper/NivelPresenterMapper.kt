@@ -1,6 +1,6 @@
 package com.example.receitas.presenter.formulario.mapper
 
-import com.example.receitas.domain.model.NivelDomain
+import com.example.receitas.domain.formulario.model.NivelDomain
 import com.example.receitas.presenter.formulario.model.NivelPresenter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

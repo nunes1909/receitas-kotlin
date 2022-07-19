@@ -7,7 +7,7 @@ import com.example.receitas.data.database.ReceitaDatabase
 import com.example.receitas.data.di.dataModules
 import com.example.receitas.domain.di.domainModules
 import com.example.receitas.data.formulario.model.Nivel
-import com.example.receitas.data.formulario.model.TipoReceita
+import com.example.receitas.data.formulario.model.Tipo
 import com.example.receitas.presenter.di.presenterModules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,11 +55,11 @@ class ReceitaApplication : Application(), ImageLoaderFactory {
         try {
             val tipoReceitaDao = ReceitaDatabase
                 .getInstance(this@ReceitaApplication).tipoReceitaDao()
-            val tipo0 = TipoReceita(id = 0, "Refeição")
-            val tipo1 = TipoReceita(id = 1, "Saudável")
-            val tipo2 = TipoReceita(id = 2, "Lanche")
-            val tipo3 = TipoReceita(id = 3, "Doce")
-            val tipo4 = TipoReceita(id = 4, "Drink")
+            val tipo0 = Tipo(id = 0, "Refeição")
+            val tipo1 = Tipo(id = 1, "Saudável")
+            val tipo2 = Tipo(id = 2, "Lanche")
+            val tipo3 = Tipo(id = 3, "Doce")
+            val tipo4 = Tipo(id = 4, "Drink")
             tipoReceitaDao.salvaTipo(tipo0, tipo1, tipo2, tipo3, tipo4)
         } catch (e: Exception) {
             throw e
